@@ -6,20 +6,18 @@ public abstract class Machine {
 
     private String id;
     private String name;
-
-    private String type;
     private int costPerDay;
+    private String type;
 
 
     public Machine(){
 
     }
 
-    public Machine(String id,String name,int costPerDay,String category){
+    public Machine(String id,String name,int costPerDay){
         this.id = id;
         this.name = name;
         this.costPerDay = costPerDay;
-        this.type = category;
     }
 
     public String getId() {
