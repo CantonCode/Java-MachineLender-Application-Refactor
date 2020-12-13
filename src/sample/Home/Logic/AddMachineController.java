@@ -13,6 +13,7 @@ import sample.Home.Model.Machine;
 import sample.Home.Model.MachineFactory;
 import sample.Main;
 import sample.Runner.IAdapter;
+import sample.Statics;
 
 import javax.crypto.Mac;
 import java.io.IOException;
@@ -47,13 +48,17 @@ public class AddMachineController implements IAdapter{
             String type = machineType.getValue().toString();
             Machine newMachine = factory.createNewMachine(type);
 
+
             String time = String.valueOf(System.currentTimeMillis());
             int i = Integer.parseInt(machineCost.getText());
 
+
+            newMachine.setType(type);
             newMachine.setName(machineName.getText());
             newMachine.setCostPerDay(i);
             newMachine.setId(time);
             machines.add(newMachine);
+            Statics.Machines.add(newMachine);
 
             io.machineSerializeToFile("MachineDB.ser", machines);
 

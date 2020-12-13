@@ -6,8 +6,10 @@ public class MachineFactory {
             return null;
 
         if("Digger".equals(type)){
+            System.out.println("CREATING DIGGER TYPE");
             return new Digger();
         }else if("Crane".equals(type)){
+            System.out.println("CREATING CRANE TYPE");
             return new Crane();
         }
 

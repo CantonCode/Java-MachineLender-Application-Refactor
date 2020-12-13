@@ -10,6 +10,11 @@ public class Digger extends Machine {
 
     public Digger(String id,String name,int costPerDay){
         super(id,name,costPerDay);
+
+    }
+
+    @Override
+    public void setType(String type) {
         super.setType("Digger");
     }
 
