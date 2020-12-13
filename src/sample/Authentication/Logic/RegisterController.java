@@ -48,13 +48,21 @@ public class RegisterController implements IAdapter {
 
     public void setAccountType(AccountType type){
         this.accountType = type;
+    }
 
+    public void manualAdmin (String Name, String Username, String Password){
+        String time = String.valueOf(System.currentTimeMillis());
+
+        User origin = new Admin(time, Name, Username, Password, AccountType.ADMIN);
+        origin.encryptPassword();
+        users.add(origin);
+        io.serializeToFile("AdminDB.ser", users);
     }
 
     public void registerButtonOnAction(ActionEvent event) throws IOException {
 
         if(validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText())) {
-            //new PasswordValidator(1).Validate(regPasswordField.getText())
+            new PasswordValidator(1).Validate(regPasswordField.getText());
             if(this.accountType==AccountType.ADMIN)
                 this.registerAsAdmin();
             else
@@ -148,7 +156,6 @@ public class RegisterController implements IAdapter {
     public void init() {
 
         try {
-
             io.readSerializedFile("AdminDB.ser","users");
             users.addAll(io.users);
             io.readSerializedFile("CustomerDB.ser","users");

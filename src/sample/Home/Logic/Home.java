@@ -40,7 +40,6 @@ public class Home implements IAdapter {
                 ex.printStackTrace();
             }
         });
-
     }
 
     @Override
@@ -58,7 +57,6 @@ public class Home implements IAdapter {
             }
         });
     }
-
 
     public void onSettings(MouseEvent mouseEvent) {
         ArrayList<User> users= new ArrayList<>();

@@ -13,8 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
+import sample.Home.Logic.AdminHomeController;
+import sample.Home.Logic.Home;
+import sample.Home.Logic.UserHomeController;
 import sample.Home.Model.Machine;
 import sample.Main;
+import sample.Navigation;
 import sample.Runner.IAdapter;
 import sample.Runner.Logic.LenderController;
 import sample.Statics;
@@ -83,9 +87,14 @@ public class LoginController implements Initializable, IAdapter {
                 ArrayList<User> users= new ArrayList<>();
                 users.add(Statics.CurrentUser);
                 messager.setStyle("-fx-text-fill: green;");
+
                 io.serializeToFile("currentUser.ser",users);
-                Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new LoginController());
-            } else {
+
+                if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
+                    Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
+                }else{
+                    Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
+                }
 
             }
         } else {
@@ -99,6 +108,7 @@ public class LoginController implements Initializable, IAdapter {
         for(User user : users){
             user.decryptPassword();
             if(username.equalsIgnoreCase(user.getUsername())&&password.equals(user.getPassword())){
+                System.out.println("we just set the user to logged in");
                 Statics.CurrentUser=user;
                 return true;
             }

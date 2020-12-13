@@ -4,12 +4,12 @@ import sample.Home.Model.Machine;
 
 public class Digger extends Machine {
 
-
     public Digger(){
     }
 
-    public Digger(String id,String name,int costPerDay,String category){
-        super(id,name,costPerDay,category);
+    public Digger(String id,String name,int costPerDay){
+        super(id,name,costPerDay);
+        super.setType("Digger");
     }
 
     public double calcRent(int days) {

@@ -11,7 +11,7 @@ public class FileManager {
     public ArrayList<User>users=new ArrayList<User>();
     public ArrayList<Machine>machines=new ArrayList<Machine>();
 
-    public void readSerializedFile(String path,String type) throws IOException {
+    public void readSerializedFile(String path, String type) throws IOException {
         FileInputStream fis= null;
         ObjectInputStream ois=null;
         try {
@@ -51,6 +51,25 @@ public class FileManager {
 
             System.out.println("Writing..."+users);
             oos.writeObject(users);
+            oos.reset();
+
+
+            System.out.println("Completed!");
+            oos.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void machineSerializeToFile(String path, List<Machine> machine) {
+        try {
+
+            FileOutputStream fos = new FileOutputStream(this.getClass().getResource("/DB/"+path).getPath());
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+
+            System.out.println("Writing..."+ machine);
+            oos.writeObject(machine);
             oos.reset();
 
 

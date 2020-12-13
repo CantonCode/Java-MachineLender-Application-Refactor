@@ -11,7 +11,9 @@ import sample.Authentication.Logic.RegisterController;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.Admin;
 import sample.Authentication.Model.Customer;
+import sample.Home.Logic.AdminHomeController;
 import sample.Home.Logic.Home;
+import sample.Home.Logic.UserHomeController;
 import sample.Runner.Logic.LenderController;
 
 import java.io.IOException;
@@ -21,18 +23,24 @@ public class Main extends Application {
     public static  Navigation currentStage;
 
     private FileManager io=new FileManager();//
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         currentStage= new Navigation("Machine Lender");
         getCurrentUser();
+
+        // RegisterController rc = new RegisterController();  //these two lines create an admin account
+        //rc.manualAdmin("Admin", "Admin1", "Admin123");
+
         if(Statics.CurrentUser!=null) {
             if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
-                currentStage.setFXMLScene("Home/UI/userHome.fxml", new Home()); //test 2
+                currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
             }else{
-                currentStage.setFXMLScene("Home/UI/adminHome.fxml", new Home()); //test 2
+                currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
             }
-
         } else {
             currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
         }

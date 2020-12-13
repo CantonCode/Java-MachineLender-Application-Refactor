@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class UserHomeController implements IAdapter {
 
-    private FileManager io=new FileManager();
+    private FileManager io = new FileManager();
 
     @FXML
     public Label unameField;
@@ -71,7 +71,6 @@ public class UserHomeController implements IAdapter {
             ex.printStackTrace();
         }
     }
-
 
 
     @Override

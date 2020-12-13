@@ -15,12 +15,12 @@ public abstract class Machine {
 
     }
 
-    public Machine(String id,String name,int costPerDay,String category){
+    public Machine(String id,String name,int costPerDay){
         this.id = id;
         this.name = name;
         this.costPerDay = costPerDay;
-        this.type = category;
     }
+
 
     public String getId() {
         return id;
