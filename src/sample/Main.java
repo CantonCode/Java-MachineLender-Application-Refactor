@@ -38,8 +38,8 @@ public class Main extends Application {
 
 
 
-         RegisterController rc = new RegisterController();  //these two lines create an admin account
-        rc.manualAdmin("Admin", "Admin1", "Admin123");
+        // RegisterController rc = new RegisterController();  //these two lines create an admin account
+       // rc.manualAdmin("Admin", "Admin1", "Admin123");
 
         if(Statics.CurrentUser!=null) {
             if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){

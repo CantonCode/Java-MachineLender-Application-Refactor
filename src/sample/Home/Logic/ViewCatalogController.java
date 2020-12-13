@@ -89,8 +89,13 @@ public class ViewCatalogController implements IAdapter {
     }
 
     public void onReturn(ActionEvent actionEvent) {
-        try {
-            Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new UserHomeController());
+        try {/*Needs if statement to determine admin or normal user*/
+
+            if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
+                    Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
+                }else {
+                Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
