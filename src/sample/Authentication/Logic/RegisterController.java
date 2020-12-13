@@ -73,7 +73,7 @@ public class RegisterController implements IAdapter {
             ArrayList<User> users= new ArrayList<>();
             users.add(Statics.CurrentUser);
             io.serializeToFile("currentUser.ser",users);
-            Main.currentStage.setFXMLScene("Home/UI/home.fxml",new LoginController());
+            Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new LoginController());
 
 
         }else{
