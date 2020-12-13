@@ -10,6 +10,7 @@ import sample.Authentication.Logic.LoginController;
 import sample.Authentication.Logic.RegisterController;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.Admin;
+import sample.Authentication.Model.Customer;
 import sample.Home.Logic.Home;
 import sample.Runner.Logic.LenderController;
 
@@ -25,10 +26,16 @@ public class Main extends Application {
 
         currentStage= new Navigation("Machine Lender");
         getCurrentUser();
-        if(Statics.CurrentUser!=null)
-            currentStage.setFXMLScene("Home/UI/home.fxml", new Home()); //test 2
-        else
-            currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
+        if(Statics.CurrentUser!=null) {
+            if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
+                currentStage.setFXMLScene("Home/UI/userHome.fxml", new Home()); //test 2
+            }else{
+                currentStage.setFXMLScene("Home/UI/adminHome.fxml", new Home()); //test 2
+            }
+
+        } else {
+            currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
+        }
         primaryStage=currentStage;
         primaryStage.show();
     }

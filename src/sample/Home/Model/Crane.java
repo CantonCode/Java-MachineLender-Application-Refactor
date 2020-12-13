@@ -1,17 +1,17 @@
-package sample.Authentication.Model;
+package sample.Home.Model;
+
+import sample.Home.Model.Machine;
 
 public class Crane extends Machine {
 
-    String height;
-    String liftingLoad;
+
 
     public Crane() {
     }
 
-    public Crane(String id, String name, Boolean rented, int costPerDay, String category, String height, String liftingLoad) {
+    public Crane(String id, String name, Boolean rented, int costPerDay, String category) {
         super(id, name, rented, costPerDay, category);
-        this.height = height;
-        this.liftingLoad = liftingLoad;
+
     }
 
     public double calcRent(int days) {
@@ -29,14 +29,4 @@ public class Crane extends Machine {
 
     }
 
-
-
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
-
-    }
 }

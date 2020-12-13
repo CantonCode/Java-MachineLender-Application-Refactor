@@ -1,4 +1,4 @@
-package sample.Authentication.Model;
+package sample.Home.Model;
 
 
 
@@ -6,8 +6,7 @@ public abstract class Machine {
 
     private String id;
     private String name;
-    private Boolean rented;
-    private String category;
+    private String type;
     private int costPerDay;
 
 
@@ -15,12 +14,11 @@ public abstract class Machine {
 
     }
 
-    public Machine(String id,String name,Boolean rented,int costPerDay,String category){
+    public Machine(String id,String name,int costPerDay,String category){
         this.id = id;
         this.name = name;
-        this.rented = rented;
         this.costPerDay = costPerDay;
-        this.category = category;
+        this.type = category;
     }
 
     public String getId() {
@@ -39,13 +37,6 @@ public abstract class Machine {
         this.name = name;
     }
 
-    public Boolean getRented() {
-        return rented;
-    }
-
-    public void setRented(Boolean rented) {
-        this.rented = rented;
-    }
 
     public int getCostPerDay() {
         return costPerDay;

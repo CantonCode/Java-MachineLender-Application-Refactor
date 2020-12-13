@@ -1,4 +1,4 @@
-package sample.Authentication.Model;
+package sample.Home.Model;
 
 public class MachineFactory {
     public Machine createNewMachine(String type){
