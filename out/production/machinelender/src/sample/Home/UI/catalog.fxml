@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TableView prefHeight="228.0" prefWidth="578.0">
+                  <TableView fx:id="catView" prefHeight="228.0" prefWidth="578.0">
                     <columns>
                       <TableColumn fx:id="idCol" prefWidth="46.0" text="ID" />
                       <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="283.0" text="Name" />

@@ -22,6 +22,5 @@ public class Digger extends Machine {
             price *= 0.7;
         }
         return price;
-
     }
 }

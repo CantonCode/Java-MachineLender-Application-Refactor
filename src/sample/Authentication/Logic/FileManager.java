@@ -1,6 +1,7 @@
 package sample.Authentication.Logic;
 
 import sample.Authentication.Model.User;
+import sample.Home.Model.Machine;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,7 +9,9 @@ import java.util.List;
 
 public class FileManager {
     public ArrayList<User>users=new ArrayList<User>();
-    public void readSerializedFile(String path) throws IOException {
+    public ArrayList<Machine>machines=new ArrayList<Machine>();
+
+    public void readSerializedFile(String path,String type) throws IOException {
         FileInputStream fis= null;
         ObjectInputStream ois=null;
         try {
@@ -18,8 +21,16 @@ public class FileManager {
 
             Object o= ois.readObject();
             System.out.println(o);
-            ArrayList<User> temp=(ArrayList<User>) o;
-            if(temp!=null)users=temp;
+
+            if(type.equals("users")){
+                ArrayList<User> temp=(ArrayList<User>) o;
+                if(temp!=null)users=temp;
+
+            }else {
+                ArrayList<Machine> temp=(ArrayList<Machine>) o;
+                if(temp!=null)machines=temp;
+            }
+
 
         }
         catch(EOFException end){

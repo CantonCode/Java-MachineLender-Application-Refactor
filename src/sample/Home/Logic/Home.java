@@ -51,7 +51,7 @@ public class Home implements IAdapter {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
             try {
                 System.out.println(path);
-                io.readSerializedFile((String)path);
+                io.readSerializedFile((String)path,"users");
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();

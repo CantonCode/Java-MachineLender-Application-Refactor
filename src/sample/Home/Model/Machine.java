@@ -6,6 +6,7 @@ public abstract class Machine {
 
     private String id;
     private String name;
+
     private String type;
     private int costPerDay;
 
@@ -47,5 +48,13 @@ public abstract class Machine {
     }
 
     public abstract double calcRent(int days);
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
 }

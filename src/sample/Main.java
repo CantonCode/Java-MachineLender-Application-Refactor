@@ -43,7 +43,7 @@ public class Main extends Application {
     public void getCurrentUser(){
         Statics.CurrentUser=null;
         try {
-            io.readSerializedFile("currentUser.ser");
+            io.readSerializedFile("currentUser.ser","users");
             Statics.CurrentUser=io.users.size()>0?io.users.get(0):null;
         } catch (IOException e) {
             e.printStackTrace();

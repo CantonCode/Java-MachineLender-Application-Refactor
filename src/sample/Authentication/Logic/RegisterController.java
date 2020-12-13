@@ -149,9 +149,9 @@ public class RegisterController implements IAdapter {
 
         try {
 
-            io.readSerializedFile("AdminDB.ser");
+            io.readSerializedFile("AdminDB.ser","users");
             users.addAll(io.users);
-            io.readSerializedFile("CustomerDB.ser");
+            io.readSerializedFile("CustomerDB.ser","users");
             users.addAll(io.users);
         } catch (IOException e) {
             e.printStackTrace();

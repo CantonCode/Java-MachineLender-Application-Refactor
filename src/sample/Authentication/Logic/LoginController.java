@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
+import sample.Home.Model.Machine;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Runner.Logic.LenderController;
@@ -39,6 +40,7 @@ public class LoginController implements Initializable, IAdapter {
 
 
     ArrayList<User>users=new ArrayList<>();
+    ArrayList<Machine>machineList = new ArrayList<>();
     FileManager io=new FileManager();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,7 +84,7 @@ public class LoginController implements Initializable, IAdapter {
                 users.add(Statics.CurrentUser);
                 messager.setStyle("-fx-text-fill: green;");
                 io.serializeToFile("currentUser.ser",users);
-                Main.currentStage.setFXMLScene("Home/UI/home.fxml",new LoginController());
+                Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new LoginController());
             } else {
 
             }
@@ -114,8 +116,17 @@ public class LoginController implements Initializable, IAdapter {
     public void init() {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
             try {
-                io.readSerializedFile((String)path);
+                io.readSerializedFile((String)path,"users");
                 users.addAll(io.users);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Arrays.asList("MachineDB.ser").forEach(path->{
+            try {
+                io.readSerializedFile((String)path,"machines");
+                machineList.addAll(io.machines);
             } catch (IOException e) {
                 e.printStackTrace();
             }
