@@ -9,8 +9,8 @@ public class Crane extends Machine {
     public Crane() {
     }
 
-    public Crane(String id, String name, Boolean rented, int costPerDay, String category) {
-        super(id, name, rented, costPerDay, category);
+    public Crane(String id, String name, int costPerDay, String category) {
+        super(id, name, costPerDay, category);
 
     }
 
