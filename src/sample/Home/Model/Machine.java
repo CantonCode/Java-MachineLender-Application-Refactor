@@ -6,9 +6,8 @@ public abstract class Machine {
 
     private String id;
     private String name;
-
-    private String type;
     private int costPerDay;
+    private String type;
 
 
     public Machine(){

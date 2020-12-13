@@ -4,12 +4,15 @@ import sample.Home.Model.Machine;
 
 public class Crane extends Machine {
 
+
+
     public Crane() {
     }
 
     public Crane(String id, String name, int costPerDay) {
         super(id, name, costPerDay);
         super.setType("Crane");
+
     }
 
     public double calcRent(int days) {
