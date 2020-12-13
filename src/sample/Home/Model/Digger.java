@@ -8,7 +8,6 @@ public class Digger extends Machine {
     public Digger(){
     }
 
-
     public Digger(String id,String name,int costPerDay){
         super(id,name,costPerDay);
         super.setType("Digger");
