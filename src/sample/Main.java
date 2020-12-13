@@ -38,12 +38,12 @@ public class Main extends Application {
 
 
 
-        // RegisterController rc = new RegisterController();  //these two lines create an admin account
-        //rc.manualAdmin("Admin", "Admin1", "Admin123");
+         RegisterController rc = new RegisterController();  //these two lines create an admin account
+        rc.manualAdmin("Admin", "Admin1", "Admin123");
 
         if(Statics.CurrentUser!=null) {
             if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
-                currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
+          /*!!!! */      currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
             }else{
                 currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
             }
