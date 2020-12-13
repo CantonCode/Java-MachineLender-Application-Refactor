@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import sample.Authentication.Logic.FileManager;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineFactory;
 import sample.Main;
@@ -17,6 +18,7 @@ import javax.crypto.Mac;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class AddMachineController implements IAdapter{
@@ -29,6 +31,8 @@ public class AddMachineController implements IAdapter{
    @FXML
    ComboBox machineType;
     MachineFactory factory = new MachineFactory();
+    ArrayList<Machine> machines = new ArrayList<Machine>();
+    FileManager io = new FileManager();
 
     public void onReturn(ActionEvent actionEvent) {
         try {
@@ -49,10 +53,9 @@ public class AddMachineController implements IAdapter{
             newMachine.setName(machineName.getText());
             newMachine.setCostPerDay(i);
             newMachine.setId(time);
+            machines.add(newMachine);
 
-            System.out.println(newMachine.getCostPerDay() + " " + newMachine.getType());
-
-           // machineSerializeToFile
+            io.machineSerializeToFile("MachineDB.ser", machines);
 
             Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
         } catch (IOException e) {
@@ -62,12 +65,20 @@ public class AddMachineController implements IAdapter{
 
     @Override
     public void init() {
+        Arrays.asList("MachineDB.ser").forEach(path->{
+            try {
+                io.readSerializedFile((String)path,"machines");
+                machines.addAll(io.machines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         ArrayList<String> option = new ArrayList<String>();
+
         option.add("Digger");
         option.add("Crane");
-
         ObservableList<String> options = FXCollections.observableArrayList(option);
-
         machineType.setItems(options);
     }
 

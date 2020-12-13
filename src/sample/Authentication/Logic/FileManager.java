@@ -62,7 +62,7 @@ public class FileManager {
         }
     }
 
-    public void machineSerializeToFile(String path, List<Machine> machine) {
+    public void machineSerializeToFile(String path, ArrayList<Machine> machine) {
         try {
 
             FileOutputStream fos = new FileOutputStream(this.getClass().getResource("/DB/"+path).getPath());

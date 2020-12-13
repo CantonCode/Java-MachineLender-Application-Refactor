@@ -49,6 +49,14 @@ public class AdminHomeController implements IAdapter {
         });
     }
 
+    public void viewMachines(ActionEvent actionEvent){
+        try {
+            Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public void custom(Object... args) {
 

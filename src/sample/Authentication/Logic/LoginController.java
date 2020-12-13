@@ -16,6 +16,7 @@ import sample.Authentication.Model.User;
 import sample.Home.Logic.AdminHomeController;
 import sample.Home.Logic.Home;
 import sample.Home.Logic.UserHomeController;
+import sample.Home.Logic.ViewCatalogController;
 import sample.Home.Model.Machine;
 import sample.Main;
 import sample.Navigation;
@@ -44,8 +45,8 @@ public class LoginController implements Initializable, IAdapter {
 
 
     ArrayList<User>users=new ArrayList<>();
-    ArrayList<Machine>machineList = new ArrayList<>();
     FileManager io=new FileManager();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -132,16 +133,6 @@ public class LoginController implements Initializable, IAdapter {
                 e.printStackTrace();
             }
         });
-
-        Arrays.asList("MachineDB.ser").forEach(path->{
-            try {
-                io.readSerializedFile((String)path,"machines");
-                machineList.addAll(io.machines);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
     }
 
     @Override

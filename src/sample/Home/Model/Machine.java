@@ -1,8 +1,9 @@
 package sample.Home.Model;
 
 
+import java.io.Serializable;
 
-public abstract class Machine {
+public abstract class Machine implements Serializable {
 
     private String id;
     private String name;

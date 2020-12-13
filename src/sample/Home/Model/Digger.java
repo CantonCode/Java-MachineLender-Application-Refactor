@@ -13,8 +13,6 @@ public class Digger extends Machine {
         super.setType("Digger");
     }
 
-
-
     public double calcRent(int days) {
         double price = this.getCostPerDay()*days;
         if(days>7 && days<=30){
