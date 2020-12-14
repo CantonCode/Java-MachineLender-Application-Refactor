@@ -11,6 +11,7 @@ public class Crane extends Machine {
 
     public Crane(String id, String name, int costPerDay) {
         super(id, name, costPerDay);
+        super.setType("Crane");
 
     }
 

@@ -45,7 +45,6 @@ public class LoginController implements Initializable, IAdapter {
 
 
     ArrayList<User>users=new ArrayList<>();
-    ArrayList<Machine>machines=new ArrayList<>();
     FileManager io=new FileManager();
 
     @Override
@@ -134,8 +133,6 @@ public class LoginController implements Initializable, IAdapter {
                 e.printStackTrace();
             }
         });
-
-
     }
 
     @Override

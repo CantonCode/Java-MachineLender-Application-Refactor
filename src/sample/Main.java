@@ -14,17 +14,15 @@ import sample.Authentication.Model.Customer;
 import sample.Home.Logic.AdminHomeController;
 import sample.Home.Logic.Home;
 import sample.Home.Logic.UserHomeController;
-import sample.Home.Model.Machine;
 import sample.Runner.Logic.LenderController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main extends Application {
     public static  Navigation currentStage;
 
-    public FileManager io=new FileManager();
+    private FileManager io=new FileManager();//
 
 
 
@@ -33,10 +31,6 @@ public class Main extends Application {
 
         currentStage= new Navigation("Machine Lender");
         getCurrentUser();
-
-
-
-
 
         // RegisterController rc = new RegisterController();  //these two lines create an admin account
        // rc.manualAdmin("Admin", "Admin1", "Admin123");
@@ -65,22 +59,8 @@ public class Main extends Application {
 
     }
     public static void main(String[] args) {
-
-        ArrayList<Machine> machines=new ArrayList<>();
-        FileManager io=new FileManager();
-
-
         System.out.println(Arrays.toString(args));
-        Arrays.asList("MachineDB.ser").forEach(path->{
-            try {
-                io.readSerializedFile((String)path,"machines");
-                machines.addAll(io.machines);
-                System.out.println(machines);
-                Statics.Machines.addAll(machines);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
 
         launch(args);
     }
