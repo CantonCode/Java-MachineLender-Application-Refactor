@@ -35,6 +35,29 @@ public class AddMachineController implements IAdapter{
     ArrayList<Machine> machines = new ArrayList<Machine>();
     FileManager io = new FileManager();
 
+    @Override
+    public void init() {
+        Arrays.asList("MachineDB.ser").forEach(path->{
+            try {
+                io.readSerializedFile((String)path,"machines");
+                machines.addAll(io.machines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        ArrayList<String> option = new ArrayList<String>();
+
+        option.add("Digger");
+        option.add("Crane");
+        ObservableList<String> options = FXCollections.observableArrayList(option);
+        machineType.setItems(options);
+    }
+
+    @Override
+    public void custom(Object... args) {
+    }
+
     public void onReturn(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
@@ -66,29 +89,5 @@ public class AddMachineController implements IAdapter{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void init() {
-        Arrays.asList("MachineDB.ser").forEach(path->{
-            try {
-                io.readSerializedFile((String)path,"machines");
-                machines.addAll(io.machines);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        ArrayList<String> option = new ArrayList<String>();
-
-        option.add("Digger");
-        option.add("Crane");
-        ObservableList<String> options = FXCollections.observableArrayList(option);
-        machineType.setItems(options);
-    }
-
-    @Override
-    public void custom(Object... args) {
-
     }
 }

@@ -5,11 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import sample.Authentication.Logic.FileManager;
 import sample.Authentication.Logic.LoginController;
+import sample.Authentication.Model.User;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BorrowedItemsController implements IAdapter {
@@ -39,10 +41,16 @@ public class BorrowedItemsController implements IAdapter {
 
     @Override
     public void custom(Object... args) {
-
     }
 
     public void onSettings(MouseEvent mouseEvent) {
+        ArrayList<User> users= new ArrayList<>();
+        new FileManager().serializeToFile("currentUser.ser",users);
+        try {
+            Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onReturn(ActionEvent actionEvent) {
