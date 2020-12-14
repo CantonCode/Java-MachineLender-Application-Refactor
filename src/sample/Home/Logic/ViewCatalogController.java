@@ -14,6 +14,7 @@ import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineAdapter;
+import sample.Authentication.Logic.LoginController;
 import sample.Home.Model.MachineFactory;
 import sample.Main;
 import sample.Runner.IAdapter;
