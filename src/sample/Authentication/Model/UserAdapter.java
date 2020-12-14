@@ -1,21 +1,26 @@
 package sample.Authentication.Model;
 
 import javafx.beans.property.SimpleStringProperty;
+import sample.Home.Model.Machine;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class UserAdapter {
     private final SimpleStringProperty username;
     private final SimpleStringProperty name;
     private final SimpleStringProperty id;
     private final SimpleStringProperty created;
+    private final ArrayList<Machine> currRentals;
+
     public UserAdapter(User user){
         username=new SimpleStringProperty(user.getUsername());
         name=new SimpleStringProperty(user.getName());
         id=new SimpleStringProperty(user.getId());
         created=new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(Long.parseLong(user.getId())));
-
+        currRentals = user.getCurrRentals();
     }
 
     public String getUsername() {
@@ -64,5 +69,9 @@ public class UserAdapter {
 
     public void setId(String id) {
         this.id.set(id);
+    }
+
+    public ArrayList<Machine> getCurrRentals() {
+        return currRentals;
     }
 }

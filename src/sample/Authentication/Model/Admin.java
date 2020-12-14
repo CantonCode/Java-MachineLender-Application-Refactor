@@ -1,22 +1,25 @@
 package sample.Authentication.Model;
 
+import sample.Home.Model.Machine;
+
 import java.beans.Transient;
+import java.util.ArrayList;
 
 public class Admin extends User{
 
 
     private transient Security security;
 
-    public Admin(String id, String name, String username, String password) {
-        super(id, name, username, password);
+    public Admin(String id, String name, String username, String password,ArrayList<Machine>curr) {
+        super(id, name, username, password,curr );
     }
 
-    public Admin(String id, String name, String username) {
-        super(id, name, username);
+    public Admin(String id, String name, String username, ArrayList<Machine> curr) {
+        super(id, name, username,curr);
     }
 
-    public Admin(String id, String name, String username, String password, AccountType accountType) {
-        super(id,name,username,password,accountType);
+    public Admin(String id, String name, String username, String password, AccountType accountType, ArrayList<Machine> curr) {
+        super(id,name,username,password,accountType,curr);
     }
 
     @Override

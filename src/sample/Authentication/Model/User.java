@@ -1,6 +1,9 @@
 package sample.Authentication.Model;
+import sample.Home.Model.Machine;
+
 import java.beans.Transient;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class User implements Serializable {
 
@@ -9,27 +12,32 @@ public abstract class User implements Serializable {
     protected String username;
     protected String password;
     protected AccountType type;
+    protected ArrayList<Machine> currRentals;
 
-    public User(String id, String name, String username, String password) {
+    public User(String id, String name, String username, String password,ArrayList<Machine> curr) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
+        this.currRentals = curr;
     }
 
-    public User(String id, String name, String username, String password, AccountType type) {
+    public User(String id, String name, String username, String password, AccountType type,ArrayList<Machine> curr) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.type = type;
+        this.currRentals = curr;
     }
 
-    public User(String id, String name, String username) {
+    public User(String id, String name, String username,ArrayList<Machine> curr) {
         this.id = id;
         this.name = name;
         this.username = username;
+        this.currRentals = curr;
     }
+
 
     public String getId() {
         return id;
@@ -71,6 +79,14 @@ public abstract class User implements Serializable {
         this.type = type;
     }
 
+    public ArrayList<Machine> getCurrRentals() {
+        return currRentals;
+    }
+
+    public void setCurrRentals(ArrayList<Machine> currRentals) {
+        this.currRentals = currRentals;
+    }
+
     @Transient
     public abstract void encryptPassword();
     @Transient
@@ -83,7 +99,8 @@ public abstract class User implements Serializable {
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", type=" + type +
+                ", type=" + type + '\'' +
+                ", rentals =" + currRentals +
                 '}';
     }
 }

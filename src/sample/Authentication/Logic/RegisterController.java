@@ -15,6 +15,7 @@ import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.Admin;
 import sample.Authentication.Model.Customer;
 import sample.Authentication.Model.User;
+import sample.Home.Model.Machine;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
@@ -45,6 +46,7 @@ public class RegisterController implements IAdapter {
     AccountType accountType;
     ArrayList<User>users=new ArrayList<>();
     FileManager io=new FileManager();
+    ArrayList<Machine> emptyMac = new ArrayList<>();
 
     public void setAccountType(AccountType type){
         this.accountType = type;
@@ -53,7 +55,7 @@ public class RegisterController implements IAdapter {
     public void manualAdmin (String Name, String Username, String Password){
         String time = String.valueOf(System.currentTimeMillis());
 
-        User origin = new Admin(time, Name, Username, Password, AccountType.ADMIN);
+        User origin = new Admin(time, Name, Username, Password, AccountType.ADMIN, emptyMac);
         origin.encryptPassword();
         users.add(origin);
         io.serializeToFile("AdminDB.ser", users);
@@ -84,7 +86,7 @@ public class RegisterController implements IAdapter {
     }
     private void  registerAsCustomer(){
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new Customer(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType);
+        regUser = new Customer(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType,emptyMac);
 
         regUser.encryptPassword();
 
@@ -95,7 +97,7 @@ public class RegisterController implements IAdapter {
     }
     private void registerAsAdmin() {
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new Admin(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType);
+        regUser = new Admin(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType,emptyMac);
 
         regUser.encryptPassword();
 

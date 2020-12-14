@@ -10,12 +10,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import sample.Authentication.Logic.FileManager;
-import sample.Authentication.Logic.LoginController;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
-import sample.Authentication.Model.UserAdapter;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineAdapter;
+import sample.Home.Model.MachineFactory;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
@@ -34,17 +33,17 @@ public class ViewCatalogController implements IAdapter {
     public TableColumn nameCol;
     public TableColumn typeCol;
     public TableColumn stockCol;
-    public TableView catView;
+    public TableView<MachineAdapter> catView;
+    public Label itemLabel;
     private FileManager io=new FileManager();
+    List<MachineAdapter> machines=new ArrayList<>();
 
     @Override
     public void init() {
         if(Statics.CurrentUser!=null){
-            loadUsers();
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
         }
 
-        List<MachineAdapter> machines=new ArrayList<>();
 
         for(Machine u : Statics.Machines.stream().collect(Collectors.toList())){
             machines.add(new MachineAdapter(u));
@@ -63,6 +62,8 @@ public class ViewCatalogController implements IAdapter {
 
         System.out.println(machines);
 
+
+
     }
 
     @Override
@@ -74,6 +75,51 @@ public class ViewCatalogController implements IAdapter {
     }
 
     public void borrowBtn(ActionEvent actionEvent) {
+        MachineAdapter mac = catView.getSelectionModel().getSelectedItem();
+        String selectedName = mac.getName();
+        System.out.println(mac.getName());
+
+        for(Machine m : Statics.Machines.stream().collect(Collectors.toList())){
+            String listName = m.getName();
+
+            if (listName.equals(selectedName)){
+                //Need to subtract the quantity of the item available
+                //Need to add the item to the user array
+
+                for(User u : Statics.Users){
+                    if(u.getUsername().equals(Statics.CurrentUser.getUsername())){
+                        System.out.println("CURRENT USER FOUND IN DB");
+                        ArrayList<Machine> currRentals = u.getCurrRentals();
+
+                        if(currRentals.size() < 5) {
+                            currRentals.add(m);
+                            u.setCurrRentals(currRentals);
+                            Statics.CurrentUser.setCurrRentals(currRentals);
+                            System.out.println(u);
+
+                            ArrayList<User> user= new ArrayList<>();
+                            user.add(Statics.CurrentUser);
+
+                            io.serializeToFile("CustomerDB.ser",Statics.Users);
+                            io.serializeToFile("currentUser.ser", user);
+                        }else{
+                            System.out.println("YOU HAVE TOO MANY ITEMS RENTED");
+                        }
+                    }
+                }
+
+                for(User u : Statics.Users){
+                    System.out.println(u);
+                }
+
+
+        }
+
+
+        }
+
+
+
     }
 
     public void loadUsers(){

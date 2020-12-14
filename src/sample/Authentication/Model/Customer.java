@@ -1,19 +1,23 @@
 package sample.Authentication.Model;
 
+import sample.Home.Model.Machine;
+
+import java.util.ArrayList;
+
 public class Customer extends User {
 
     private transient Security security;
 
-    public Customer(String id, String name, String username, String password) {
-        super(id, name, username, password);
+    public Customer(String id, String name, String username, String password, ArrayList<Machine> curr) {
+        super(id, name, username, password,curr);
     }
 
-    public Customer(String id, String name, String username) {
-        super(id, name, username);
+    public Customer(String id, String name, String username,ArrayList<Machine> curr) {
+        super(id, name, username,curr);
     }
 
-    public Customer(String id, String name, String username, String password, AccountType type) {
-        super(id, name, username, password, type);
+    public Customer(String id, String name, String username, String password, AccountType type,ArrayList<Machine> curr) {
+        super(id, name, username, password, type,curr);
     }
 
     @Override
