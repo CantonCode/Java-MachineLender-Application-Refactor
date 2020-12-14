@@ -25,21 +25,21 @@ public class Main extends Application {
 
     public FileManager io=new FileManager();
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         currentStage= new Navigation("Machine Lender");
         getCurrentUser();
 
-
-
-
-
-        // RegisterController rc = new RegisterController();  //these two lines create an admin account
+        /*
+            Below two lines create an admin account
+         */
+        // RegisterController rc = new RegisterController();
        // rc.manualAdmin("Admin", "Admin1", "Admin123");
 
+        /*
+            If else to check if user is logged in and if so if they should be led to the admin or user home pages
+         */
         if(Statics.CurrentUser!=null) {
             if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
           /*!!!! */      currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
@@ -61,13 +61,12 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
     public static void main(String[] args) {
 
         ArrayList<Machine> machines=new ArrayList<>();
         FileManager io=new FileManager();
-
 
         System.out.println(Arrays.toString(args));
         Arrays.asList("MachineDB.ser").forEach(path->{

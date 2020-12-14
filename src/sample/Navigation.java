@@ -25,6 +25,5 @@ public class Navigation extends Stage {
         controller.init();
         controller.custom(args);
         this.setScene(new Scene(root, 600, 400));
-
     }
 }

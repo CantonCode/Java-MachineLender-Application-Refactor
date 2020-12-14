@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 /*
-    Logic imeplementation for the user home page.
+    Logic implementation for the user home page.
  */
 public class UserHomeController implements IAdapter {
 
