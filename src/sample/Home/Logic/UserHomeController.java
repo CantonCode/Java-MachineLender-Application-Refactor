@@ -15,14 +15,15 @@ import sample.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/*
+    Logic implementation for the user home page.
+ */
 public class UserHomeController implements IAdapter {
 
     private FileManager io = new FileManager();
 
     @FXML
     public Label unameField;
-
     public Button borrowedBtn;
     public Button viewCatalogBtn;
 
@@ -33,6 +34,11 @@ public class UserHomeController implements IAdapter {
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
         }
     }
+
+    @Override
+    public void custom(Object... args) {
+    }
+
     public void loadUsers(){
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
             try {
@@ -45,6 +51,9 @@ public class UserHomeController implements IAdapter {
         });
     }
 
+    /*
+        Settings icon clickable which currently leads back to login page
+     */
     public void onSettings(MouseEvent mouseEvent) {
         ArrayList<User> users= new ArrayList<>();
         new FileManager().serializeToFile("currentUser.ser",users);
@@ -54,7 +63,10 @@ public class UserHomeController implements IAdapter {
             e.printStackTrace();
         }
     }
-    
+
+    /*
+        View catalog button
+     */
     public void viewCatalog(ActionEvent actionEvent){
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
@@ -63,18 +75,14 @@ public class UserHomeController implements IAdapter {
         }
     }
 
-
+    /*
+        View borrowed machines button
+     */
     public void viewBorrowedMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-
-    @Override
-    public void custom(Object... args) {
-
     }
 }

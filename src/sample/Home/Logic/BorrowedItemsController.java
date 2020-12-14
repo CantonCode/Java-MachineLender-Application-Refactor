@@ -80,10 +80,16 @@ public class BorrowedItemsController implements IAdapter {
 
     @Override
     public void custom(Object... args) {
-
     }
 
     public void onSettings(MouseEvent mouseEvent) {
+        ArrayList<User> users= new ArrayList<>();
+        new FileManager().serializeToFile("currentUser.ser",users);
+        try {
+            Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onReturn(ActionEvent actionEvent) {

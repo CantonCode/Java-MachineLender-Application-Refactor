@@ -52,8 +52,6 @@ public class ManageCustomers implements IAdapter {
 
     @Override
     public void custom(Object... args) {
-
-
     }
 
     public void cancelChanges(ActionEvent actionEvent) {

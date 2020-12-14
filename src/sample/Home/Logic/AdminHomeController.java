@@ -19,16 +19,6 @@ public class AdminHomeController implements IAdapter {
     public Label unameField;
     private FileManager io=new FileManager();
 
-    public void onSettings(MouseEvent mouseEvent) {
-        ArrayList<User> users= new ArrayList<>();
-        new FileManager().serializeToFile("currentUser.ser",users);
-        try {
-            Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void init() {
        if(Statics.CurrentUser!=null){
@@ -49,6 +39,13 @@ public class AdminHomeController implements IAdapter {
         });
     }
 
+    @Override
+    public void custom(Object... args) {
+    }
+
+    /*
+        View machines button
+     */
     public void viewMachines(ActionEvent actionEvent){
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
@@ -57,11 +54,19 @@ public class AdminHomeController implements IAdapter {
         }
     }
 
-    @Override
-    public void custom(Object... args) {
-
+    public void onSettings(MouseEvent mouseEvent) {
+        ArrayList<User> users= new ArrayList<>();
+        new FileManager().serializeToFile("currentUser.ser",users);
+        try {
+            Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /*
+        Manage machines button
+     */
     public void manageMachine(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/addMachine.fxml", new AddMachineController());
@@ -70,6 +75,9 @@ public class AdminHomeController implements IAdapter {
         }
     }
 
+    /*
+        Manage customers button
+     */
     public void manageCustomer(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/manage_customers.fxml", new ViewCatalogController());

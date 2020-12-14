@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
 import sample.Home.Logic.AdminHomeController;
-import sample.Home.Logic.Home;
 import sample.Home.Logic.UserHomeController;
 import sample.Home.Logic.ViewCatalogController;
 import sample.Home.Model.Machine;
