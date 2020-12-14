@@ -77,7 +77,8 @@ public class RegisterController implements IAdapter {
 
 
         }else{
-            infoLabel.setText("Registration Has Failed");
+            infoLabel.setText("Please fill ALL fields");
+            infoLabel.setStyle("-fx-text-fill: red;");
             passwordHint.setStyle("-fx-text-fill: red;");
         }
 

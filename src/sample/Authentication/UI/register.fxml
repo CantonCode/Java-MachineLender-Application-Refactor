@@ -35,7 +35,7 @@
             <Font size="9.0" />
          </font>
       </Label>
-      <Pane layoutX="155.0" layoutY="268.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
+      <Pane layoutX="161.0" layoutY="268.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
          <children>
             <Label fx:id="infoLabel" layoutX="91.0" layoutY="7.0" textAlignment="CENTER" textFill="#9a9a9a">
                <font>
