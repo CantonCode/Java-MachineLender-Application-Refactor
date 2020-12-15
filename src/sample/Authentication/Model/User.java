@@ -5,6 +5,9 @@ import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+    This class creates the user accounts necessary to use the app.
+ */
 public abstract class User implements Serializable {
 
     protected String id;
