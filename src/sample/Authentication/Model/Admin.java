@@ -4,7 +4,9 @@ import sample.Home.Model.Machine;
 
 import java.beans.Transient;
 import java.util.ArrayList;
-
+/*
+    Admin class extends the user class to create an admin account type.
+ */
 public class Admin extends User {
 
 

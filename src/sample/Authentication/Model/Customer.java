@@ -3,7 +3,9 @@ package sample.Authentication.Model;
 import sample.Home.Model.Machine;
 
 import java.util.ArrayList;
-
+/*
+    Customer class extends the user class to create a standard customer account.
+ */
 public class Customer extends User {
 
     private transient Security security;

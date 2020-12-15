@@ -24,7 +24,9 @@ import java.io.*;
 
 import java.net.URL;
 import java.util.*;
-
+/*
+    Class for logic required to run register page.
+ */
 public class RegisterController implements IAdapter {
 
     public Label infoLabel;
@@ -52,6 +54,9 @@ public class RegisterController implements IAdapter {
         this.accountType = type;
     }
 
+    /*
+        Class for manual creation of admin account
+     */
     public void manualAdmin (String Name, String Username, String Password){
         String time = String.valueOf(System.currentTimeMillis());
 
@@ -61,8 +66,13 @@ public class RegisterController implements IAdapter {
         io.serializeToFile("AdminDB.ser", users);
     }
 
+    /*
+        Register button which stores user information to the currentUser.ser file and then brings the new user
+        to the user home page
+     */
     public void registerButtonOnAction(ActionEvent event) throws IOException {
 
+        //if else either creates user if all fields are filled or throws an error message
         if(validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText())) {
             new PasswordValidator(1).Validate(regPasswordField.getText());
             if(this.accountType==AccountType.ADMIN)
@@ -76,15 +86,15 @@ public class RegisterController implements IAdapter {
             users.add(Statics.CurrentUser);
             io.serializeToFile("currentUser.ser",users);
             Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new LoginController());
-
-
         }else{
             infoLabel.setText("Please fill ALL fields");
             infoLabel.setStyle("-fx-text-fill: red;");
-            passwordHint.setStyle("-fx-text-fill: red;");
         }
-
     }
+
+    /*
+        Method to create customer account types
+     */
     private void  registerAsCustomer(){
         String time = String.valueOf(System.currentTimeMillis());
         regUser = new Customer(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType,emptyMac);
@@ -96,6 +106,10 @@ public class RegisterController implements IAdapter {
 
         io.serializeToFile("CustomerDB.ser",users);
     }
+
+    /*
+        Method to create admin account types
+     */
     private void registerAsAdmin() {
         String time = String.valueOf(System.currentTimeMillis());
         regUser = new Admin(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),this.accountType,emptyMac);
@@ -107,11 +121,12 @@ public class RegisterController implements IAdapter {
         io.serializeToFile("AdminDB.ser",users);
     }
 
-
+    /*
+        Login button
+     */
     public void loginButtonOnAction(ActionEvent event) throws IOException {
         // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-
     }
 
     private boolean validate(String name, String username, String password){
@@ -138,9 +153,10 @@ public class RegisterController implements IAdapter {
         return valid;
     }
 
+    /*
+        Method checks if username entered is unique
+     */
     public boolean uniqueUsername(String username){
-        //check text file to see if the specified log in exists already
-
         long matches=0;
         for(User u:users){
             System.out.println(username);
@@ -152,12 +168,10 @@ public class RegisterController implements IAdapter {
     }
 
     public void registerOnManageUsers(ActionEvent actionEvent) {
-
     }
 
     @Override
     public void init() {
-
         try {
             io.readSerializedFile("AdminDB.ser","users");
             users.addAll(io.users);

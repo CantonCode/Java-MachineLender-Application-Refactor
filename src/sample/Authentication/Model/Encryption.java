@@ -3,6 +3,9 @@ package sample.Authentication.Model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/*
+    Class adds encryption to user and admin account passwords to securely store them.
+ */
 public class Encryption extends Security {
     @Override
     public String layerOne(String password) {

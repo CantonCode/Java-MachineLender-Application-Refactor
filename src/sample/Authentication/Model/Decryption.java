@@ -1,5 +1,8 @@
 package sample.Authentication.Model;
 
+/*
+    Class for decrypting passwords encrypted using the Encryption class.
+ */
 public class Decryption extends Security{
     @Override
     public String layerOne(String password) {

@@ -28,7 +28,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
+/*
+    Class for the logic necessary for the login page.
+ */
 public class LoginController implements Initializable, IAdapter {
 
     @FXML
