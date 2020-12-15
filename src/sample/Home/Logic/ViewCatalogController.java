@@ -59,14 +59,10 @@ public class ViewCatalogController implements IAdapter {
         catView.setItems(data);
 
         System.out.println(machines);
-
-
-
     }
 
     @Override
     public void custom(Object... args) {
-
     }
 
     public void onSettings(MouseEvent mouseEvent) {
@@ -84,14 +80,14 @@ public class ViewCatalogController implements IAdapter {
         String selectedName = mac.getName();
         System.out.println(mac.getName());
 
-        for(Machine m : Statics.Machines.stream().collect(Collectors.toList())) {
+        for (Machine m : Statics.Machines.stream().collect(Collectors.toList())) {
             String listName = m.getName();
 
             if (listName.equals(selectedName)) {
                 //Need to subtract the quantity of the item available
                 //Need to add the item to the user array
 
-                for(User u : Statics.Users) {
+                for (User u : Statics.Users) {
                     if (u.getUsername().equals(Statics.CurrentUser.getUsername())) {
                         System.out.println("CURRENT USER FOUND IN DB");
                         ArrayList<Machine> currRentals = u.getCurrRentals();
@@ -112,19 +108,11 @@ public class ViewCatalogController implements IAdapter {
                         }
                     }
                 }
-
-                for(User u : Statics.Users) {
+                for (User u : Statics.Users) {
                     System.out.println(u);
                 }
-
-
+            }
         }
-
-
-        }
-
-
-
     }
 
     public void loadUsers() {

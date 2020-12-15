@@ -44,10 +44,4 @@ public class MachineAdapter {
     public Integer getCostPerDay() { return costPerDay.get(); }
     public SimpleIntegerProperty costPerDayProperty() { return costPerDay; }
     public void setCostPerDay(Integer cost) { this.costPerDay.set(cost); }
-
-
-
-
-
-
 }

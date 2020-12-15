@@ -26,13 +26,11 @@ public class Customer extends User {
     public void encryptPassword() {
         security = new Encryption();
         this.password = security.layerOne(password);
-
     }
 
     @Override
     public void decryptPassword() {
         security = new Decryption();
         this.password = security.layerOne(password);
-
     }
 }

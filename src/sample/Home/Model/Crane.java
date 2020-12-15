@@ -7,11 +7,11 @@ public class Crane extends Machine {
 
 
     public Crane() {
+
     }
 
     public Crane(String id, String name, int costPerDay) {
         super(id, name, costPerDay);
-
     }
 
     public double calcRent(int days) {
@@ -26,7 +26,5 @@ public class Crane extends Machine {
             price *= 0.6;
         }
         return price;
-
     }
-
 }

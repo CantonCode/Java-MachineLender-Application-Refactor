@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
 /*
     Class for the logic necessary for the login page.
  */
@@ -98,7 +99,6 @@ public class LoginController implements Initializable, IAdapter {
                 } else {
                     Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
                 }
-
             }
         } else {
             messager.setText("Please enter a Username AND Password");
@@ -141,6 +141,5 @@ public class LoginController implements Initializable, IAdapter {
 
     @Override
     public void custom(Object... args) {
-
     }
 }

@@ -56,10 +56,7 @@ public class BorrowedItemsController implements IAdapter {
             machineCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
             dueCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
 
-
             returnView.setItems(data);
-
-
         }
 
     }

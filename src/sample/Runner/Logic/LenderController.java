@@ -83,7 +83,6 @@ public class LenderController implements Initializable {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
     }
 
     @Override
