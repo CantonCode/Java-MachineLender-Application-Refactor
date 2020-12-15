@@ -5,7 +5,7 @@ import sample.Home.Model.Machine;
 import java.beans.Transient;
 import java.util.ArrayList;
 
-public class Admin extends User{
+public class Admin extends User {
 
 
     private transient Security security;

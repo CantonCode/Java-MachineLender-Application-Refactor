@@ -33,19 +33,15 @@ public class ManageCustomers implements IAdapter {
     @Override
     public void init() {
         List<UserAdapter> customers=new ArrayList<>();
-        for(User u : Statics.Users.stream().filter(user -> user.getType()== AccountType.CUSTOMER).collect(Collectors.toList())){
+        for(User u : Statics.Users.stream().filter(user -> user.getType()== AccountType.CUSTOMER).collect(Collectors.toList())) {
             customers.add(new UserAdapter(u));
         }
 
         final ObservableList<UserAdapter> data = FXCollections.observableList(customers);
-        cidCol.setCellValueFactory(
-                new PropertyValueFactory<UserAdapter, String>("id"));
-        cUsernameCol.setCellValueFactory(
-                new PropertyValueFactory<UserAdapter, String>("username"));
-        cNameCol.setCellValueFactory(
-                new PropertyValueFactory<UserAdapter, String>("name"));
-        cCreatedCol.setCellValueFactory(
-                new PropertyValueFactory<UserAdapter, String>("created"));
+        cidCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("id"));
+        cUsernameCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("username"));
+        cNameCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("name"));
+        cCreatedCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("created"));
 
         cTable.setItems(data);
     }

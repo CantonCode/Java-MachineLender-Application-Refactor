@@ -11,11 +11,11 @@ public abstract class Machine implements Serializable {
     private String type;
 
 
-    public Machine(){
+    public Machine() {
 
     }
 
-    public Machine(String id,String name,int costPerDay){
+    public Machine(String id,String name,int costPerDay) {
         this.id = id;
         this.name = name;
         this.costPerDay = costPerDay;

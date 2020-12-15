@@ -21,14 +21,14 @@ public class AdminHomeController implements IAdapter {
 
     @Override
     public void init() {
-       if(Statics.CurrentUser!=null){
+       if (Statics.CurrentUser!=null) {
            loadUsers();
            unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
         }
     }
 
     private void loadUsers() {
-        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
+        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
                 io.readSerializedFile((String)path,"users");
@@ -46,7 +46,7 @@ public class AdminHomeController implements IAdapter {
     /*
         View machines button
      */
-    public void viewMachines(ActionEvent actionEvent){
+    public void viewMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
         } catch (IOException ex) {

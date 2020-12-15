@@ -22,22 +22,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class AddMachineController implements IAdapter{
+public class AddMachineController implements IAdapter {
     @FXML
     private TextField machineCost;
 
     @FXML
     private TextField machineName;
 
-   @FXML
-   ComboBox machineType;
+    @FXML
+    ComboBox machineType;
     MachineFactory factory = new MachineFactory();
     ArrayList<Machine> machines = new ArrayList<Machine>();
     FileManager io = new FileManager();
 
     @Override
     public void init() {
-        Arrays.asList("MachineDB.ser").forEach(path->{
+        Arrays.asList("MachineDB.ser").forEach(path-> {
             try {
                 io.readSerializedFile((String)path,"machines");
                 machines.addAll(io.machines);

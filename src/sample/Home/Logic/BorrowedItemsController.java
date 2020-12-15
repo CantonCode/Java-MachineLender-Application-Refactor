@@ -39,7 +39,7 @@ public class BorrowedItemsController implements IAdapter {
             loadUsers();
             unameField.setText(Statics.CurrentUser.getUsername() + "(" + Statics.CurrentUser.getType().name().toLowerCase() + ")");
 
-            Arrays.asList("CustomerDB.ser").forEach(path->{
+            Arrays.asList("CustomerDB.ser").forEach(path-> {
                 try {
                     io.readSerializedFile((String)path,"users");
                    users.addAll(io.users);
@@ -53,10 +53,8 @@ public class BorrowedItemsController implements IAdapter {
             }
 
             final ObservableList<MachineAdapter> data = FXCollections.observableList(machines);
-            machineCol.setCellValueFactory(
-                    new PropertyValueFactory<MachineAdapter, String>("name"));
-            dueCol.setCellValueFactory(
-                    new PropertyValueFactory<MachineAdapter, String>("type"));
+            machineCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
+            dueCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
 
 
             returnView.setItems(data);
@@ -123,8 +121,6 @@ public class BorrowedItemsController implements IAdapter {
                 io.serializeToFile("CustomerDB.ser", Statics.Users);
                 io.serializeToFile("currentUser.ser", user);
 
-
-//
                 System.out.println(currRentals);
             }
         }

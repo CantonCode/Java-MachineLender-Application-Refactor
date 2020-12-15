@@ -29,7 +29,7 @@ public class UserHomeController implements IAdapter {
 
     @Override
     public void init() {
-        if(Statics.CurrentUser!=null){
+        if(Statics.CurrentUser!=null) {
             loadUsers();
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
         }
@@ -39,8 +39,8 @@ public class UserHomeController implements IAdapter {
     public void custom(Object... args) {
     }
 
-    public void loadUsers(){
-        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
+    public void loadUsers() {
+        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
                 io.readSerializedFile((String)path,"users");
@@ -67,7 +67,7 @@ public class UserHomeController implements IAdapter {
     /*
         View catalog button
      */
-    public void viewCatalog(ActionEvent actionEvent){
+    public void viewCatalog(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
         } catch (IOException ex) {

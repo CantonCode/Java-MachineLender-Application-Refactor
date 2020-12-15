@@ -33,8 +33,8 @@ public class LenderController implements Initializable {
 
             pw.println(userID);
 
-            for(String item : inventory){
-                if(!item.equals(null))
+            for (String item : inventory) {
+                if (!item.equals(null))
                     pw.print("," + item);//"getthecurrenttimeinseconds+some extra amount");
             }
 
@@ -51,14 +51,14 @@ public class LenderController implements Initializable {
         }
     }
 
-    public void setInfo(String name, String ID){
+    public void setInfo(String name, String ID) {
         userID = ID;
         usernameS = name;
         System.out.println("Succesfully wrote info");
     }
 
 
-    public void showInformation(String name, String id){
+    public void showInformation(String name, String id) {
         username.setText(name);
         userID = id;
         String path = "inventory" + userID + ".txt";

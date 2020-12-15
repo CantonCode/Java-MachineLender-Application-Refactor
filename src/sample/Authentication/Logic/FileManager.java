@@ -22,18 +22,18 @@ public class FileManager {
             Object o= ois.readObject();
             System.out.println(o);
 
-            if(type.equals("users")){
+            if (type.equals("users")) {
                 ArrayList<User> temp=(ArrayList<User>) o;
                 if(temp!=null)users=temp;
 
-            }else {
+            } else {
                 ArrayList<Machine> temp=(ArrayList<Machine>) o;
-                if(temp!=null)machines=temp;
+                if (temp!=null)machines=temp;
             }
 
 
         }
-        catch(EOFException end){
+        catch(EOFException end) {
 
             //  ois.close();
             fis.close();

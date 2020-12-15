@@ -7,13 +7,13 @@ public class Decryption extends Security{
         char tempChar;
         StringBuilder sb = new StringBuilder(password);
 
-        if(password.length()%2 == 1) {
+        if (password.length()%2 == 1) {
             tempChar = sb.charAt(0);
             sb.setCharAt(0, sb.charAt(sb.length() - 1));
             sb.setCharAt(sb.length() - 1, tempChar);
         }
 
-        for(int i = 0; i < sb.length() - 1; i+=2){
+        for (int i = 0; i < sb.length() - 1; i+=2) {
             tempChar = sb.charAt(i);
             sb.setCharAt(i, sb.charAt(i+1));
             sb.setCharAt(i+1, tempChar);
@@ -31,7 +31,7 @@ public class Decryption extends Security{
 
         sb.reverse();
 
-        for(int i = 0; i < sb.length(); i++){
+        for (int i = 0; i < sb.length(); i++) {
             sb.setCharAt(i, (char) (sb.charAt(i)-2));
         }
 

@@ -82,7 +82,7 @@ public class LoginController implements Initializable, IAdapter {
     }
 
     public void loginButtonOnAction(ActionEvent event) throws IOException {
-        if(!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
+        if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
                 messager.setText("Logged in as: "+Statics.CurrentUser);
                 ArrayList<User> users= new ArrayList<>();
@@ -91,9 +91,9 @@ public class LoginController implements Initializable, IAdapter {
 
                 io.serializeToFile("currentUser.ser",users);
 
-                if(Statics.CurrentUser.getType() == AccountType.CUSTOMER){
+                if (Statics.CurrentUser.getType() == AccountType.CUSTOMER) {
                     Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
-                }else{
+                } else {
                     Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
                 }
 
@@ -125,7 +125,7 @@ public class LoginController implements Initializable, IAdapter {
 
     @Override
     public void init() {
-        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path->{
+        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 io.readSerializedFile((String)path,"users");
                 users.addAll(io.users);

@@ -10,7 +10,7 @@ public class MachineAdapter {
     private final SimpleStringProperty type;
     private final SimpleIntegerProperty costPerDay;
 
-    public MachineAdapter(Machine machine){
+    public MachineAdapter(Machine machine) {
        id = new SimpleStringProperty(machine.getId());
        name = new SimpleStringProperty(machine.getName());
        type = new SimpleStringProperty(machine.getType());
@@ -41,8 +41,8 @@ public class MachineAdapter {
     }
     public void setType(String type) { this.type.set(type); }
 
-    public Integer getCostPerDay(){ return costPerDay.get();}
-    public SimpleIntegerProperty costPerDayProperty(){ return costPerDay;}
+    public Integer getCostPerDay() { return costPerDay.get(); }
+    public SimpleIntegerProperty costPerDayProperty() { return costPerDay; }
     public void setCostPerDay(Integer cost) { this.costPerDay.set(cost); }
 
 
