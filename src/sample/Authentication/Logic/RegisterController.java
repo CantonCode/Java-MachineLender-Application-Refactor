@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import sample.AlertBox;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.Admin;
 import sample.Authentication.Model.Customer;
@@ -138,6 +139,7 @@ public class RegisterController implements IAdapter {
         }else{
             passwordHint.setText("Weak");
             passwordHint.setStyle("-fx-text-fill: red;");
+            AlertBox.display("Password Error","Password Requires Capital Letter, Lower Case Letter & a Number");
             valid=false;
         }
         if(uniqueUsername(username)){
