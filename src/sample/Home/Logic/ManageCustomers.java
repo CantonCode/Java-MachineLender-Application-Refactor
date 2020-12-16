@@ -61,4 +61,8 @@ public class ManageCustomers implements IAdapter {
     public void saveChanges(ActionEvent actionEvent) throws IOException {
         Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController());
     }
+
+    public void addUser(ActionEvent actionEvent) throws IOException{
+        Main.currentStage.setFXMLScene("Home/UI/addUser.fxml", new AddUserController());
+    }
 }

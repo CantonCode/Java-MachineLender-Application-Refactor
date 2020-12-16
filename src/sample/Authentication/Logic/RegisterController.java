@@ -66,6 +66,17 @@ public class RegisterController implements IAdapter {
         io.serializeToFile("AdminDB.ser", users);
     }
 
+    public void manualUser (String Name, String Username, String Password){
+        String time = String.valueOf(System.currentTimeMillis());
+        regUser = new Customer(time, Name, Username, Password,AccountType.CUSTOMER,emptyMac);
+
+        regUser.encryptPassword();
+
+        users.add(regUser);
+        Statics.CurrentUser=regUser;
+
+        io.serializeToFile("CustomerDB.ser",users);
+    }
     /*
         Register button which stores user information to the currentUser.ser file and then brings the new user
         to the user home page
