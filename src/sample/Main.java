@@ -48,6 +48,7 @@ public class Main extends Application {
         /*
             Below two lines create an admin account
         */
+
         //RegisterController rc = new RegisterController();
         //rc.manualAdmin("Admin", "Admin1", "Admin123");
 

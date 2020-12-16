@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+    Class implements manage customers page
+ */
 public class ManageCustomers implements IAdapter {
     public TableColumn cidCol;
     public TableColumn cUsernameCol;

@@ -16,13 +16,15 @@ import sample.Home.Model.MachineAdapter;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+    Class implements logic of borrowed items page.
+ */
 public class BorrowedItemsController implements IAdapter {
 
     public TableColumn machineCol;
@@ -95,7 +97,9 @@ public class BorrowedItemsController implements IAdapter {
         System.out.println(currRentals);
         Boolean removed = false;
 
-
+        /*
+            For loop checks if any of the current rentals are selected and if so removes them from list
+         */
         for (int i = 0; i < currRentals.size(); i++)
             if (currRentals.get(i).getName().equals(selectedName)) {
 
@@ -122,14 +126,6 @@ public class BorrowedItemsController implements IAdapter {
             }
         }
     }
-
-
-
-
-
-
-
-
 
     public void goBack(ActionEvent actionEvent) {
         try {

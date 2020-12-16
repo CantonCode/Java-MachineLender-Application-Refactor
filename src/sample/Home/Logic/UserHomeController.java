@@ -15,6 +15,7 @@ import sample.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 /*
     Logic implementation for the user home page.
  */

@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/*
+    Class for logic of add machine page.
+ */
 public class AddMachineController implements IAdapter {
     @FXML
     private TextField machineCost;
@@ -71,10 +74,8 @@ public class AddMachineController implements IAdapter {
             String type = machineType.getValue().toString();
             Machine newMachine = factory.createNewMachine(type);
 
-
             String time = String.valueOf(System.currentTimeMillis());
             int i = Integer.parseInt(machineCost.getText());
-
 
             newMachine.setType(type);
             newMachine.setName(machineName.getText());

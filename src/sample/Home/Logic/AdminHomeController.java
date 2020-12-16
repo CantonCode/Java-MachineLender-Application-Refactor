@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+    Class for logic of admin home page
+ */
 public class AdminHomeController implements IAdapter {
 
     public Label unameField;

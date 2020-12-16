@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/*
+    Class implements logic for view catalog page.
+ */
 public class ViewCatalogController implements IAdapter {
 
     @FXML
@@ -45,7 +48,6 @@ public class ViewCatalogController implements IAdapter {
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
         }
 
-
         for (Machine u : Statics.Machines.stream().collect(Collectors.toList())) {
             machines.add(new MachineAdapter(u));
         }
@@ -54,7 +56,6 @@ public class ViewCatalogController implements IAdapter {
         idCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
         typeCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
-
 
         catView.setItems(data);
 
