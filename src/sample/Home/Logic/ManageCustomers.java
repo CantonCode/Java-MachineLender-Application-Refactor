@@ -14,6 +14,7 @@ import sample.Authentication.Model.Customer;
 import sample.Authentication.Model.User;
 import sample.Authentication.Model.UserAdapter;
 import sample.Main;
+import sample.Navigation;
 import sample.Runner.IAdapter;
 import sample.Statics;
 
@@ -53,9 +54,11 @@ public class ManageCustomers implements IAdapter {
     public void custom(Object... args) {
     }
 
-    public void cancelChanges(ActionEvent actionEvent) {
+    public void cancelChanges(ActionEvent actionEvent) throws IOException {
+        Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController());
     }
 
-    public void saveChanges(ActionEvent actionEvent) {
+    public void saveChanges(ActionEvent actionEvent) throws IOException {
+        Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController());
     }
 }
