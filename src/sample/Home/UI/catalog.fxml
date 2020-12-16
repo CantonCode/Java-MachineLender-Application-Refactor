@@ -43,10 +43,10 @@
                   </Label>
                   <TableView fx:id="catView" prefHeight="228.0" prefWidth="578.0">
                     <columns>
-                      <TableColumn fx:id="idCol" prefWidth="46.0" text="ID" />
-                      <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="283.0" text="Name" />
-                        <TableColumn fx:id="typeCol" prefWidth="189.0" text="Type" />
-                        <TableColumn fx:id="stockCol" prefWidth="59.0" text="Stock" />
+                      <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
+                      <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="216.0" text="Name" />
+                       <TableColumn fx:id="typeCol" prefWidth="167.0" text="Type" />
+                       <TableColumn fx:id="costPerDayCol" prefWidth="94.0" text="Cost per Day" />
                     </columns>
                   </TableView>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">

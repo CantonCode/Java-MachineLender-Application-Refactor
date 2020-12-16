@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home.Logic.AddMachineController">
+<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home.Logic.AddMachineController">
    <children>
       <TextField fx:id="machineName" layoutX="226.0" layoutY="127.0" promptText="Machine Name" />
       <Text fx:id="regNameTitle" layoutX="140.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="59.443359375">
@@ -16,7 +16,7 @@
             <Font size="29.0" />
          </font>
       </Text>
-      <Text fx:id="regPasswordTitle" layoutX="140.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost:" textAlignment="RIGHT" wrappingWidth="59.443359375">
+      <Text fx:id="regPasswordTitle" layoutX="113.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost per Day:" textAlignment="RIGHT" wrappingWidth="85.443359375">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Text>
