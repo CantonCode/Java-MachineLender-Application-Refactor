@@ -77,10 +77,10 @@ public class AddMachineController implements IAdapter {
             String time = String.valueOf(System.currentTimeMillis());
             int i = Integer.parseInt(machineCost.getText());
 
-            newMachine.setType(type);
+            newMachine.setId(time);
             newMachine.setName(machineName.getText());
             newMachine.setCostPerDay(i);
-            newMachine.setId(time);
+            newMachine.setType(type);
             machines.add(newMachine);
             Statics.Machines.add(newMachine);
 

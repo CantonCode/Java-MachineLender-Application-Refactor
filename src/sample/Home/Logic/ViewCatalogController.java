@@ -36,7 +36,7 @@ public class ViewCatalogController implements IAdapter {
     public TableColumn idCol;
     public TableColumn nameCol;
     public TableColumn typeCol;
-    public TableColumn stockCol;
+    public TableColumn costPerDayCol;
     public TableView<MachineAdapter> catView;
     public Label itemLabel;
     private FileManager io=new FileManager();
@@ -56,6 +56,7 @@ public class ViewCatalogController implements IAdapter {
         idCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
         typeCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
+        costPerDayCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("costPerDay"));
 
         catView.setItems(data);
 

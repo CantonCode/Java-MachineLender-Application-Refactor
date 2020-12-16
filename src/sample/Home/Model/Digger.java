@@ -27,6 +27,7 @@ public class Digger extends Machine {
         } else if(days>150) {
             price *= 0.7;
         }
+
         return price;
     }
 }

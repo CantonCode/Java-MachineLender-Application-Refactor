@@ -38,16 +38,13 @@ public abstract class Machine implements Serializable {
         this.name = name;
     }
 
-
     public int getCostPerDay() {
         return costPerDay;
     }
 
-    public void setCostPerDay(int costPerDay) {
-        this.costPerDay = costPerDay;
-    }
+    public void setCostPerDay(int costPerDay) { this.costPerDay = costPerDay; }
 
-    public abstract double calcRent(int days);
+    public abstract double calcRent(int cost);
 
     public String getType() {
         return type;
