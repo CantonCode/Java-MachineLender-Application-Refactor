@@ -1,5 +1,8 @@
 package sample.Home.Model;
 
+/*
+    Factory design pattern for machines
+ */
 public class MachineFactory {
     public Machine createNewMachine(String type) {
         if (type == null || type.isEmpty())
@@ -12,7 +15,7 @@ public class MachineFactory {
             System.out.println("CREATING CRANE TYPE");
             return new Crane();
         }
-
+        
         return null;
     }
 }
