@@ -20,11 +20,10 @@ import sample.Home.Model.Machine;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
-
 import java.io.*;
-
 import java.net.URL;
 import java.util.*;
+
 /*
     Class for logic required to run register page.
  */
