@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import sample.AlertBox;
 import sample.Authentication.Model.AccountType;
 import sample.Authentication.Model.User;
 import sample.Home.Logic.AdminHomeController;
@@ -103,6 +104,7 @@ public class LoginController implements Initializable, IAdapter {
         } else {
             messager.setText("Please enter a Username AND Password");
             messager.setStyle("-fx-text-fill: red;");
+
         }
     }
 
@@ -116,6 +118,7 @@ public class LoginController implements Initializable, IAdapter {
                 return true;
             }
         }
+        AlertBox.display("Login Error","Username and/or Password was incorrect!");
         messager.setText("User not recognized");
         messager.setStyle("-fx-text-fill: red;");
         return false;

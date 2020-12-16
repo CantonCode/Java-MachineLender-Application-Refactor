@@ -13,6 +13,7 @@ public class AlertBox {
         window.initModality(Modality.APPLICATION_MODAL);// Stops input into other windows.
         window.setTitle(title);
         window.setMinWidth(250);
+        window.setMinHeight(125);
 
         Label label = new Label();
         label .setText(message);
