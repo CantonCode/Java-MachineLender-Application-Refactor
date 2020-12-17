@@ -16,3 +16,5 @@ IntelliJ Download: https://www.jetbrains.com/idea/download/#section=windows
 StackOverflow - How to install JavaFX in IntelliJ: https://stackoverflow.com/questions/53668630/how-to-run-javafx-applications-in-intellij-idea-ide
 
 How to install JUnit in IntelliJ: https://www.jetbrains.com/help/idea/testing.html#add-testing-libraries
+
+[VERY IMPORTANT] If it doesn't compile after pulling, delete the entire out folder and run the code again.
