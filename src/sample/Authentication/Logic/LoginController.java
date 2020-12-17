@@ -56,26 +56,89 @@ public class LoginController implements Initializable, IAdapter {
     }
 
     private void loadSceneAndSendInfo() {
+        try {
 
+            System.out.println("It's creating the new window....");
+
+            //Load second scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("lender.fxml"));
+            Parent root = loader.load();
+
+            //Get controller of scene2
+            LenderController lend = loader.getController();
+            //Pass whatever data you want. You can have multiple method calls here
+            lend.setInfo(userSname, userId);
+            System.out.println("The passed in info " + userSname + " " + userId);
+            lend.addInv();
+            lend.showInformation(userSname, userId);
+
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Second Window");
+            stage.show();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
     }
 
     public LoginController() {
     }
 
     public void loginButtonOnAction(ActionEvent event) throws IOException {
+        if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
+            if (validateLogin(usernameField.getText(), passwordField.getText())) {
+                messager.setText("Logged in as: "+Statics.CurrentUser);
+                ArrayList<User> users= new ArrayList<>();
+                users.add(Statics.CurrentUser);
+                messager.setStyle("-fx-text-fill: green;");
 
+                io.serializeToFile("currentUser.ser",users);
+
+                if (Statics.CurrentUser.getType() == AccountType.CUSTOMER) {
+                    Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
+                } else {
+                    Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
+                }
+            }
+        } else {
+            messager.setText("Please enter a Username AND Password");
+            messager.setStyle("-fx-text-fill: red;");
+
+        }
     }
 
     public boolean validateLogin(String username, String password) throws IOException {
         //check text file to see if the specified log in exists already
+        for(User user : users){
+            user.decryptPassword();
+            if(username.equalsIgnoreCase(user.getUsername())&&password.equals(user.getPassword())){
+                System.out.println("we just set the user to logged in");
+                Statics.CurrentUser=user;
+                return true;
+            }
+        }
+        AlertBox.display("Login Error","Username and/or Password was incorrect!");
+        messager.setText("User not recognized");
+        messager.setStyle("-fx-text-fill: red;");
         return false;
     }
 
     public void registerButtonOnAction(ActionEvent actionEvent)throws IOException {
+        Main.currentStage.setFXMLScene("Authentication/UI/register.fxml",new LoginController(), AccountType.CUSTOMER);
     }
 
     @Override
     public void init() {
+        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
+            try {
+                io.readSerializedFile((String)path,"users");
+                users.addAll(io.users);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
 
     }
 
