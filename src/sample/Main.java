@@ -49,8 +49,8 @@ public class Main extends Application {
             Below two lines create an admin account
         */
 
-        //RegisterController rc = new RegisterController();
-        //rc.manualAdmin("Admin", "Admin1", "Admin123");
+        RegisterController rc = new RegisterController();
+        rc.manualAdmin("Admin", "Admin1", "Admin123");
 
         /*
             If else to check if user is logged in and if so if they should be led to the admin or user home pages

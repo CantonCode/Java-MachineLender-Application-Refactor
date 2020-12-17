@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.NullStringConversion;
 import sample.AlertBox;
 import sample.Authentication.Logic.FileManager;
 import sample.Authentication.Logic.LoginController;
@@ -70,14 +72,13 @@ public class AddUserController implements IAdapter {
             String type = accountType.getValue().toString();
             RegisterController rc = new RegisterController();
             //if else statements to check if account type is valid
-            if (type.equals("Admin")) {
-                rc.manualAdmin(name, username, pw);
-            } else if (type.equals("User")) {
-                rc.manualUser(name, username, pw);
-            } else {
-                AlertBox.display("Account Type Error", "Please select the type of account you want to create!");
-            }
-            Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
+
+                if(type.equals("Admin")) {
+                    rc.manualAdmin(name, username, pw);
+                } else if (type.equals("User")) {
+                    rc.manualUser(name, username, pw);
+                }
+                Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
         } catch (IOException e) {
             e.printStackTrace();
         }
