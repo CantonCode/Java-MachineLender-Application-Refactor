@@ -136,6 +136,7 @@ public class ViewCatalogController implements IAdapter {
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                             quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
                             quantity=Math.min(Statics.Machines.get(rowName).getInventory(),quantity);
+                            int left=Statics.Machines.get(rowName).getInventory()-quantity;
                             System.out.println("I am Borrowing "+ quantity + ": " +selectedName);
                             System.out.println(Statics.Machines.get(rowName).getInventory()-quantity+" Left!!");
                             Machine m = Statics.Machines.get(rowName);
@@ -143,7 +144,7 @@ public class ViewCatalogController implements IAdapter {
 
                             if(Statics.Machines.get(rowName).getInventory()>0) {
                                 AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
-                                Statics.Machines.get(rowName).setInventory(Math.max((Statics.Machines.get(rowName).getInventory() - quantity), 0));
+                                Statics.Machines.get(rowName).setInventory(Math.max((left), 0));
                                 Statics.CurrentUser.addCurrentRentals(m);
                             }
                             else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
