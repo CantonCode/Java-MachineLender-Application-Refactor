@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /*
     EncryptionTest tests the functionality of encrypting and decrypting user and admin passwords for added security
+    commented out due to not everyone's IDE having JUnit
  */
 class EncryptionTest {
 //    private Encryption encryptionTest = new Encryption();
