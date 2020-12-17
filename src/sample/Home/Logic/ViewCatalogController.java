@@ -67,6 +67,9 @@ public class ViewCatalogController implements IAdapter {
     public void custom(Object... args) {
     }
 
+    /*
+        Settings icon leads back to login page
+     */
     public void onSettings(MouseEvent mouseEvent) {
         ArrayList<User> users= new ArrayList<>();
         new FileManager().serializeToFile("currentUser.ser",users);
@@ -77,6 +80,10 @@ public class ViewCatalogController implements IAdapter {
         }
     }
 
+    /*
+        Borrow button action checks if a machine is selected from the catalog, if so checks if the current user
+        meets requirements for rentals (<5 current rentals) and if so adds it to their current rentals
+     */
     public void borrowBtn(ActionEvent actionEvent) {
         MachineAdapter mac = catView.getSelectionModel().getSelectedItem();
         String selectedName = mac.getName();
@@ -129,9 +136,11 @@ public class ViewCatalogController implements IAdapter {
         });
     }
 
+    /*
+        onReturn leads back to user or admin home page depending on if user or admin
+     */
     public void onReturn(ActionEvent actionEvent) {
-        try {/*Needs if statement to determine admin or normal user*/
-
+        try {
             if(Statics.CurrentUser.getType() == AccountType.CUSTOMER) {
                     Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
                 } else {
