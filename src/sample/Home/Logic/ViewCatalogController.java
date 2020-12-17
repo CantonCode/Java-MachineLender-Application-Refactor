@@ -136,14 +136,28 @@ public class ViewCatalogController implements IAdapter {
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                             quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
                             quantity=Math.min(Statics.Machines.get(rowName).getInventory(),quantity);
+                            System.out.println("I am Borrowing "+ quantity + ": " +selectedName);
+                            System.out.println(Statics.Machines.get(rowName).getInventory()-quantity+" Left!!");
                             Machine m = Statics.Machines.get(rowName);
                             m.setInventory(quantity);
-                            Statics.Machines.get(rowName).setInventory(Math.max(0,Statics.Machines.get(rowName).getInventory()-quantity));
-                            Statics.CurrentUser.addCurrentRentals(m);
+
+                            if(Statics.Machines.get(rowName).getInventory()>0) {
+                                AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
+                                Statics.Machines.get(rowName).setInventory(Math.max((Statics.Machines.get(rowName).getInventory() - quantity), 0));
+                                Statics.CurrentUser.addCurrentRentals(m);
+                            }
+                            else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
+
                             //save machines
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                             //save user;
                             io.serializeToFile("CustomerDB.ser", Statics.Users);
+                            new NavigationInvoker(new Previous(Main.currentStage)).activate();
+                            try {
+                                Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
                         }
 
@@ -152,7 +166,7 @@ public class ViewCatalogController implements IAdapter {
                 }
             }
 
-            AlertBox.displayInput("Borrow", "What Quantity Would you like to borrow?", "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
+            AlertBox.displayInput("Borrow "+selectedRow, "How many "+selectedRow+" Would you like to borrow?", "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
 
         }else {
 

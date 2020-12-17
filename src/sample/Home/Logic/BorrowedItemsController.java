@@ -3,11 +3,13 @@ package sample.Home.Logic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import sample.AlertBox;
 import sample.Authentication.Logic.FileManager;
 import sample.Authentication.Logic.LoginController;
 import sample.Authentication.Model.User;
@@ -15,6 +17,7 @@ import sample.Command.NavigationInvoker;
 import sample.Command.Previous;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineAdapter;
+import sample.IMethod;
 import sample.Main;
 import sample.Runner.IAdapter;
 import sample.Statics;
@@ -32,6 +35,12 @@ public class BorrowedItemsController implements IAdapter {
     public TableColumn machineCol;
     public TableColumn dueCol;
     public TableView<MachineAdapter> returnView;
+    public TableColumn idCol;
+    public TableColumn nameCol;
+    public TableColumn typeCol;
+    public TableColumn costPerDayCol;
+    public TableColumn invCol;
+    public Button cancelBtn;
     private FileManager io = new FileManager();
     List<MachineAdapter> machines = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
@@ -52,15 +61,22 @@ public class BorrowedItemsController implements IAdapter {
                 }
             });
 
+          cancelBtn.setOnAction(e->{
+              new NavigationInvoker(new Previous(Main.currentStage)).activate();
+          });
+
             for (Machine u : Statics.CurrentUser.getCurrRentals().stream().collect(Collectors.toList())) {
                 machines.add(new MachineAdapter(u));
             }
 
             final ObservableList<MachineAdapter> data = FXCollections.observableList(machines);
-            machineCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
-            dueCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
-
+            idCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("id"));
+            nameCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("name"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
+            costPerDayCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("costPerDay"));
+            invCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("inventory"));
             returnView.setItems(data);
+
         }
 
     }
@@ -93,46 +109,64 @@ public class BorrowedItemsController implements IAdapter {
             e.printStackTrace();
         }
     }
-
+    int rowName=0;
+    String selectedRow="";
     public void onReturn(ActionEvent actionEvent) {
-        MachineAdapter mac = returnView.getSelectionModel().getSelectedItem();
-        String selectedName = mac.getName();
-        System.out.println(mac.getName());
-        ArrayList<Machine> currRentals = Statics.CurrentUser.getCurrRentals();
-        System.out.println(currRentals);
-        Boolean removed = false;
+        selectedRow= returnView.getSelectionModel().getSelectedItem().getName();
+        class Borrow implements IMethod {
 
-        /*
-            For loop checks if any of the current rentals are selected and if so removes them from list
-         */
-        for (int i = 0; i < currRentals.size(); i++)
-            if (currRentals.get(i).getName().equals(selectedName)) {
+            @Override
+            public void execute() {
+                if (AlertBox.DISPLAY_QUESTION_ANSWER) {
+                    MachineAdapter mac = returnView.getSelectionModel().getSelectedItem();
+                    String selectedName = mac.getName();
+                    selectedRow=selectedName;
+                    System.out.println("---------");
+                    System.out.println(mac.getName());
+                    int index=-1;
+                    for(int i=0; i< Statics.Machines.size();i++){
+                        if(mac.getId().equals(Statics.Machines.get(i).getId()))index=i;
+                    }
 
-                if (!removed) {
-                    currRentals.remove(i);
-                    removed = true;
+
+
+                    //check if valid
+                    int quantity=1;
+                    if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
+                        quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
+                        System.out.println((Statics.CurrentUser.getCurrRentals().size()));
+                        quantity=Math.min(Statics.CurrentUser.getCurrRentals().get(rowName).getInventory(),quantity);
+                        System.out.println("I am returning "+ quantity + ": " +selectedName);
+                        System.out.println((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity+" Left!!"));
+                        Machine m =(Statics.CurrentUser.getCurrRentals().get(rowName));
+                        m.setInventory(quantity);
+
+                            AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
+                            if(index>=0)
+                        Statics.Machines.get(index).setInventory(Math.max((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity), 0));
+
+
+                        //save machines
+                        io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
+                        //save user;
+                        io.serializeToFile("CustomerDB.ser", Statics.Users);
+                        new NavigationInvoker(new Previous(Main.currentStage)).activate();
+                        try {
+                            Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new ViewCatalogController());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
                 }
             }
-
-        //finds user and updates rentals
-        for (User u : Statics.Users) {
-            if (u.getUsername().equals(Statics.CurrentUser.getUsername())) {
-                System.out.println("CURRENT USER FOUND IN DB");
-                u.setCurrRentals(currRentals);
-                Statics.CurrentUser.setCurrRentals(currRentals);
-                System.out.println(u);
-
-                ArrayList<User> user = new ArrayList<>();
-                user.add(Statics.CurrentUser);
-
-                io.serializeToFile("CustomerDB.ser", Statics.Users);
-                io.serializeToFile("currentUser.ser", user);
-
-                System.out.println(currRentals);
-            }
         }
-    }
 
+        AlertBox.displayInput("Return "+selectedRow, "How many "+selectedRow+" Would you like to return?", "Confirm", "Cancel","Enter how much you want to return",new Borrow());
+
+    }
     /*
         goback to bring back to userHome UI
      */

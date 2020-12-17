@@ -48,16 +48,20 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TableView prefHeight="228.0" prefWidth="578.0">
+                  <TableView fx:id="returnView" prefHeight="228.0" prefWidth="578.0">
                     <columns>
-                      <TableColumn fx:id="machineCol" prefWidth="456.0" text="Machine" />
-                      <TableColumn fx:id="dueCol" minWidth="0.0" prefWidth="121.0" text="Due" />
+                       <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
+                       <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="216.0" text="Name" />
+                       <TableColumn fx:id="typeCol" prefWidth="110.0" text="Type" />
+                       <TableColumn fx:id="costPerDayCol" prefWidth="87.0" text="Cost per Day" />
+                       <TableColumn fx:id="invCol" prefWidth="64.0" text="Inventory" />
                     </columns>
                   </TableView>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <Label fx:id="selectedMachine" prefHeight="17.0" prefWidth="497.0" text="Label" />
                         <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="25.0" prefWidth="110.0" text="Return" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="25.0" prefWidth="110.0" text="Cancel" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

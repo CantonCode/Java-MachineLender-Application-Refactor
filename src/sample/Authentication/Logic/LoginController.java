@@ -51,9 +51,6 @@ public class LoginController implements IAdapter {
     ArrayList<Machine>machines=new ArrayList<>();
     FileManager io=new FileManager();
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
 
     private void loadSceneAndSendInfo() {
         try {
@@ -89,10 +86,10 @@ public class LoginController implements IAdapter {
     public void loginButtonOnAction(ActionEvent event) throws IOException {
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
-                messanger.setText("Logged in as: "+Statics.CurrentUser);
+//                messanger.setText("Logged in as: "+Statics.CurrentUser);
                 ArrayList<User> users= new ArrayList<>();
                 users.add(Statics.CurrentUser);
-                messanger.setStyle("-fx-text-fill: green;");
+             //   messanger.setStyle("-fx-text-fill: green;");
 
                 io.serializeToFile("currentUser.ser",users);
 
