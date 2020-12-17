@@ -40,7 +40,6 @@ public class ManageCustomers implements IAdapter {
         for(User u : Statics.Users.stream().filter(user -> user.getType()== AccountType.CUSTOMER).collect(Collectors.toList())) {
             customers.add(new UserAdapter(u));
         }
-
         final ObservableList<UserAdapter> data = FXCollections.observableList(customers);
         cidCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("id"));
         cUsernameCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("username"));
