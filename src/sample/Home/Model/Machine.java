@@ -8,6 +8,7 @@ public abstract class Machine implements Serializable {
     private String name;
     private int costPerDay;
     private String type;
+    private int inventory;
 
     public Machine() {
     }
@@ -26,6 +27,10 @@ public abstract class Machine implements Serializable {
         this.id = id;
     }
 
+    public int getInventory() {
+        return inventory;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,7 +42,7 @@ public abstract class Machine implements Serializable {
     public int getCostPerDay() {
         return costPerDay;
     }
-
+//go ahe
     public void setCostPerDay(int costPerDay) { this.costPerDay = costPerDay; }
 
     public abstract double calcRent(int cost);
@@ -48,5 +53,9 @@ public abstract class Machine implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory=inventory;
     }
 }

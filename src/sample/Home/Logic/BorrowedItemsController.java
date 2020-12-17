@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import sample.Authentication.Logic.FileManager;
 import sample.Authentication.Logic.LoginController;
 import sample.Authentication.Model.User;
+import sample.Command.NavigationInvoker;
+import sample.Command.Previous;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineAdapter;
 import sample.Main;
@@ -135,10 +137,6 @@ public class BorrowedItemsController implements IAdapter {
         goback to bring back to userHome UI
      */
     public void goBack(ActionEvent actionEvent) {
-        try {
-            Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new UserHomeController());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new NavigationInvoker(new Previous(Main.currentStage)).activate();
     }
 }

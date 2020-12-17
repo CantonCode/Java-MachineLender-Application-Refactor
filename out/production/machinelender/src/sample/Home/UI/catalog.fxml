@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Home.Logic.ViewCatalogController">
    <children>
@@ -45,13 +52,14 @@
                     <columns>
                       <TableColumn fx:id="idCol" prefWidth="100.0" text="ID" />
                       <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="216.0" text="Name" />
-                       <TableColumn fx:id="typeCol" prefWidth="167.0" text="Type" />
-                       <TableColumn fx:id="costPerDayCol" prefWidth="94.0" text="Cost per Day" />
+                       <TableColumn fx:id="typeCol" prefWidth="110.0" text="Type" />
+                       <TableColumn fx:id="costPerDayCol" prefWidth="87.0" text="Cost per Day" />
+                        <TableColumn fx:id="invCol" prefWidth="64.0" text="Inventory" />
                     </columns>
                   </TableView>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Label fx:id="itemLabel" prefHeight="17.0" prefWidth="343.0" text="Label" />
+                        <Label fx:id="itemLabel" prefHeight="17.0" prefWidth="343.0" />
                         <Button fx:id="borrowBtn" mnemonicParsing="false" onAction="#borrowBtn" prefHeight="25.0" prefWidth="110.0" text="Borrow" />
                         <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#onReturn" text="Return" />
                      </children>

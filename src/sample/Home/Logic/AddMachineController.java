@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import sample.Authentication.Logic.FileManager;
+import sample.Command.NavigationInvoker;
+import sample.Command.Previous;
 import sample.Home.Model.Machine;
 import sample.Home.Model.MachineFactory;
 import sample.Main;
@@ -66,11 +68,7 @@ public class AddMachineController implements IAdapter {
         onReturn action to bring back to adminHome
      */
     public void onReturn(ActionEvent actionEvent) {
-        try {
-            Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      new NavigationInvoker(new Previous(Main.currentStage)).activate();
     }
 
     /*
@@ -88,6 +86,7 @@ public class AddMachineController implements IAdapter {
             newMachine.setName(machineName.getText());
             newMachine.setCostPerDay(i);
             newMachine.setType(type);
+            newMachine.setInventory(100);
             machines.add(newMachine);
             Statics.Machines.add(newMachine);
 
