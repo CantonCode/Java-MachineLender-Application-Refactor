@@ -5,6 +5,9 @@ import sample.Authentication.Model.Encryption;
 import sample.Authentication.Model.Decryption;
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    Encryption test tests the functionality of encrypting and decrypting user and admin passwords for added security
+ */
 class EncryptionTest {
     private Encryption encryptionTest = new Encryption();
     private Decryption decryptionTest = new Decryption();
