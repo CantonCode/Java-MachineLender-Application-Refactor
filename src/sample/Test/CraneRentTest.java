@@ -1,10 +1,10 @@
 package sample.Test;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 import sample.Home.Model.Crane;
 import sample.Home.Model.Machine;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 /*
     CraneRentTest conducts some tests to check if the calcRent method functions correctly
