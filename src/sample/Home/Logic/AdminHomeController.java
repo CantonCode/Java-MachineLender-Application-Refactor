@@ -57,6 +57,9 @@ public class AdminHomeController implements IAdapter {
         }
     }
 
+    /*
+        Clicking settings icon will bring back to login page
+     */
     public void onSettings(MouseEvent mouseEvent) {
         ArrayList<User> users= new ArrayList<>();
         new FileManager().serializeToFile("currentUser.ser",users);

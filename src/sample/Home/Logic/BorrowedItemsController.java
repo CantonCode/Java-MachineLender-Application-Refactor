@@ -79,6 +79,9 @@ public class BorrowedItemsController implements IAdapter {
     public void custom(Object... args) {
     }
 
+    /*
+        clicking settings icon brings back to login
+     */
     public void onSettings(MouseEvent mouseEvent) {
         ArrayList<User> users= new ArrayList<>();
         new FileManager().serializeToFile("currentUser.ser",users);
@@ -109,6 +112,7 @@ public class BorrowedItemsController implements IAdapter {
                 }
             }
 
+        //finds user and updates rentals
         for (User u : Statics.Users) {
             if (u.getUsername().equals(Statics.CurrentUser.getUsername())) {
                 System.out.println("CURRENT USER FOUND IN DB");
@@ -127,6 +131,9 @@ public class BorrowedItemsController implements IAdapter {
         }
     }
 
+    /*
+        goback to bring back to userHome UI
+     */
     public void goBack(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/userHome.fxml",new UserHomeController());

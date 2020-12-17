@@ -1,19 +1,20 @@
 package sample.Home.Model;
 
-import sample.Home.Model.Machine;
-
+/*
+    Class to make cranes
+ */
 public class Crane extends Machine {
 
-
-
     public Crane() {
-
     }
 
     public Crane(String id, String name, int costPerDay) {
         super(id, name, costPerDay);
     }
 
+    /*
+        Method to calculate rent for crane with discounts for longer time periods
+     */
     public double calcRent(int days) {
         double price = this.getCostPerDay()*days;
         if (days>=3 && days<7) {

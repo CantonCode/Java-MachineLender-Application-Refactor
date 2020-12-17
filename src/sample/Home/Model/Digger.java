@@ -1,12 +1,11 @@
 package sample.Home.Model;
 
-import sample.Home.Model.Machine;
-
+/*
+    Class to make diggers
+ */
 public class Digger extends Machine {
 
-
     public Digger() {
-
     }
 
     public Digger(String id,String name,int costPerDay) {
@@ -18,6 +17,9 @@ public class Digger extends Machine {
         super.setType("Digger");
     }
 
+    /*
+        Method to calculate rent for digger with discounts for longer time periods
+     */
     public double calcRent(int days) {
         double price = this.getCostPerDay()*days;
         if (days>7 && days<=30) {

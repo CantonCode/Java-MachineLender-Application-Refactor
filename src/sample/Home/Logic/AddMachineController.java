@@ -38,6 +38,7 @@ public class AddMachineController implements IAdapter {
     ArrayList<Machine> machines = new ArrayList<Machine>();
     FileManager io = new FileManager();
 
+
     @Override
     public void init() {
         Arrays.asList("MachineDB.ser").forEach(path-> {
@@ -61,6 +62,9 @@ public class AddMachineController implements IAdapter {
     public void custom(Object... args) {
     }
 
+    /*
+        onReturn action to bring back to adminHome
+     */
     public void onReturn(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
@@ -69,6 +73,9 @@ public class AddMachineController implements IAdapter {
         }
     }
 
+    /*
+        onAdd action creates the inputted machine and stores it then leads admin back to adminHome
+     */
     public void onAdd(ActionEvent actionEvent) {
         try {
             String type = machineType.getValue().toString();

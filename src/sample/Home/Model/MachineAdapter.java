@@ -3,7 +3,9 @@ package sample.Home.Model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-
+/*
+    Adapter class for machines
+ */
 public class MachineAdapter {
     private final SimpleStringProperty id;
     private final SimpleStringProperty name;

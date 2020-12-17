@@ -30,15 +30,12 @@ public class AddUserController implements IAdapter {
 
     @FXML
     private TextField nameText;
-
     @FXML
     private TextField password;
     @FXML
     private TextField userName;
-
     @FXML
     private ComboBox accountType;
-
 
     @Override
     public void init() {
@@ -48,7 +45,6 @@ public class AddUserController implements IAdapter {
         ObservableList<String> accounts = FXCollections.observableArrayList("User", "Admin");
         accountType.setItems(accounts);
         //ObservableList<String> options = FXCollections.observableArrayList(option);
-
     }
 
     @Override
@@ -63,6 +59,9 @@ public class AddUserController implements IAdapter {
         }
     }
 
+    /*
+        onAdd action creates a user using inputted information then brings back to login
+     */
     public void onAdd(ActionEvent actionEvent) {
         try {
             String username = userName.getText();
@@ -70,6 +69,7 @@ public class AddUserController implements IAdapter {
             String pw = password.getText();
             String type = accountType.getValue().toString();
             RegisterController rc = new RegisterController();
+            //if else statements to check if account type is valid
             if (type.equals("Admin")) {
                 rc.manualAdmin(name, username, pw);
             } else if (type.equals("User")) {

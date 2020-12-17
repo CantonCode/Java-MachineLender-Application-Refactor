@@ -1,6 +1,5 @@
 package sample.Home.Model;
 
-
 import java.io.Serializable;
 
 public abstract class Machine implements Serializable {
@@ -10,9 +9,7 @@ public abstract class Machine implements Serializable {
     private int costPerDay;
     private String type;
 
-
     public Machine() {
-
     }
 
     public Machine(String id,String name,int costPerDay) {
@@ -20,7 +17,6 @@ public abstract class Machine implements Serializable {
         this.name = name;
         this.costPerDay = costPerDay;
     }
-
 
     public String getId() {
         return id;
@@ -53,5 +49,4 @@ public abstract class Machine implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-
 }
