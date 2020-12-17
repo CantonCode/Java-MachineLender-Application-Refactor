@@ -148,7 +148,10 @@ public class ViewCatalogController implements IAdapter {
                                 Statics.CurrentUser.addCurrentRentals(m);
                             }
                             else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
-
+                            int index=-1;
+                            for(int i=0; i < Statics.Users.size(); i++){
+                              //  if(Statics.Users.get(i).getId().equals(Statics.CurrentUser))
+                            }
                             //save machines
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                             //save user;
