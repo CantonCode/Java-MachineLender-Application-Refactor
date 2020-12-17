@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.NullStringConversion;
 import sample.AlertBox;
 import sample.Authentication.Logic.FileManager;
 import sample.Authentication.Logic.LoginController;
