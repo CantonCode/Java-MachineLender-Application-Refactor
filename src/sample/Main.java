@@ -9,6 +9,7 @@ import sample.Authentication.Model.AccountType;
 import sample.Home.Logic.AdminHomeController;
 import sample.Home.Logic.UserHomeController;
 import sample.Home.Model.Machine;
+import sample.Observer.ObserverInvoker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,12 +26,14 @@ public class Main extends Application {
         FileManager io = new FileManager();
 
         System.out.println(Arrays.toString(args));
+        Statics.inventoryObservers =new ObserverInvoker();
         Arrays.asList("MachineDB.ser").forEach(path -> {
             try {
                 io.readSerializedFile(path, "machines");
                 machines.addAll(io.machines);
                 System.out.println(machines);
                 Statics.Machines.addAll(machines);
+                Statics.inventoryObservers.registerNewObserver();
             } catch (IOException e) {
                 e.printStackTrace();
             }

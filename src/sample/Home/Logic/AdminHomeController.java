@@ -31,6 +31,8 @@ public class AdminHomeController implements IAdapter {
     }
 
     private void loadUsers() {
+        Statics.Users.clear();
+
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);

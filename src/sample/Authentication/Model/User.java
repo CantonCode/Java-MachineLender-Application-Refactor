@@ -106,4 +106,8 @@ public abstract class User implements Serializable {
                 ", rentals =" + currRentals +
                 '}';
     }
+
+    public  void addCurrentRentals(Machine m){
+        this.currRentals.add(m);
+    }
 }
