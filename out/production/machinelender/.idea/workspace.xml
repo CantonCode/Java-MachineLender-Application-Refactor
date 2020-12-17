@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="000b8a8b-5511-4cf9-b7aa-80bb4d42d6d5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/description.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/DB/AdminDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/DB/CustomerDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/DB/MachineDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/DB/currentUser.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/DB/AdminDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/DB/CustomerDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/DB/MachineDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/DB/currentUser.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/images/Settings-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/images/User_icon_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/Resources/images/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/images/Settings-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/images/User_icon_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/images/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/inventory11.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/machinelender.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/FileManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/IValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/PasswordValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/RegisterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Logic/Validator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/AccountType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/Admin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/Decryption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/Encryption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/ISecurity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/Security.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/Model/UserAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/UI/login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Authentication/UI/register.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/AddMachineController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/AdminHomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/BorrowedItemsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/Home.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/ManageCustomers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/UserHomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Logic/ViewCatalogController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Model/Crane.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Model/Digger.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Model/Machine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Model/MachineAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/Model/MachineFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/addMachine.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/adminHome.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/borrowedItems.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/catalog.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/home.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/manage_customers.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Home/UI/userHome.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Navigation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Runner/IAdapter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Runner/Logic/LenderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Runner/UI/lender.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/sample/Statics.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/DB/AdminDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/DB/CustomerDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/DB/MachineDB.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/DB/currentUser.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/images/Settings-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/images/User_icon_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/Resources/images/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Authentication/UI/login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Authentication/UI/register.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/addMachine.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/adminHome.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/borrowedItems.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/catalog.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/home.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/manage_customers.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Home/UI/userHome.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/src/sample/Runner/UI/lender.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/machinelender/userDatabase.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Home/Logic/ViewCatalogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Home/Logic/ViewCatalogController.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Conor Canton &lt;conorstreete@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1lbP6JwBwAxB56BAGSVwdgNIHrq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <module name="machinelender" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules=javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="sample.Main" />
+      <module name="machinelender" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules=javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="000b8a8b-5511-4cf9-b7aa-80bb4d42d6d5" name="Default Changelist" comment="" />
+      <created>1607862640674</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607862640674</updated>
+    </task>
+    <task id="LOCAL-00001" summary="added model to Home">
+      <created>1607873695864</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607873695864</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixing">
+      <created>1607884879081</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607884879082</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added model to Home" />
+    <MESSAGE value="fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing" />
+  </component>
+</project>

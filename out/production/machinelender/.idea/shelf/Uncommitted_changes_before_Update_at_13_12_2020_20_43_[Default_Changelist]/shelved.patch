@@ -1,0 +1,94 @@
+Index: src/sample/Home/Model/MachineFactory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sample.Home.Model;\r\n\r\npublic class MachineFactory {\r\n    public Machine createNewMachine(String type){\r\n        if(type == null || type.isEmpty())\r\n            return null;\r\n\r\n        if(\"Digger\".equals(type)){\r\n            return new Digger();\r\n        }else if(\"Crane\".equals(type)){\r\n            return new Crane();\r\n        }\r\n\r\n        return null;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/sample/Home/Model/MachineFactory.java b/src/sample/Home/Model/MachineFactory.java
+--- a/src/sample/Home/Model/MachineFactory.java	(revision 729787205a2303bf03427c0b22545fb283e81fb0)
++++ b/src/sample/Home/Model/MachineFactory.java	(date 1607890689986)
+@@ -6,8 +6,10 @@
+             return null;
+ 
+         if("Digger".equals(type)){
++            System.out.println("CREATING DIGGER TYPE");
+             return new Digger();
+         }else if("Crane".equals(type)){
++            System.out.println("CREATING CRANE TYPE");
+             return new Crane();
+         }
+ 
+Index: src/sample/Home/Logic/AddMachineController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sample.Home.Logic;\r\n\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableArray;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.ComboBox;\r\nimport javafx.scene.control.TextField;\r\nimport sample.Home.Model.Machine;\r\nimport sample.Home.Model.MachineFactory;\r\nimport sample.Main;\r\nimport sample.Runner.IAdapter;\r\n\r\nimport javax.crypto.Mac;\r\nimport java.io.IOException;\r\nimport java.net.URL;\r\nimport java.util.ArrayList;\r\nimport java.util.ResourceBundle;\r\n\r\npublic class AddMachineController implements IAdapter{\r\n    @FXML\r\n    private TextField machineCost;\r\n\r\n    @FXML\r\n    private TextField machineName;\r\n\r\n   @FXML\r\n   ComboBox machineType;\r\n    MachineFactory factory = new MachineFactory();\r\n\r\n    public void onReturn(ActionEvent actionEvent) {\r\n        try {\r\n            Main.currentStage.setFXMLScene(\"Home/UI/adminHome.fxml\",new AdminHomeController());\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void onAdd(ActionEvent actionEvent) {\r\n        try {\r\n            String type = machineType.getValue().toString();\r\n            Machine newMachine = factory.createNewMachine(type);\r\n\r\n            String time = String.valueOf(System.currentTimeMillis());\r\n            int i = Integer.parseInt(machineCost.getText());\r\n\r\n            newMachine.setName(machineName.getText());\r\n            newMachine.setCostPerDay(i);\r\n            newMachine.setId(time);\r\n\r\n            System.out.println(newMachine.getCostPerDay() + \" \" + newMachine.getType());\r\n\r\n           // machineSerializeToFile\r\n\r\n            Main.currentStage.setFXMLScene(\"Home/UI/adminHome.fxml\",new AdminHomeController());\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void init() {\r\n        ArrayList<String> option = new ArrayList<String>();\r\n        option.add(\"Digger\");\r\n        option.add(\"Crane\");\r\n\r\n        ObservableList<String> options = FXCollections.observableArrayList(option);\r\n\r\n        machineType.setItems(options);\r\n    }\r\n\r\n    @Override\r\n    public void custom(Object... args) {\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/sample/Home/Logic/AddMachineController.java b/src/sample/Home/Logic/AddMachineController.java
+--- a/src/sample/Home/Logic/AddMachineController.java	(revision 729787205a2303bf03427c0b22545fb283e81fb0)
++++ b/src/sample/Home/Logic/AddMachineController.java	(date 1607892161604)
+@@ -43,6 +43,8 @@
+             String type = machineType.getValue().toString();
+             Machine newMachine = factory.createNewMachine(type);
+ 
++            newMachine.setType(type);
++
+             String time = String.valueOf(System.currentTimeMillis());
+             int i = Integer.parseInt(machineCost.getText());
+ 
+@@ -50,7 +52,7 @@
+             newMachine.setCostPerDay(i);
+             newMachine.setId(time);
+ 
+-            System.out.println(newMachine.getCostPerDay() + " " + newMachine.getType());
++            System.out.println(newMachine.getCostPerDay() + " " + newMachine.getType() + " " + newMachine);
+ 
+            // machineSerializeToFile
+ 
+Index: src/sample/Home/Model/Crane.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sample.Home.Model;\r\n\r\nimport sample.Home.Model.Machine;\r\n\r\npublic class Crane extends Machine {\r\n\r\n\r\n\r\n    public Crane() {\r\n    }\r\n\r\n    public Crane(String id, String name, int costPerDay) {\r\n        super(id, name, costPerDay);\r\n        super.setType(\"Crane\");\r\n\r\n    }\r\n\r\n    public double calcRent(int days) {\r\n        double price = this.getCostPerDay()*days;\r\n        if(days>=3 && days<7){\r\n            price *= 0.9;\r\n        }else if(days>=7 && days<30){\r\n            price *= 0.8;\r\n        }else if(days>=30 && days<150){\r\n            price *= 0.7;\r\n        }else if(days>150){\r\n            price *= 0.6;\r\n        }\r\n        return price;\r\n\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/sample/Home/Model/Crane.java b/src/sample/Home/Model/Crane.java
+--- a/src/sample/Home/Model/Crane.java	(revision 729787205a2303bf03427c0b22545fb283e81fb0)
++++ b/src/sample/Home/Model/Crane.java	(date 1607891779360)
+@@ -11,7 +11,6 @@
+ 
+     public Crane(String id, String name, int costPerDay) {
+         super(id, name, costPerDay);
+-        super.setType("Crane");
+ 
+     }
+ 
+Index: src/sample/Home/Model/Digger.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sample.Home.Model;\r\n\r\nimport sample.Home.Model.Machine;\r\n\r\npublic class Digger extends Machine {\r\n\r\n\r\n    public Digger(){\r\n    }\r\n\r\n    public Digger(String id,String name,int costPerDay){\r\n        super(id,name,costPerDay);\r\n        super.setType(\"Digger\");\r\n    }\r\n\r\n\r\n\r\n    public double calcRent(int days) {\r\n        double price = this.getCostPerDay()*days;\r\n        if(days>7 && days<=30){\r\n            price *= 0.9;\r\n        }else if(days>30 && days<=150){\r\n            price *= 0.8;\r\n        }else if(days>150){\r\n            price *= 0.7;\r\n        }\r\n        return price;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/sample/Home/Model/Digger.java b/src/sample/Home/Model/Digger.java
+--- a/src/sample/Home/Model/Digger.java	(revision 729787205a2303bf03427c0b22545fb283e81fb0)
++++ b/src/sample/Home/Model/Digger.java	(date 1607891973816)
+@@ -10,11 +10,14 @@
+ 
+     public Digger(String id,String name,int costPerDay){
+         super(id,name,costPerDay);
++
++    }
++
++    @Override
++    public void setType(String type) {
+         super.setType("Digger");
+     }
+ 
+-
+-
+     public double calcRent(int days) {
+         double price = this.getCostPerDay()*days;
+         if(days>7 && days<=30){
