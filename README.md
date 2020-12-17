@@ -2,7 +2,8 @@
 
 The IDE used was IntelliJ
 
-To setup JavaFX 11 is required along with JUnit 5.4.2.
+It is required to setup JavaFX 11 along with JUnit 5.4.2.
+Links below provide instructions for use and links to required software. 
 
 JavaFX Download: https://gluonhq.com/products/javafx/
 

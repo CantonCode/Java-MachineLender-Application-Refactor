@@ -33,18 +33,18 @@ import java.util.*;
 /*
     Class for the logic necessary for the login page.
  */
-public class LoginController implements Initializable, IAdapter {
+public class LoginController implements IAdapter {
 
     @FXML
     private Button loginButton, registerPageButton;
     @FXML
-    private Label messager;
+    private Label messanger;
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
 
-    String userSname, userId;
+    String username, userId;
 
 
     ArrayList<User>users=new ArrayList<>();
@@ -67,10 +67,10 @@ public class LoginController implements Initializable, IAdapter {
             //Get controller of scene2
             LenderController lend = loader.getController();
             //Pass whatever data you want. You can have multiple method calls here
-            lend.setInfo(userSname, userId);
-            System.out.println("The passed in info " + userSname + " " + userId);
+            lend.setInfo(username, userId);
+            System.out.println("The passed in info " + username + " " + userId);
             lend.addInv();
-            lend.showInformation(userSname, userId);
+            lend.showInformation(username, userId);
 
             //Show scene 2 in new window
             Stage stage = new Stage();
@@ -79,6 +79,7 @@ public class LoginController implements Initializable, IAdapter {
             stage.show();
         } catch (IOException ex) {
             System.err.println(ex);
+            System.out.println("Error check");
         }
     }
 
@@ -88,10 +89,10 @@ public class LoginController implements Initializable, IAdapter {
     public void loginButtonOnAction(ActionEvent event) throws IOException {
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
-                messager.setText("Logged in as: "+Statics.CurrentUser);
+                messanger.setText("Logged in as: "+Statics.CurrentUser);
                 ArrayList<User> users= new ArrayList<>();
                 users.add(Statics.CurrentUser);
-                messager.setStyle("-fx-text-fill: green;");
+                messanger.setStyle("-fx-text-fill: green;");
 
                 io.serializeToFile("currentUser.ser",users);
 
@@ -99,12 +100,10 @@ public class LoginController implements Initializable, IAdapter {
                     Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new UserHomeController()); //test 2 Home/UI/adminHome.fxml
                 } else {
                     Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml", new AdminHomeController()); //test 2
+                    System.out.println("Admin page check");
                 }
+                System.out.println("Login Button Check");
             }
-        } else {
-            messager.setText("Please enter a Username AND Password");
-            messager.setStyle("-fx-text-fill: red;");
-
         }
     }
 
@@ -119,8 +118,8 @@ public class LoginController implements Initializable, IAdapter {
             }
         }
         AlertBox.display("Login Error","Username and/or Password was incorrect!");
-        messager.setText("User not recognized");
-        messager.setStyle("-fx-text-fill: red;");
+        messanger.setText("User not recognized");
+        messanger.setStyle("-fx-text-fill: red;");
         return false;
     }
 
@@ -134,6 +133,7 @@ public class LoginController implements Initializable, IAdapter {
             try {
                 io.readSerializedFile((String)path,"users");
                 users.addAll(io.users);
+                System.out.println("DB send check");
             } catch (IOException e) {
                 e.printStackTrace();
             }
