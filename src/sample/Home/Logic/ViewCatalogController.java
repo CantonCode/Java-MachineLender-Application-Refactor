@@ -131,7 +131,7 @@ public class ViewCatalogController implements IAdapter {
                         System.out.println("---------");
                         System.out.println(mac.getName());
 
-                        //check if valid
+                        //check if validF
                         int quantity=1;
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                             quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
@@ -185,9 +185,7 @@ public class ViewCatalogController implements IAdapter {
                             if(e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.X){
                                 Statics.Machines.remove(rowName);
                                 io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
-
                                     new NavigationInvoker(new Previous(Main.currentStage)).activate();
-
                             }
                     }
                 }

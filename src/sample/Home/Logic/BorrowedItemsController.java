@@ -128,8 +128,6 @@ public class BorrowedItemsController implements IAdapter {
                         if(mac.getId().equals(Statics.Machines.get(i).getId()))index=i;
                     }
 
-
-
                     //check if valid
                     int quantity=1;
                     if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
@@ -140,6 +138,7 @@ public class BorrowedItemsController implements IAdapter {
                         System.out.println((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity+" Left!!"));
                         Machine m =(Statics.CurrentUser.getCurrRentals().get(rowName));
                         m.setInventory(quantity);
+
 
                             AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
                             if(index>=0)
