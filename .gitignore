@@ -21,3 +21,4 @@ out/production/machinelender/src/Resources/images/test.txt
 out/production/machinelender/userDatabase.txt
 machinelender.iml
 machinelender.iml
+*.kotlin_module
