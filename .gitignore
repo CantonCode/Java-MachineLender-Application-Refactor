@@ -14,3 +14,10 @@ machinelender.iml
 *.xml
 *.ser
 *.png
+out/production/machinelender/images/test.txt
+out/production/machinelender/README.md
+out/production/machinelender/Resources/images/test.txt
+out/production/machinelender/src/Resources/images/test.txt
+out/production/machinelender/userDatabase.txt
+machinelender.iml
+machinelender.iml
