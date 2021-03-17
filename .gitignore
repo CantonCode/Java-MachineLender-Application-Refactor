@@ -13,3 +13,4 @@ out/production/machinelender/.idea/vcs.xml
 machinelender.iml
 *.xml
 *.ser
+*.png
