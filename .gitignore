@@ -1,2 +1,12 @@
 
 .idea/libraries/lib.xml
+out/production/machinelender/.idea/encodings.xml
+out/production/machinelender/.idea/compiler.xml
+out/production/machinelender/.idea/description.html
+out/production/machinelender/.idea/gradle.xml
+out/production/machinelender/.idea/misc.xml
+*.class
+out/production/machinelender/src/sample/Authentication/UI/login.fxml
+*.fxml
+out/production/machinelender/.idea/modules.xml
+out/production/machinelender/.idea/vcs.xml
