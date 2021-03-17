@@ -12,3 +12,4 @@ out/production/machinelender/.idea/modules.xml
 out/production/machinelender/.idea/vcs.xml
 machinelender.iml
 *.xml
+*.ser
