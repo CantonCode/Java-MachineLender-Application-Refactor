@@ -1,6 +1,6 @@
 package sample.Home.Model;
 
-public interface AbstractMachineFactory {
+public interface IMachineFactory {
     Machine createNewMachine(String type);
 }
 
