@@ -10,3 +10,5 @@ out/production/machinelender/src/sample/Authentication/UI/login.fxml
 *.fxml
 out/production/machinelender/.idea/modules.xml
 out/production/machinelender/.idea/vcs.xml
+machinelender.iml
+*.xml
