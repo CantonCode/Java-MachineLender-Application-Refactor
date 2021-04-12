@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Home.Logic.ManageCustomers">
+   <children>
+      <BorderPane layoutX="7.0" layoutY="12.0" prefHeight="377.0" prefWidth="585.0">
+         <top>
+            <Label fx:id="customerTableLabel" prefHeight="38.0" prefWidth="569.0" text="Manage customers" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <TableView fx:id="cTable" editable="true" prefHeight="313.0" prefWidth="587.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="cidCol" prefWidth="119.0" text="ID" />
+                <TableColumn fx:id="cUsernameCol" prefWidth="147.0" text="Username" />
+                  <TableColumn fx:id="cNameCol" prefWidth="132.0" text="Name" />
+                  <TableColumn fx:id="cCreatedCol" prefWidth="132.0" text="Date Created" />
+              </columns>
+            </TableView>
+         </left>
+         <bottom>
+            <HBox alignment="TOP_RIGHT" prefHeight="34.0" prefWidth="587.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="299.0" text="Tip: (backspace) to delete selected row, click save changes to  keep changes" textFill="#8d8d8d">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelChanges" text="Cancel" />
+                  <Button fx:id="adminButton" mnemonicParsing="false" onAction="#addUser" text="Add User" />
+                  <Button fx:id="cTable_save" defaultButton="true" mnemonicParsing="false" onAction="#saveChanges" text="Save Changes" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
