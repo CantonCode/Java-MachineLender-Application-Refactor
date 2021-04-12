@@ -1,5 +1,6 @@
 package Main.Authentication.Logic;
 
+import Main.Authentication.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,10 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.AlertBox;
-import Main.Authentication.Model.AccountType;
-import Main.Authentication.Model.Admin;
-import Main.Authentication.Model.Customer;
-import Main.Authentication.Model.User;
 import Main.Home.Model.Machine;
 import Main.Main;
 import Main.InventoryHelper.IAdapter;
@@ -55,7 +52,7 @@ public class RegisterController implements IAdapter {
     public void manualAdmin(String Name, String Username, String Password) {
         String time = String.valueOf(System.currentTimeMillis());
 
-        User origin = new Admin(time, Name, Username, Password, AccountType.ADMIN, emptyMac);
+        User origin = new AdminBuilder().setId(time).setName(Name).setUsername(Username).setPassword(Password).setAccountType(AccountType.ADMIN).setCurr(emptyMac).createAdmin();
         origin.encryptPassword();
         users.add(origin);
         io.serializeToFile("AdminDB.ser", users);
@@ -63,7 +60,7 @@ public class RegisterController implements IAdapter {
 
     public void manualUser(String Name, String Username, String Password) {
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new Customer(time, Name, Username, Password, AccountType.CUSTOMER, emptyMac);
+        regUser = new CustomerBuilder().setId(time).setName(Name).setUsername(Username).setPassword(Password).setType(AccountType.CUSTOMER).setCurr(emptyMac).createCustomer();
 
         regUser.encryptPassword();
 
@@ -104,7 +101,7 @@ public class RegisterController implements IAdapter {
      */
     private void registerAsCustomer() {
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new Customer(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), this.accountType, emptyMac);
+        regUser = new CustomerBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setType(this.accountType).setCurr(emptyMac).createCustomer();
 
         regUser.encryptPassword();
 
@@ -119,7 +116,7 @@ public class RegisterController implements IAdapter {
      */
     private void registerAsAdmin() {
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new Admin(time, firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), this.accountType, emptyMac);
+        regUser = new AdminBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setAccountType(this.accountType).setCurr(emptyMac).createAdmin();
 
         regUser.encryptPassword();
 
