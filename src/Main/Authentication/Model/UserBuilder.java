@@ -43,10 +43,10 @@ public class UserBuilder {
     }
 
     public User createUser() {
-        return new User(id, name, username, password, curr) {
+        return new User(id, name, username, password, type,curr) {
             @Override
             public void encryptPassword() {
-
+                System.out.println("USER IS OF TYPE:" + this.type);
             }
 
             @Override

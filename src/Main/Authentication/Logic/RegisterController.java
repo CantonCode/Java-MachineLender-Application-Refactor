@@ -63,7 +63,7 @@ public class RegisterController implements IAdapter {
         regUser = new CustomerBuilder().setId(time).setName(Name).setUsername(Username).setPassword(Password).setType(AccountType.CUSTOMER).setCurr(emptyMac).createCustomer();
 
         regUser.encryptPassword();
-
+        System.out.println(regUser);
         users.add(regUser);
         Statics.CurrentUser = regUser;
 
@@ -106,6 +106,7 @@ public class RegisterController implements IAdapter {
         regUser.encryptPassword();
 
         users.add(regUser);
+        System.out.println(regUser);
         Statics.CurrentUser = regUser;
 
         io.serializeToFile("CustomerDB.ser", users);
@@ -119,7 +120,7 @@ public class RegisterController implements IAdapter {
         regUser = new AdminBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setAccountType(this.accountType).setCurr(emptyMac).createAdmin();
 
         regUser.encryptPassword();
-
+        System.out.println(regUser);
         users.add(regUser);
         Statics.CurrentUser = regUser;
         io.serializeToFile("AdminDB.ser", users);

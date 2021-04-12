@@ -31,8 +31,11 @@ public class UserHomeController implements IAdapter {
     @Override
     public void init() {
         if(Statics.CurrentUser!=null) {
+            System.out.println("CURRENT USER:"+ Statics.CurrentUser);
             loadUsers();
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
+        }else{
+            System.out.println("CURRENT USER:"+ Statics.CurrentUser);
         }
     }
 

@@ -43,6 +43,6 @@ public class CustomerBuilder {
     }
 
     public Customer createCustomer() {
-        return new Customer(id, name, username, password, curr);
+        return new Customer(id, name, username, password,type, curr);
     }
 }

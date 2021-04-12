@@ -43,6 +43,6 @@ public class AdminBuilder {
     }
 
     public Admin createAdmin() {
-        return new Admin(id, name, username, password, curr);
+        return new Admin(id, name, username, password,accountType, curr);
     }
 }
