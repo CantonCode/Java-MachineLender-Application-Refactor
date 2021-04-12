@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #252445;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Authentication.Logic.LoginController">
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #252445;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Authentication.Logic.LoginController">
    <children>
       <AnchorPane layoutX="368.0" layoutY="56.0" prefHeight="288.0" prefWidth="218.0" style="-fx-background-color: #e03614; -fx-background-radius: 15;">
          <children>
@@ -15,7 +15,7 @@
             <PasswordField fx:id="passwordField" layoutX="35.0" layoutY="145.0" promptText="Password" />
             <Text fx:id="usernameTitle" fill="WHITE" layoutX="34.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="73.443359375" />
             <Text fx:id="passwordTitle" fill="WHITE" layoutX="35.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="82.443359375" />
-            <Button fx:id="loginButton" layoutX="54.0" layoutY="211.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #db5f46;" text="Login" textAlignment="CENTER" />
+            <Button fx:id="loginButton" layoutX="54.0" layoutY="211.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #db5f46;" text="Login" textAlignment="CENTER" textFill="WHITE" />
             <Text fill="WHITE" layoutX="61.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign In" textAlignment="CENTER" wrappingWidth="97.41015625">
                <font>
                   <Font size="18.0" />
@@ -27,7 +27,7 @@
             <Insets top="444.0" />
          </opaqueInsets>
       </AnchorPane>
-      <Button fx:id="registerPageButton" layoutX="122.0" layoutY="267.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #db5f46;" text="Register" />
+      <Button fx:id="registerPageButton" layoutX="122.0" layoutY="267.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #db5f46;" text="Register" textFill="WHITE" />
       <Label fx:id="messager" alignment="CENTER" contentDisplay="CENTER" layoutX="196.0" layoutY="221.0" prefHeight="17.0" prefWidth="210.0" textAlignment="CENTER" textFill="#d0d0d0">
          <font>
             <Font size="9.0" />
