@@ -1,5 +1,9 @@
 package Main.Interceptor;
 
 public interface IInterceptor {
-    void execute(/**/); /// TODO: define and pass context
+
+    /// time stamp functions?
+    void onPreLogin(IContextObject context);
+    void onPostLogin(IContextObject context);
+    void meeeow(IContextObject context);
 }
