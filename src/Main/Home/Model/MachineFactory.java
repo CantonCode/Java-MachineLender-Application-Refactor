@@ -3,7 +3,8 @@ package Main.Home.Model;
 /*
     Factory design pattern for machines
  */
-public class MachineFactory {
+public class MachineFactory implements IMachineFactory {
+    @Override
     public Machine createNewMachine(String type) {
         if (type == null || type.isEmpty())
             return null;
