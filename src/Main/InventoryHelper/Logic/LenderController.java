@@ -19,9 +19,9 @@ public class LenderController implements Initializable {
     @FXML
     private Button returnBtn, borrowBtn, adminBtn, logoutBtn;
 
-    ArrayList<String> inventory = new ArrayList<>();
-    String userID;
-    String usernameS;
+    private ArrayList<String> inventory = new ArrayList<>();
+    private String userID;
+    private String usernameS;
 
 
     public void addInv()

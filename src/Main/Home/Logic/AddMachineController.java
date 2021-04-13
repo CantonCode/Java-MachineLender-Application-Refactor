@@ -31,9 +31,9 @@ public class AddMachineController implements IAdapter {
 
     @FXML
     ComboBox machineType;
-    MachineFactory factory = new MachineFactory();
-    ArrayList<Machine> machines = new ArrayList<Machine>();
-    FileManager io = new FileManager();
+    private MachineFactory factory = new MachineFactory();
+    private ArrayList<Machine> machines = new ArrayList<Machine>();
+    private FileManager io = new FileManager();
 
 
     @Override
