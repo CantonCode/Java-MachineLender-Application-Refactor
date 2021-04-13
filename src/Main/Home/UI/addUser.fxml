@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Home.Logic.AddUserController">
+    <children>
+      <Text layoutX="140.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" textAlignment="RIGHT" wrappingWidth="59.443359375" />
+      <TextField fx:id="nameText" layoutX="226.0" layoutY="79.0" promptText="Name" />
+        <TextField fx:id="userName" layoutX="226.0" layoutY="127.0" promptText="Username" />
+        <Text fx:id="regNameTitle" layoutX="140.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" textAlignment="RIGHT" wrappingWidth="59.443359375">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Text>
+        <Text fx:id="registerTitle" layoutX="239.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account">
+            <font>
+                <Font size="29.0" />
+            </font>
+        </Text>
+        <Text fx:id="regPasswordTitle" layoutX="140.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" textAlignment="RIGHT" wrappingWidth="59.443359375">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Text>
+        <Button fx:id="backBtn" layoutX="226.0" layoutY="351.0" mnemonicParsing="false" onAction="#onReturn" prefHeight="25.0" prefWidth="149.0" text="Back" />
+        <Button fx:id="addMachineBtn" layoutX="228.0" layoutY="310.0" mnemonicParsing="false" onAction="#onAdd" prefHeight="25.0" prefWidth="149.0" text="Add" />
+        <Pane layoutX="200.0" layoutY="272.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
+            <children>
+                <Label fx:id="infoLabel" layoutX="91.0" layoutY="7.0" textAlignment="CENTER" textFill="#9a9a9a">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <TextField fx:id="password" layoutX="226.0" layoutY="175.0" promptText="Password" />
+        <Text fx:id="regPasswordTitle1" layoutX="116.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type:" textAlignment="RIGHT" wrappingWidth="83.443359375">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+        <ComboBox fx:id="accountType" layoutX="225.0" layoutY="223.0" prefWidth="150.0" promptText="Account Type" />
+    </children>
+</Pane>
