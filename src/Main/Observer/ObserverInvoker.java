@@ -18,7 +18,7 @@ public class ObserverInvoker {
     public void updateInventory(int inventory){
         invMan.setInventory(inventory);
     }
-    public void unregisterObservaer(Observer o){
+    public void unregisterObserver(Observer o){
         invMan.unregister(o);
     }
 }

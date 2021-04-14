@@ -86,14 +86,10 @@ public class ManageCustomers implements IAdapter {
     }
 
     private boolean validateUser(Object val,int i){
-        if(Statics.Users.get(i).getId().equals(val)
+        return Statics.Users.get(i).getId().equals(val)
                 || Statics.Users.get(i).getUsername().equals(val)
                 || Statics.Users.get(i).getName().equals(val)
-                || new SimpleDateFormat("dd/MM/yyyy hh:mm").format(Long.parseLong(Statics.Users.get(i).getId())).equals(val)) {
-            return true;
-        }
-
-        return false;
+                || new SimpleDateFormat("dd/MM/yyyy hh:mm").format(Long.parseLong(Statics.Users.get(i).getId())).equals(val);
 
     }
 

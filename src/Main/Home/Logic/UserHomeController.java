@@ -43,7 +43,7 @@ public class UserHomeController implements IAdapter {
     public void custom(Object... args) {
     }
 
-    public void loadUsers() {
+    private void loadUsers() {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);

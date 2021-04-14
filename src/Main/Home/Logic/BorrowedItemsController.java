@@ -163,7 +163,8 @@ public class BorrowedItemsController implements IAdapter {
             }
         }
 
-        AlertBox.displayInput("Return "+selectedRow, "How many "+selectedRow+" Would you like to return?", "Confirm", "Cancel","Enter how much you want to return",new Borrow());
+        AlertBox.displayInput("Return "+selectedRow, "How many "+selectedRow+" Would you like to return?",
+                "Confirm", "Cancel","Enter how much you want to return",new Borrow());
 
     }
     /*

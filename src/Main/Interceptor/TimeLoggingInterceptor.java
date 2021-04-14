@@ -6,7 +6,7 @@ public class TimeLoggingInterceptor implements IInterceptor {
 
     @Override
     public void onPreLogin(IContextObject context) {
-
+        // if value !=null
     }
 
     @Override

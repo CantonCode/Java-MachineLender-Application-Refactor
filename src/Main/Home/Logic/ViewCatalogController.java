@@ -95,6 +95,14 @@ public class ViewCatalogController implements IAdapter {
         }
     }
 
+    private boolean isValidMachine(int index, Object val){
+        return Statics.Machines.get(index).getId().equals(val) ||
+                Statics.Machines.get(index).getName().equals(val) ||
+                Statics.Machines.get(index).getType().equals(val) ||
+                Statics.Machines.get(index).getCostPerDay() == (int) (val) ||
+                Statics.Machines.get(index).getInventory() == (int) (val);
+    }
+
     /*
         Borrow button action checks if a machine is selected from the catalog, if so checks if the current user
         meets requirements for rentals (<5 current rentals) and if so adds it to their current rentals
@@ -108,7 +116,7 @@ public class ViewCatalogController implements IAdapter {
                 Object val = tp.getTableColumn().getCellData(newValue);
 
                 for(int i = 0; i < Statics.Users.size(); i++){
-                    if(Statics.Machines.get(i).getId().equals(val) || Statics.Machines.get(i).getName().equals(val) || Statics.Machines.get(i).getType().equals(val) ||Statics.Machines.get(i).getCostPerDay() == (int)(val)||Statics.Machines.get(i).getInventory() == (int)(val)){
+                    if(isValidMachine(i, val)){
                         rowName = i;
                         selectedRow= Statics.Machines.get(i).getName()+": €"+Statics.Machines.get(i).getCostPerDay();
                     }
@@ -170,7 +178,8 @@ public class ViewCatalogController implements IAdapter {
                 }
             }
 
-            AlertBox.displayInput("Borrow "+selectedRow, "How many "+selectedRow+" Would you like to borrow?", "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
+            AlertBox.displayInput("Borrow "+selectedRow, "How many "+selectedRow+" Would you like to borrow?",
+                    "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
 
         }else {
 
@@ -188,7 +197,8 @@ public class ViewCatalogController implements IAdapter {
                     }
                 }
 
-                AlertBox.displayQuestion("Delete", "Are you sure you want to delete this Machine?", "Delete", "Keep",new BackSpace());
+                AlertBox.displayQuestion("Delete", "Are you sure you want to delete this Machine?",
+                        "Delete", "Keep",new BackSpace());
 
 
             });
