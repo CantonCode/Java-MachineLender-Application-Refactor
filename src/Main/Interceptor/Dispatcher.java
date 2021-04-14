@@ -15,6 +15,11 @@ public class Dispatcher implements IDispatcher, IInterceptor {
     }
 
     @Override
+    public void onProgramStart(IContextObject context) {
+        interceptors.forEach(i -> i.onProgramStart(context));
+    }
+
+    @Override
     public void onPreLogin(IContextObject context) {
         interceptors.forEach(i -> i.onPreLogin(context));
     }
@@ -25,7 +30,38 @@ public class Dispatcher implements IDispatcher, IInterceptor {
     }
 
     @Override
-    public void meeeow(IContextObject context) {
-        interceptors.forEach(i -> i.meeeow(context));
+    public void onPreCatalog(IContextObject context) {
+        interceptors.forEach(i -> i.onPreCatalog(context));
     }
+
+    @Override
+    public void onPostCatalog(IContextObject context) {
+        interceptors.forEach(i -> i.onPostCatalog(context));
+    }
+
+    @Override
+    public void onPreInventory(IContextObject context) {
+        interceptors.forEach(i -> i.onPreInventory(context));
+    }
+
+    @Override
+    public void onPostInventory(IContextObject context) {
+        interceptors.forEach(i -> i.onPostInventory(context));
+    }
+
+    @Override
+    public void onPreBorrow(IContextObject context) {
+        interceptors.forEach(i -> i.onPreBorrow(context));
+    }
+
+    @Override
+    public void onPostBorrow(IContextObject context) {
+        interceptors.forEach(i -> i.onPostBorrow(context));
+    }
+
+    @Override
+    public void onProgramExit(IContextObject context) {
+        interceptors.forEach(i -> i.onProgramExit(context));
+    }
+
 }
