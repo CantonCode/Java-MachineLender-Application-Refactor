@@ -31,7 +31,7 @@ public class Main extends Application {
         Dispatcher myDispatcher = new Dispatcher();
 
         System.out.println(Arrays.toString(args));
-        Statics.inventoryObservers =new ObserverInvoker();
+        Statics.inventoryObservers = new ObserverInvoker();
 
         // Context object
         // myDispatcher.onPreLogin(/*pass context object*/);

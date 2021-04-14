@@ -10,23 +10,53 @@ public class AlertBox {
     public static String DISPLAY_INPUT_TEXT="";
     static boolean IS_DIPLAYED=false;
 
-    public static void display(String title, String message){
+    public static Stage createWindow(String title, int width, int height){
+
         Stage window = new Stage();
-
         window.initModality(Modality.APPLICATION_MODAL);// Stops input into other windows.
+
         window.setTitle(title);
-        window.setMinWidth(250);
-        window.setMinHeight(125);
+        window.setMinWidth(width);
+        window.setMinHeight(height);
 
-        Label label = new Label();
-        label .setText(message);
+        return window;
+    }
 
-        Button closeButton = new Button("Close the window");
-        closeButton.setOnAction(e -> window.close());
+    public static VBox createVBox(double v, Label label, Button button){
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
+        layout.getChildren().addAll(label, button);
         layout.setAlignment(Pos.CENTER);
+
+        return layout;
+    }
+
+    public static HBox createHBox(int spacing, Button yes, Button no){
+
+        HBox hb = new HBox();
+        hb.setSpacing(spacing);
+        hb.setAlignment(Pos.CENTER_RIGHT);
+        hb.getChildren().addAll(no, yes);
+
+        return hb;
+    }
+
+    public static Button createCloseButton(Stage window, String s){
+        Button closeButton = new Button(s);
+        closeButton.setOnAction(e -> window.close());
+
+        return closeButton;
+    }
+
+    public static void display(String title, String message){
+        Stage window = createWindow(title, 250, 125);
+
+        Label label = new Label();
+        label.setText(message);
+
+        Button closeButton = createCloseButton(window, "Close the window");
+
+        VBox layout = createVBox(10, label, closeButton);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
@@ -34,27 +64,17 @@ public class AlertBox {
     }
 
     public static void  displayQuestion(String title, String message, String yesBtn, String noBtn, IMethod method){
-        Stage window = new Stage();
-
-        window.initModality(Modality.APPLICATION_MODAL);// Stops input into other windows.
-        window.setTitle(title);
-        window.setMinWidth(250);
-        window.setMinHeight(125);
+        Stage window = createWindow(title, 250, 125);
 
         Label label = new Label();
-        label .setText(message);
+        label.setText(message);
 
-        Button closeButton = new Button("Close the window");
-        closeButton.setOnAction(e -> window.close());
+        Button closeButton = createCloseButton(window, "Close the window");
 
         Button noButton = new Button(noBtn);
         Button yesButton = new Button(yesBtn);
 
-        HBox hb = new HBox();
-        hb.setSpacing(15);
-        hb.setAlignment(Pos.CENTER_RIGHT);
-        hb.getChildren().addAll(noButton,yesButton);
-
+        HBox hb = createHBox(15, yesButton, noButton);
 
         noButton.setOnAction(e->{
             DISPLAY_QUESTION_ANSWER = false;
@@ -81,26 +101,17 @@ public class AlertBox {
     }
 
     public static void  displayInput(String title, String message, String yesBtn, String noBtn,String hint, IMethod method){
-        Stage window = new Stage();
-
-        window.initModality(Modality.APPLICATION_MODAL);// Stops input into other windows.
-        window.setTitle(title);
-        window.setMinWidth(250);
-        window.setMinHeight(125);
+        Stage window = createWindow(title, 250, 125);
 
         Label label = new Label();
-        label .setText(message);
+        label.setText(message);
 
-        Button closeButton = new Button("Close the window");
-        closeButton.setOnAction(e -> window.close());
+        Button closeButton = createCloseButton(window, "Close the window");
 
         Button noButton = new Button(noBtn);
         Button yesButton = new Button(yesBtn);
 
-        HBox hb = new HBox();
-        hb.setSpacing(15);
-        hb.setAlignment(Pos.CENTER_RIGHT);
-        hb.getChildren().addAll(noButton,yesButton);
+        HBox hb = createHBox(15, yesButton, noButton);
 
         TextField input=new TextField();
         input.setPromptText(hint);
