@@ -8,7 +8,7 @@
 
 <Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #252445;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Authentication.Logic.RegisterController">
    <children>
-      <AnchorPane layoutX="22.0" layoutY="56.0" prefHeight="288.0" prefWidth="218.0" style="-fx-background-color: #e03614; -fx-background-radius: 10;">
+      <AnchorPane fx:id="mainPane" layoutX="22.0" layoutY="56.0" prefHeight="330.0" prefWidth="218.0" style="-fx-background-color: #e03614; -fx-background-radius: 10;">
          <children>
             <Text fx:id="regNameTitle" fill="WHITE" layoutX="26.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="59.443359375" />
             <TextField fx:id="firstnameField" layoutX="24.0" layoutY="74.0" promptText="Firstname" />
@@ -26,12 +26,15 @@
                   <Font size="9.0" />
                </font>
             </Label>
-            <Button fx:id="registerButton" layoutX="55.0" layoutY="236.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #db5f46;" text="Register" textFill="WHITE" />
+            <Button fx:id="registerButton" layoutX="55.0" layoutY="291.0" mnemonicParsing="false" onAction="#registerButtonOnAction" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #db5f46;" text="Register" textFill="WHITE" />
             <Text fill="WHITE" layoutX="60.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font></Text>
             <Line endX="97.0" endY="7.0" layoutX="109.0" layoutY="37.0" startX="-92.0" startY="7.0" stroke="WHITE" />
+            <Text fill="#fcfcfc" layoutX="26.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+            <TextField fx:id="userEmail" layoutX="24.0" layoutY="254.0" promptText="Email" />
+            <Label fx:id="emailValid" alignment="CENTER_RIGHT" layoutX="111.0" layoutY="231.0" prefHeight="11.0" prefWidth="76.0" text="Invalid" textAlignment="RIGHT" textFill="#8d8d8d" />
          </children></AnchorPane>
       <Button fx:id="loginButton" layoutX="361.0" layoutY="295.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #db5f46;" text="Return To Login" textFill="WHITE" />
       <Label fx:id="msgr" alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="273.0" prefHeight="17.0" prefWidth="179.0" textFill="RED" />
@@ -40,7 +43,12 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Pane layoutX="161.0" layoutY="268.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
+      <ImageView fitHeight="301.0" fitWidth="321.0" layoutX="285.0" layoutY="64.0" opacity="0.27" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Resources/images/crane.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="142.0" layoutY="467.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
          <children>
             <Label fx:id="infoLabel" layoutX="91.0" layoutY="7.0" textAlignment="CENTER" textFill="#9a9a9a">
                <font>
@@ -49,10 +57,19 @@
             </Label>
          </children>
       </Pane>
-      <ImageView fitHeight="301.0" fitWidth="321.0" layoutX="285.0" layoutY="64.0" opacity="0.27" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../Resources/images/crane.png" />
-         </image>
-      </ImageView>
+      <AnchorPane fx:id="OTPPane" layoutX="327.0" layoutY="39.0" prefHeight="234.0" prefWidth="218.0" style="-fx-background-color: #e03614; -fx-background-radius: 10;">
+         <children>
+            <Text fill="WHITE" layoutX="31.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="One Time Password">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Line endX="87.0" layoutX="111.0" layoutY="51.0" startX="-91.0" stroke="WHITE" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the 4 digit code sent to your email: " wrappingWidth="179.0" />
+            <Label fx:id="sentAddress" layoutX="54.0" layoutY="100.0" text="example@gmail.com" textAlignment="CENTER" textFill="#fcfcfc" />
+            <TextField fx:id="confirmOTP" layoutX="35.0" layoutY="142.0" promptText="4 Digit Code" />
+            <Button fx:id="validateOTP" layoutX="83.0" layoutY="185.0" mnemonicParsing="false" style="-fx-background-color: #db5f46;" onAction="#OTPButtonOnAction" text="Validate" />
+         </children>
+      </AnchorPane>
    </children>
 </Pane>

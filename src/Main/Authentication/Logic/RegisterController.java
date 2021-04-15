@@ -12,15 +12,20 @@ import Main.Home.Model.Machine;
 import Main.Main;
 import Main.InventoryHelper.IAdapter;
 import Main.Statics;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+
 
 /*
     Class for logic required to run register page.
@@ -28,7 +33,10 @@ import javax.activation.*;
 public class RegisterController implements IAdapter {
 
     public Label infoLabel;
+    private static final String regex = "^(.+)@(.+)$";
+
     User regUser;
+    String otp = "";
     AccountType accountType;
     ArrayList<User> users = new ArrayList<>();
     FileManager io = new FileManager();
@@ -46,7 +54,21 @@ public class RegisterController implements IAdapter {
     @FXML
     private Label usernameHint;
     @FXML
+    private Label sentAddress;
+    @FXML
     private Label msgr;
+    @FXML
+    private AnchorPane mainPane;
+    @FXML
+    private AnchorPane OTPPane;
+    @FXML
+    private TextField userEmail;
+    @FXML
+    private TextField confirmOTP;
+    @FXML
+    private Label emailValid;
+
+
 
     public void setAccountType(AccountType type) {
         this.accountType = type;
@@ -83,12 +105,38 @@ public class RegisterController implements IAdapter {
     public void registerButtonOnAction(ActionEvent event) throws IOException, MessagingException {
 
         //if else either creates user if all fields are filled or throws an error message
-        if (validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText())) {
+        if (validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),userEmail.getText())) {
             new PasswordValidator(1).Validate(regPasswordField.getText());
-            if (this.accountType == AccountType.ADMIN)
+            if (this.accountType == AccountType.ADMIN) {
                 this.registerAsAdmin();
+
+                infoLabel.setText("Logged In as: " + regUsenameField.getText());
+                passwordHint.setStyle("-fx-text-fill: #93bf6c;");
+                ArrayList<User> users = new ArrayList<>();
+                users.add(Statics.CurrentUser);
+                io.serializeToFile("currentUser.ser", users);
+                //          Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
+            }
             else
-                this.registerAsCustomer();
+                this.sendOTP();
+
+
+        } else {
+            infoLabel.setText("Please fill ALL fields");
+            infoLabel.setStyle("-fx-text-fill: red;");
+        }
+    }
+
+    public void OTPButtonOnAction(ActionEvent event) throws IOException, MessagingException {
+    String userOTP = confirmOTP.getText();
+    System.out.println(otp);
+    System.out.println(userOTP);
+
+    if(userOTP != ""){
+        if(userOTP.equals(otp)){
+            System.out.print("VALID OTP");
+            AlertBox.display("SUCCESS", "Regestration Complete");
+            registerAsCustomer();
 
             infoLabel.setText("Logged In as: " + regUsenameField.getText());
             passwordHint.setStyle("-fx-text-fill: #93bf6c;");
@@ -96,18 +144,31 @@ public class RegisterController implements IAdapter {
             users.add(Statics.CurrentUser);
             io.serializeToFile("currentUser.ser", users);
             Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
-        } else {
-            infoLabel.setText("Please fill ALL fields");
-            infoLabel.setStyle("-fx-text-fill: red;");
+        }else{
+            AlertBox.display("Error", "Invalid OTP please try again");
         }
+    }else{
+        AlertBox.display("Error", "Blank input");
+    }
+
     }
 
     /*
         Method to create customer account types
      */
-    private void registerAsCustomer() throws MessagingException {
+    private void sendOTP() throws MessagingException {
+        mainPane.setVisible(false);
+
+        String receipt = userEmail.getText();
+
+        otp = OTPController.generateDigit();
+        OTPController.sendEmail(receipt,otp);
+
+        sentAddress.setText(receipt);
+        OTPPane.setVisible(true);
+    }
+    private void registerAsCustomer() {
         String time = String.valueOf(System.currentTimeMillis());
-        String otp;
 
         CustomerBuilder builder;
 
@@ -118,9 +179,6 @@ public class RegisterController implements IAdapter {
 
         regUser.encryptPassword();
 
-        otp = OTPController.generateDigit();
-
-        OTPController.sendEmail("conorstreete@gmail.com",otp);
 
         users.add(regUser);
         System.out.println(regUser);
@@ -132,6 +190,7 @@ public class RegisterController implements IAdapter {
     /*
         Method to create admin account types
      */
+
     private void registerAsAdmin() {
         String time = String.valueOf(System.currentTimeMillis());
         regUser = new AdminBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setAccountType(this.accountType).setCurr(emptyMac).createAdmin();
@@ -153,8 +212,10 @@ public class RegisterController implements IAdapter {
     // File Name SendEmail.java
 
 
-    private boolean validate(String name, String username, String password) {
+    private boolean validate(String name, String username, String password,String email) {
         boolean valid = true;
+        Pattern pattern = Pattern.compile(regex);
+
         if (new PasswordValidator(1).Validate(password)) {
             passwordHint.setText("Strong");
             passwordHint.setStyle("-fx-text-fill: green;");
@@ -165,6 +226,7 @@ public class RegisterController implements IAdapter {
             AlertBox.display("Password Error", "Password Requires Capital Letter, Lower Case Letter & a Number");
             valid = false;
         }
+
         if (uniqueUsername(username)) {
             usernameHint.setText("Available");
             usernameHint.setStyle("-fx-text-fill: green;");
@@ -175,8 +237,21 @@ public class RegisterController implements IAdapter {
             valid = false;
         }
 
+        Matcher matcher = pattern.matcher(email);
+
+        if(matcher.matches()){
+            emailValid.setText("Valid");
+            emailValid.setStyle("-fx-text-fill: green;");
+        }else{
+            emailValid.setText("Invalid");
+            emailValid.setStyle("-fx-text-fill: red;");
+        }
+
+
         return valid;
     }
+
+
 
     /*
         Method checks if username entered is unique
@@ -198,6 +273,7 @@ public class RegisterController implements IAdapter {
     @Override
     public void init() {
         try {
+            OTPPane.setVisible(false);
             io.readSerializedFile("AdminDB.ser", "users");
             users.addAll(io.users);
             io.readSerializedFile("CustomerDB.ser", "users");
@@ -213,6 +289,7 @@ public class RegisterController implements IAdapter {
             setAccountType((AccountType) args[0]);
         }
     }
+
 
 
 }
