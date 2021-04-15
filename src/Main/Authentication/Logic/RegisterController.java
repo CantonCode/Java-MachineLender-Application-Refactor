@@ -15,6 +15,12 @@ import Main.Statics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
 /*
     Class for logic required to run register page.
@@ -74,7 +80,7 @@ public class RegisterController implements IAdapter {
         Register button which stores user information to the currentUser.ser file and then brings the new user
         to the user home page
      */
-    public void registerButtonOnAction(ActionEvent event) throws IOException {
+    public void registerButtonOnAction(ActionEvent event) throws IOException, MessagingException {
 
         //if else either creates user if all fields are filled or throws an error message
         if (validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText())) {
@@ -99,11 +105,22 @@ public class RegisterController implements IAdapter {
     /*
         Method to create customer account types
      */
-    private void registerAsCustomer() {
+    private void registerAsCustomer() throws MessagingException {
         String time = String.valueOf(System.currentTimeMillis());
-        regUser = new CustomerBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setType(this.accountType).setCurr(emptyMac).createCustomer();
+        String otp;
+
+        CustomerBuilder builder;
+
+        builder = new CustomerBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).
+                setPassword(regPasswordField.getText());
+
+        regUser = builder.setType(this.accountType).setCurr(emptyMac).createCustomer();
 
         regUser.encryptPassword();
+
+        otp = OTPController.generateDigit();
+
+        OTPController.sendEmail("conorstreete@gmail.com",otp);
 
         users.add(regUser);
         System.out.println(regUser);
@@ -133,6 +150,8 @@ public class RegisterController implements IAdapter {
         // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
     }
+    // File Name SendEmail.java
+
 
     private boolean validate(String name, String username, String password) {
         boolean valid = true;
@@ -194,4 +213,6 @@ public class RegisterController implements IAdapter {
             setAccountType((AccountType) args[0]);
         }
     }
+
+
 }
