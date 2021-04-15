@@ -10,7 +10,7 @@ public class Dispatcher implements IDispatcher, IInterceptor {
     }
 
     @Override
-    public void register(IInterceptor interceptor){
+    public void registerInterceptor(IInterceptor interceptor){
         interceptors.add(interceptor);
     }
 
