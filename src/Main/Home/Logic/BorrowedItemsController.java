@@ -22,6 +22,7 @@ import Main.Main;
 import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,7 +106,7 @@ public class BorrowedItemsController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -152,7 +153,7 @@ public class BorrowedItemsController implements IAdapter {
                         new NavigationInvoker(new Previous(Main.currentStage)).activate();
                         try {
                             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new ViewCatalogController());
-                        } catch (IOException e) {
+                        } catch (IOException | ParseException e) {
                             e.printStackTrace();
                         }
 

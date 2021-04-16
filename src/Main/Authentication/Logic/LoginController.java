@@ -22,6 +22,7 @@ import Main.InventoryHelper.Logic.LenderController;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /*
@@ -77,7 +78,7 @@ public class LoginController implements IAdapter {
     public LoginController() {
     }
 
-    public void loginButtonOnAction(ActionEvent event) throws IOException {
+    public void loginButtonOnAction(ActionEvent event) throws IOException, ParseException {
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
 //                messanger.setText("Logged in as: "+Statics.CurrentUser);
@@ -114,7 +115,7 @@ public class LoginController implements IAdapter {
         return false;
     }
 
-    public void registerButtonOnAction(ActionEvent actionEvent)throws IOException {
+    public void registerButtonOnAction(ActionEvent actionEvent) throws IOException, ParseException {
         Main.currentStage.setFXMLScene("Authentication/UI/register.fxml",new LoginController(), AccountType.CUSTOMER);
     }
 

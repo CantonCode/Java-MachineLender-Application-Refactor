@@ -11,6 +11,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,7 +55,7 @@ public class AdminHomeController implements IAdapter {
     public void viewMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -67,7 +68,7 @@ public class AdminHomeController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -78,7 +79,7 @@ public class AdminHomeController implements IAdapter {
     public void manageMachine(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/addMachine.fxml", new AddMachineController());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -89,7 +90,7 @@ public class AdminHomeController implements IAdapter {
     public void manageCustomer(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/manage_customers.fxml", new ViewCatalogController());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }

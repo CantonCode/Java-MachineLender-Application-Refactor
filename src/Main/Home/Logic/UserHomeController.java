@@ -13,6 +13,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -63,7 +64,7 @@ public class UserHomeController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -74,7 +75,7 @@ public class UserHomeController implements IAdapter {
     public void viewCatalog(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -85,7 +86,7 @@ public class UserHomeController implements IAdapter {
     public void viewBorrowedMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }

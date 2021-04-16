@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.*;
 import java.util.logging.Level;
@@ -127,7 +128,7 @@ public class RegisterController implements IAdapter {
         }
     }
 
-    public void OTPButtonOnAction(ActionEvent event) throws IOException, MessagingException {
+    public void OTPButtonOnAction(ActionEvent event) throws IOException, MessagingException, ParseException {
     String userOTP = confirmOTP.getText();
     System.out.println(otp);
     System.out.println(userOTP);
@@ -204,7 +205,7 @@ public class RegisterController implements IAdapter {
     /*
         Login button
      */
-    public void loginButtonOnAction(ActionEvent event) throws IOException {
+    public void loginButtonOnAction(ActionEvent event) throws IOException, ParseException {
         // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
     }
