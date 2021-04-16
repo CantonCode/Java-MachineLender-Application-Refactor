@@ -179,7 +179,6 @@ public class RegisterController implements IAdapter {
 
         regUser.encryptPassword();
 
-
         users.add(regUser);
         System.out.println(regUser);
         Statics.CurrentUser = regUser;

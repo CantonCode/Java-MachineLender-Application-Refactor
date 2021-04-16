@@ -66,9 +66,9 @@
             </Text>
             <Line endX="87.0" layoutX="111.0" layoutY="51.0" startX="-91.0" stroke="WHITE" />
             <Text fill="WHITE" layoutX="20.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the 4 digit code sent to your email: " wrappingWidth="179.0" />
-            <Label fx:id="sentAddress" layoutX="54.0" layoutY="100.0" text="example@gmail.com" textAlignment="CENTER" textFill="#fcfcfc" />
+            <Label fx:id="sentAddress" layoutX="54.0" layoutY="100.0" text="example@gmail.com" textFill="#fcfcfc" />
             <TextField fx:id="confirmOTP" layoutX="35.0" layoutY="142.0" promptText="4 Digit Code" />
-            <Button fx:id="validateOTP" layoutX="83.0" layoutY="185.0" mnemonicParsing="false" style="-fx-background-color: #db5f46;" onAction="#OTPButtonOnAction" text="Validate" />
+            <Button fx:id="validateOTP" layoutX="83.0" layoutY="185.0" mnemonicParsing="false" onAction="#OTPButtonOnAction" style="-fx-background-color: #db5f46;" text="Validate" />
          </children>
       </AnchorPane>
    </children>

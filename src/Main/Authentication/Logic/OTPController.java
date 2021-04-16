@@ -35,9 +35,8 @@ public class OTPController {
     public static String generateDigit(){
         Random rand = new Random();
 
-        String otp = String.format("%04d", rand.nextInt(10000));
 
-        return otp;
+        return String.format("%04d", rand.nextInt(10000));
     }
 
     private static Message prepareMessage(Session session,String myAccountEmail, String receipt,String otp){
