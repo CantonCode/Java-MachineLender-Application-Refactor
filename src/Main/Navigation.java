@@ -15,10 +15,10 @@ import java.text.ParseException;
 import java.util.Stack;
 
 public class Navigation extends Stage implements Navigator {
-    private String FXMLLoader = "";
+    private final String FXMLLoader = "";
     private IAdapter adapter;
     private Scene currentScene;
-    private Stack<NavObject> navStack = new Stack<>();
+    private final Stack<NavObject> navStack = new Stack<>();
 
     public Navigation(String title) {
         setTitle(title);

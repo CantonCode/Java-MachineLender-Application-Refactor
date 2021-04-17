@@ -128,10 +128,10 @@ public class RegisterController implements IAdapter {
     System.out.println(otp);
     System.out.println(userOTP);
 
-    if(userOTP != ""){
+    if(userOTP != " "){
         if(userOTP.equals(otp)){
             System.out.print("VALID OTP");
-            AlertBox.display("SUCCESS", "Regestration Complete");
+            AlertBox.display("SUCCESS", "Registration Complete");
             registerAsCustomer();
 
             infoLabel.setText("Logged In as: " + regUsenameField.getText());
@@ -164,14 +164,17 @@ public class RegisterController implements IAdapter {
         OTPPane.setVisible(true);
     }
     private void registerAsCustomer() {
+        String name = firstnameField.getText();
+        String username = regUsenameField.getText();
         String time = String.valueOf(System.currentTimeMillis());
-
+        String password = regPasswordField.getText();
+        AccountType type = this.accountType;
         CustomerBuilder builder;
 
-        builder = new CustomerBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).
-                setPassword(regPasswordField.getText());
+        builder = new CustomerBuilder().setId(time).setName(name).setUsername(username).
+                setPassword(password);
 
-        regUser = builder.setType(this.accountType).setCurr(emptyMac).createCustomer();
+        regUser = builder.setType(type).setCurr(emptyMac).createCustomer();
 
         regUser.encryptPassword();
 

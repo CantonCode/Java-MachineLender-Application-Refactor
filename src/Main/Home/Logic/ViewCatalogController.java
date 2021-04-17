@@ -44,7 +44,7 @@ public class ViewCatalogController implements IAdapter {
     public Label itemLabel;
     public TableColumn invCol;
     public Button borrowBtn;
-    private FileManager io=new FileManager();
+    private final FileManager io=new FileManager();
     int rowName=0;
     String selectedRow="";
     List<MachineAdapter> machines=new ArrayList<>();
@@ -201,7 +201,7 @@ public class ViewCatalogController implements IAdapter {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
-                io.readSerializedFile((String)path, "users");
+                io.readSerializedFile(path, "users");
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();

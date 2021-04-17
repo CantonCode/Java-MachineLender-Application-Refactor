@@ -22,7 +22,7 @@ import java.util.Arrays;
  */
 public class UserHomeController implements IAdapter {
 
-    private FileManager io = new FileManager();
+    private final FileManager io = new FileManager();
 
     @FXML
     public Label unameField;
@@ -48,7 +48,7 @@ public class UserHomeController implements IAdapter {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
-                io.readSerializedFile((String)path,"users");
+                io.readSerializedFile(path,"users");
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -41,7 +41,7 @@ public class AddMachineController implements IAdapter {
     public void init() {
         Arrays.asList("MachineDB.ser").forEach(path-> {
             try {
-                io.readSerializedFile((String)path,"machines");
+                io.readSerializedFile(path,"machines");
                 machines.addAll(io.machines);
             } catch (IOException e) {
                 e.printStackTrace();

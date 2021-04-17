@@ -42,7 +42,7 @@ public class BorrowedItemsController implements IAdapter {
     public TableColumn costPerDayCol;
     public TableColumn invCol;
     public Button cancelBtn;
-    private FileManager io = new FileManager();
+    private final FileManager io = new FileManager();
     List<MachineAdapter> machines = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
     public Label unameField;
@@ -55,7 +55,7 @@ public class BorrowedItemsController implements IAdapter {
 
             Arrays.asList("CustomerDB.ser").forEach(path-> {
                 try {
-                    io.readSerializedFile((String)path,"users");
+                    io.readSerializedFile(path,"users");
                    users.addAll(io.users);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -86,7 +86,7 @@ public class BorrowedItemsController implements IAdapter {
         Arrays.asList("AdminDB.ser", "CustomerDB.ser").forEach(path -> {
             try {
                 System.out.println(path);
-                io.readSerializedFile((String) path, "users");
+                io.readSerializedFile(path, "users");
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();

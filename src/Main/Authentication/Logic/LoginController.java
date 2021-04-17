@@ -123,7 +123,7 @@ public class LoginController implements IAdapter {
     public void init() {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
-                io.readSerializedFile((String)path,"users");
+                io.readSerializedFile(path,"users");
                 users.addAll(io.users);
                 System.out.println("DB send check");
             } catch (IOException e) {
