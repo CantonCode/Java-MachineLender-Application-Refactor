@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import Main.Authentication.Logic.FileManager;
 import Main.Authentication.Logic.LoginController;
 import Main.Authentication.Logic.RegisterController;
-import Main.Authentication.Logic.OTPController;
 import Main.Authentication.Model.AccountType;
 import Main.Home.Logic.AdminHomeController;
 import Main.Home.Logic.UserHomeController;

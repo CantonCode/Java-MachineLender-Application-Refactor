@@ -8,7 +8,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Random;
 
-public class OTPController {
+public class OTPHelper {
     public static void sendEmail(String receipt,String otp) throws MessagingException {
         Properties properties = new Properties();
 

@@ -13,19 +13,13 @@ import Main.Main;
 import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
 
 
 /*
@@ -34,7 +28,8 @@ import javax.activation.*;
 public class RegisterController implements IAdapter {
 
     public Label infoLabel;
-    private static final String regex = "^(.+)@(.+)$";
+    private static final String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+
 
     User regUser;
     String otp = "";
@@ -162,8 +157,8 @@ public class RegisterController implements IAdapter {
 
         String receipt = userEmail.getText();
 
-        otp = OTPController.generateDigit();
-        OTPController.sendEmail(receipt,otp);
+        otp = OTPHelper.generateDigit();
+        OTPHelper.sendEmail(receipt,otp);
 
         sentAddress.setText(receipt);
         OTPPane.setVisible(true);
@@ -212,7 +207,7 @@ public class RegisterController implements IAdapter {
     // File Name SendEmail.java
 
 
-    private boolean validate(String name, String username, String password,String email) {
+    public boolean validate(String name, String username, String password,String email) {
         boolean valid = true;
         Pattern pattern = Pattern.compile(regex);
 
@@ -234,8 +229,7 @@ public class RegisterController implements IAdapter {
         } else {
             usernameHint.setText("Not Available");
             usernameHint.setStyle("-fx-text-fill: red;");
-            valid = false;
-        }
+            valid = false; }
 
         Matcher matcher = pattern.matcher(email);
 
@@ -245,6 +239,7 @@ public class RegisterController implements IAdapter {
         }else{
             emailValid.setText("Invalid");
             emailValid.setStyle("-fx-text-fill: red;");
+            valid = false;
         }
 
 
