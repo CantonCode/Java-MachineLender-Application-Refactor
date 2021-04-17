@@ -156,8 +156,14 @@ public class ViewCatalogController implements IAdapter {
                             if(mac.getInventory()>0) {
                                 AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
                                 System.out.println(m);
-                                Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).increaseInventory(m.getInventory());
+                                if( Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).size()>0)
+                                    Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).increaseInventory(m.getInventory());
+                                else
+                                   {
+                                       System.out.println(m);
+                                       Statics.CurrentUser.addCurrentRentals(m);
 
+                                   }
                                 Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
                                // mac.setInventory(Math.max((left), 0));
 
@@ -176,8 +182,9 @@ public class ViewCatalogController implements IAdapter {
                             io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
                             new NavigationInvoker(new Previous(Main.currentStage)).activate();
                             try {
-                                Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
-                            } catch (IOException e) {
+
+                                 Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
