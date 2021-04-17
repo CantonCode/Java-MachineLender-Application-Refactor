@@ -6,7 +6,7 @@ public abstract class Machine implements Serializable {
 
     private String id;
     private String name;
-    private int costPerDay;
+    private double costPerDay;
     private String type;
     private int inventory;
 
@@ -31,6 +31,9 @@ public abstract class Machine implements Serializable {
         return inventory;
     }
 
+    public void increaseInventory(int inv){this.inventory+=inv;}
+//    public void decreaseInventory(int inv){this.inventory-=inv;}
+
     public String getName() {
         return name;
     }
@@ -39,11 +42,22 @@ public abstract class Machine implements Serializable {
         this.name = name;
     }
 
-    public int getCostPerDay() {
+    public double getCostPerDay() {
         return costPerDay;
     }
 //go ahe
-    public void setCostPerDay(int costPerDay) { this.costPerDay = costPerDay; }
+    public void setCostPerDay(double costPerDay) { this.costPerDay = costPerDay; }
+
+    @Override
+    public String toString() {
+        return "Machine{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", costPerDay=" + costPerDay +
+                ", type='" + type + '\'' +
+                ", inventory=" + inventory +
+                '}';
+    }
 
     public abstract double calcRent(int cost);
 
@@ -58,4 +72,5 @@ public abstract class Machine implements Serializable {
     public void setInventory(int inventory) {
         this.inventory=inventory;
     }
+
 }

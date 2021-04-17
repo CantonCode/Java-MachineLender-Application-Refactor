@@ -101,6 +101,8 @@ public class LoginController implements IAdapter {
     public boolean validateLogin(String username, String password) throws IOException {
         //check text file to see if the specified log in exists already
         for(User user : users){
+            System.out.print(user.getUsername()+" ");
+            System.out.println(user.getPassword());
             user.decryptPassword();
             if(username.equalsIgnoreCase(user.getUsername())&&password.equals(user.getPassword())){
                 System.out.println("we just set the user to logged in");
@@ -115,6 +117,7 @@ public class LoginController implements IAdapter {
     }
 
     public void registerButtonOnAction(ActionEvent actionEvent)throws IOException {
+        ///change last argument to either admin/customer
         Main.currentStage.setFXMLScene("Authentication/UI/register.fxml",new LoginController(), AccountType.CUSTOMER);
     }
 

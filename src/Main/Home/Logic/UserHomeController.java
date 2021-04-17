@@ -15,6 +15,7 @@ import Main.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /*
     Logic implementation for the user home page.
@@ -34,6 +35,17 @@ public class UserHomeController implements IAdapter {
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
             loadUsers();
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
+            try{
+                User user = Statics.Users.stream().filter((user1)-> user1.getId().equals(Statics.CurrentUser.getId())).collect(Collectors.toList()).get(0);
+                Statics.CurrentUser = user;
+                ArrayList<User> users= new ArrayList<>();
+                users.add(Statics.CurrentUser);
+                io.serializeToFile("currentUser.ser",users);
+            }catch(ArrayIndexOutOfBoundsException exc){
+                System.out.println("An Array Out of Bounds exception has occured in init.UserHomeController.java: This is most likely because the current user id no longer exists among the lists of users!\nAdvised: Delete Current user");
+            }
+
+
         }else{
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
         }

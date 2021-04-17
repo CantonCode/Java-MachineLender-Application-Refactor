@@ -89,7 +89,7 @@ public class RegisterController implements IAdapter {
             ArrayList<User> users = new ArrayList<>();
             users.add(Statics.CurrentUser);
             io.serializeToFile("currentUser.ser", users);
-            Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
+            Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
         } else {
             infoLabel.setText("Please fill ALL fields");
             infoLabel.setStyle("-fx-text-fill: red;");

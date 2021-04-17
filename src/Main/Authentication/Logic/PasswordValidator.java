@@ -6,6 +6,7 @@ public class PasswordValidator extends Validator {
     public PasswordValidator(int version) {
         switch (version) {
             case 0: this.passPattern = "(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}"; break;
+            case 1: this.passPattern = "[a-zA-Z0-9]{4,}"; break;
             default: this.passPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}"; break;
         }
     }

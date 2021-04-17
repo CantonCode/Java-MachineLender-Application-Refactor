@@ -16,7 +16,7 @@ public class MachineFactory implements IMachineFactory {
             System.out.println("CREATING CRANE TYPE");
             return new Crane();
         }
-        
+
         return null;
     }
 }

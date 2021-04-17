@@ -74,8 +74,6 @@ public class ViewCatalogController implements IAdapter {
         invCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("inventory"));
 
         catView.setItems(data);
-
-        System.out.println(machines);
     }
 
     @Override
@@ -124,7 +122,10 @@ public class ViewCatalogController implements IAdapter {
                 itemLabel.setText(selectedRow);
             }
         });
+
+        MachineAdapter mac = catView.getSelectionModel().getSelectedItem();
         if(Statics.CurrentUser.getType()==AccountType.CUSTOMER) {
+
             class Borrow implements IMethod {
 
                 @Override
@@ -136,34 +137,43 @@ public class ViewCatalogController implements IAdapter {
                         String selectedName = mac.getName();
                         System.out.println("---------");
                         System.out.println(mac.getName());
-
+                        System.out.println(mac);
                         //check if validF
                         int quantity=1;
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                             quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
-                            quantity=Math.min(Statics.Machines.get(rowName).getInventory(),quantity);
-                            int left=Statics.Machines.get(rowName).getInventory()-quantity;
+                            System.out.println(quantity);
+                            System.out.println(mac.getInventory());
+                            quantity=Math.min(mac.getInventory()+1,quantity);
+                            System.out.println(quantity);
+                            int left=(mac.getInventory())-quantity;
+
                             System.out.println("I am Borrowing "+ quantity + ": " +selectedName);
-                            System.out.println(Statics.Machines.get(rowName).getInventory()-quantity+" Left!!");
-                            Machine m = Statics.Machines.get(rowName);
+                            System.out.println(mac.getInventory()-quantity+" Left!!");
+                            Machine m = mac.getMachine();
                             m.setInventory(quantity);
 
-                            if(Statics.Machines.get(rowName).getInventory()>0) {
+                            if(mac.getInventory()>0) {
                                 AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
-                                Statics.Machines.get(rowName).setInventory(Math.max((left), 0));
-                                Statics.CurrentUser.addCurrentRentals(m);
+                                System.out.println(m);
+                                Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).increaseInventory(m.getInventory());
+
+                                Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
+                               // mac.setInventory(Math.max((left), 0));
+
                             }
                             else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
                             int index=-1;
                             for(int i=0; i < Statics.Users.size(); i++){
                                 if(Statics.Users.get(i).getId().equals(Statics.CurrentUser.getId())){
+                                    System.out.println("Line 162: "+Statics.CurrentUser.getCurrRentals());
                                     Statics.Users.get(i).setCurrRentals(Statics.CurrentUser.getCurrRentals());
                                 }
                             }
                             //save machines
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                             //save user;
-                            io.serializeToFile("CustomerDB.ser", Statics.Users);
+                            io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
                             new NavigationInvoker(new Previous(Main.currentStage)).activate();
                             try {
                                 Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
@@ -202,7 +212,7 @@ public class ViewCatalogController implements IAdapter {
 
 
             });
-            Main.currentStage.setFXMLScene("Home/UI/editMachine.fxml",new LoginController(),Statics.Machines.get(rowName));
+            Main.currentStage.setFXMLScene("Home/UI/editMachine.fxml",new LoginController(),  Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0));
         }
     }
 

@@ -73,7 +73,7 @@ public class ManageCustomers implements IAdapter {
                     if(AlertBox.DISPLAY_QUESTION_ANSWER)
                     if(e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.X){
                         Statics.Users.remove(rowName);
-                        io.serializeToFile("CustomerDB.ser", Statics.Users);
+                        io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
                         new NavigationInvoker(new Previous(Main.currentStage)).activate();
                     }
                 }

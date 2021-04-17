@@ -1,5 +1,6 @@
 package Main.Home.Model;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -10,14 +11,16 @@ public class MachineAdapter {
     private final SimpleStringProperty id;
     private final SimpleStringProperty name;
     private final SimpleStringProperty type;
-    private final SimpleIntegerProperty costPerDay;
+    private final SimpleDoubleProperty costPerDay;
     private final SimpleIntegerProperty inventory;
+    private Machine machine;
 
     public MachineAdapter(Machine machine) {
+        this.machine = machine;
        id = new SimpleStringProperty(machine.getId());
        name = new SimpleStringProperty(machine.getName());
        type = new SimpleStringProperty(machine.getType());
-       costPerDay = new SimpleIntegerProperty(machine.getCostPerDay());
+       costPerDay = new SimpleDoubleProperty(machine.getCostPerDay());
        inventory = new SimpleIntegerProperty(machine.getInventory());
     }
 
@@ -61,7 +64,16 @@ public class MachineAdapter {
     }
     public void setType(String type) { this.type.set(type); }
 
-    public Integer getCostPerDay() { return costPerDay.get(); }
-    public SimpleIntegerProperty costPerDayProperty() { return costPerDay; }
+    public double getCostPerDay() { return costPerDay.get(); }
+    public SimpleDoubleProperty costPerDayProperty() { return costPerDay; }
     public void setCostPerDay(Integer cost) { this.costPerDay.set(cost); }
+
+    public Machine getMachine(){
+        machine.setName(getName());
+        machine.setId(getId());
+        machine.setInventory(getInventory());
+        machine.setType(getType());
+        machine.setCostPerDay(getCostPerDay());
+        return machine;
+    }
 }
