@@ -7,7 +7,7 @@ public class TimeLoggingInterceptor implements IInterceptor {
 
     @Override
     public void onProgramStart(IContextObject context) {
-
+        System.out.println("Application has started, hello from time logging interceptor.");
     }
 
     @Override
