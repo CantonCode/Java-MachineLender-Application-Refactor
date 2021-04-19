@@ -11,6 +11,11 @@ public class LoginAttemptsInterceptor implements IInterceptor{
     @Override
     public void onPreLogin(IContextObject context) {
         attempts = attempts + 1;
+        System.out.printf("%d Login attempts.",attempts);
+
+
+        // (if attempts > x)
+
     }
 
     @Override
