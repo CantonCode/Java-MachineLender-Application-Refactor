@@ -1,5 +1,6 @@
 package Main.Authentication.Logic;
 
+import Main.Interceptor.PreLoginContext;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +24,8 @@ import Main.Statics;
 
 import java.io.IOException;
 import java.util.*;
+
+import static Main.Main.myDispatcher;
 
 /*
     Class for the logic necessary for the login page.
@@ -78,7 +81,11 @@ public class LoginController implements IAdapter {
     }
 
     public void loginButtonOnAction(ActionEvent event) throws IOException {
+
+
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
+            /// myDispatcher.onPreLogin(new PreLoginContext()); /// onattempt
+
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
 //                messanger.setText("Logged in as: "+Statics.CurrentUser);
                 ArrayList<User> users= new ArrayList<>();
@@ -123,6 +130,8 @@ public class LoginController implements IAdapter {
 
     @Override
     public void init() {
+        myDispatcher.onPreLogin(new PreLoginContext());
+
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 io.readSerializedFile((String)path,"users");
