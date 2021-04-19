@@ -16,6 +16,11 @@ public class TimeLoggingInterceptor implements IInterceptor {
     }
 
     @Override
+    public void onLoginAttempt(IContextObject context) {
+
+    }
+
+    @Override
     public void onPostLogin(IContextObject context) {
         System.out.print("Time taken to Log In: ");
         System.out.println(System.currentTimeMillis() - start);
