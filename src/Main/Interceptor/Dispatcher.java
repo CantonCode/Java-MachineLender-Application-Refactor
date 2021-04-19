@@ -25,6 +25,11 @@ public class Dispatcher implements IDispatcher, IInterceptor {
     }
 
     @Override
+    public void onLoginAttempt(IContextObject context) {
+        interceptors.forEach(i -> i.onLoginAttempt(context));
+    }
+
+    @Override
     public void onPostLogin(IContextObject context) {
         interceptors.forEach(i -> i.onPostLogin(context));
     }
