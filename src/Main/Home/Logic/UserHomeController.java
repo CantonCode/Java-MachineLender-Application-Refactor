@@ -34,6 +34,9 @@ public class UserHomeController implements IAdapter {
         if(Statics.CurrentUser!=null) {
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
             loadUsers();
+            for(int i = 0 ; i<Statics.Users.size(); i++){
+                System.out.println("USER ID: "+Statics.Users.get(i).getUsername()+"--"+"CU - > "+ Statics.CurrentUser.getUsername());
+            }
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
             try{
                 User user = Statics.Users.stream().filter((user1)-> user1.getId().equals(Statics.CurrentUser.getId())).collect(Collectors.toList()).get(0);
@@ -59,7 +62,11 @@ public class UserHomeController implements IAdapter {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
+                Statics.Users.clear();
                 io.readSerializedFile((String)path,"users");
+                for(int i = 0 ; i<io.users.size(); i++){
+                    System.out.println("USER ID: "+io.users.get(i).getUsername()+"=="+"CU - > "+ Statics.CurrentUser.getUsername());
+                }
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();

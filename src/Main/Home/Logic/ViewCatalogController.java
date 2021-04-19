@@ -135,9 +135,7 @@ public class ViewCatalogController implements IAdapter {
 
                         MachineAdapter mac = catView.getSelectionModel().getSelectedItem();
                         String selectedName = mac.getName();
-                        System.out.println("---------");
-                        System.out.println(mac.getName());
-                        System.out.println(mac);
+
                         //check if validF
                         int quantity=1;
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
@@ -152,11 +150,11 @@ public class ViewCatalogController implements IAdapter {
                             System.out.println(mac.getInventory()-quantity+" Left!!");
                             Machine m = mac.getMachine();
                             m.setInventory(quantity);
-
+                            System.out.println(m.getInventory());
                             if(mac.getInventory()>0) {
                                 AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
                                 System.out.println(m);
-                                if( Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).size()>0)
+                                if( Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).count() >0)
                                     Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).increaseInventory(m.getInventory());
                                 else
                                    {
@@ -164,23 +162,31 @@ public class ViewCatalogController implements IAdapter {
                                        Statics.CurrentUser.addCurrentRentals(m);
 
                                    }
-                                Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
-                               // mac.setInventory(Math.max((left), 0));
+                                 // mac.setInventory(Math.max((left), 0));
 
                             }
                             else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
                             int index=-1;
+                            System.out.println(Statics.CurrentUser);
                             for(int i=0; i < Statics.Users.size(); i++){
+                              //  System.out.println("USER ID: "+Statics.Users.get(i).getId()+"\nCurrent ID: "+Statics.CurrentUser.getId());
                                 if(Statics.Users.get(i).getId().equals(Statics.CurrentUser.getId())){
-                                    System.out.println("Line 162: "+Statics.CurrentUser.getCurrRentals());
+                                  //  System.out.println("Line 162: "+Statics.CurrentUser.getCurrRentals());
                                     Statics.Users.get(i).setCurrRentals(Statics.CurrentUser.getCurrRentals());
                                 }
                             }
+
+                            ArrayList<User> u = new ArrayList<User>();
+                            u.add(Statics.CurrentUser);
+                            io.serializeToFile("currentUser.ser",u);
+                            io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
+
                             //save machines
+                            Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
+                            //
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                             //save user;
-                            io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
-                            new NavigationInvoker(new Previous(Main.currentStage)).activate();
+                           new NavigationInvoker(new Previous(Main.currentStage)).activate();
                             try {
 
                                  Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
@@ -223,17 +229,6 @@ public class ViewCatalogController implements IAdapter {
         }
     }
 
-    public void loadUsers() {
-        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
-            try {
-                System.out.println(path);
-                io.readSerializedFile((String)path, "users");
-                Statics.Users.addAll(io.users);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /*
         onReturn leads back to user or admin home page depending on if user or admin

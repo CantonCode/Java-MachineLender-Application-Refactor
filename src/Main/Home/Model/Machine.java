@@ -32,7 +32,7 @@ public abstract class Machine implements Serializable {
     }
 
     public void increaseInventory(int inv){this.inventory+=inv;}
-//    public void decreaseInventory(int inv){this.inventory-=inv;}
+    public void decreaseInventory(int inv){this.inventory=Math.max(inventory-inv,0);}
 
     public String getName() {
         return name;
