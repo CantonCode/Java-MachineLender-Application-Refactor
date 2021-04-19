@@ -125,7 +125,7 @@ public class LoginController implements IAdapter {
 
     public void registerButtonOnAction(ActionEvent actionEvent)throws IOException {
         ///change last argument to either admin/customer
-        Main.currentStage.setFXMLScene("Authentication/UI/register.fxml",new LoginController(), AccountType.CUSTOMER);
+        Main.currentStage.setFXMLScene("Authentication/UI/register.fxml", new LoginController(), AccountType.CUSTOMER);
     }
 
     @Override

@@ -8,6 +8,12 @@
 
 <Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #252445;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Authentication.Logic.RegisterController">
    <children>
+      <Button fx:id="manageUsers" layoutX="393.0" layoutY="332.0" mnemonicParsing="false" onAction="#registerOnManageUsers" style="-fx-background-color: #db5f46;" text="Manage Users" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button id="returnToLogin" fx:id="loginButton" layoutX="361.0" layoutY="295.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #db5f46;" text="Return To Login" textFill="WHITE" />
       <AnchorPane layoutX="22.0" layoutY="56.0" prefHeight="288.0" prefWidth="218.0" style="-fx-background-color: #e03614; -fx-background-radius: 10;">
          <children>
             <Text fx:id="regNameTitle" fill="WHITE" layoutX="26.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="59.443359375" />
@@ -33,13 +39,7 @@
                </font></Text>
             <Line endX="97.0" endY="7.0" layoutX="109.0" layoutY="37.0" startX="-92.0" startY="7.0" stroke="WHITE" />
          </children></AnchorPane>
-      <Button fx:id="loginButton" layoutX="361.0" layoutY="295.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #db5f46;" text="Return To Login" textFill="WHITE" />
       <Label fx:id="msgr" alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="273.0" prefHeight="17.0" prefWidth="179.0" textFill="RED" />
-      <Button fx:id="manageUsers" layoutX="393.0" layoutY="332.0" mnemonicParsing="false" onAction="#registerOnManageUsers" style="-fx-background-color: #db5f46;" text="Manage Users" textFill="WHITE">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
       <Pane layoutX="161.0" layoutY="268.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="27.0" prefWidth="200.0">
          <children>
             <Label fx:id="infoLabel" layoutX="91.0" layoutY="7.0" textAlignment="CENTER" textFill="#9a9a9a">

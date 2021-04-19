@@ -49,7 +49,7 @@ public class FileManager {
             FileOutputStream fos = new FileOutputStream(this.getClass().getResource("/DB/"+path).getPath());
             ObjectOutputStream oos=new ObjectOutputStream(fos);
 
-            System.out.println("Writing..."+users);
+            System.out.println("Writing..." + users);
             oos.writeObject(users);
             oos.reset();
 

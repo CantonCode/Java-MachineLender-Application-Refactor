@@ -1,5 +1,6 @@
 package Main;
 
+import Main.Facade.RegistrationFacade;
 import Main.Interceptor.Dispatcher;
 import Main.Interceptor.LoginAttemptsInterceptor;
 import Main.Interceptor.PreLoginContext;
@@ -31,7 +32,7 @@ public class Main extends Application {
         myDispatcher.registerInterceptor(new LoginAttemptsInterceptor());
         myDispatcher.registerInterceptor(new TimeLoggingInterceptor());
 
-        System.out.println(Arrays.toString(args));
+        System.out.println("&&&&&&&&&&&&&: " + Arrays.toString(args));
         Statics.inventoryObservers = new ObserverInvoker();
 
         myDispatcher.onProgramStart(new PreLoginContext());
@@ -61,6 +62,7 @@ public class Main extends Application {
         /*
             Below two lines create an admin account
         */
+
 
         RegisterController rc = new RegisterController();
         rc.manualAdmin("Admin", "Admin1", "Admin123");
