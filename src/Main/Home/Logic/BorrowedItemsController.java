@@ -149,9 +149,14 @@ public class BorrowedItemsController implements IAdapter {
                         state.put("quantity",quantity);
                         //store this machine in momento;
                         originator.setState(state);
+                        caretaker.refresh(currentStateIndex);
                         caretaker.saveState(originator.storeState());
                         savedStateCounter++;
                         currentStateIndex++;
+
+                        //0,1,2,3
+
+
                         undoBorrow.setDisable(false);
 
                         System.out.println("MOMENTO STORED: Quantity -- "+quantity);
@@ -196,7 +201,7 @@ public class BorrowedItemsController implements IAdapter {
         Map oldState = originator.retrieveState(caretaker.getState(currentStateIndex));
         Machine oldMachine = (Machine) oldState.get("machine");
         int quantity = (int) oldState.get("quantity");
-        System.out.println("OLD STATE: "+ oldMachine+"\n"+quantity);
+        System.out.println("CURRENT STATE V SAVED STATE : "+ currentStateIndex+" :: "+savedStateCounter);
         int position = -1;
         for(int i = 0 ; i <  Statics.CurrentUser.getCurrRentals().size();i++){
             if( Statics.CurrentUser.getCurrRentals().get(i).getId().equals(oldMachine.getId()))
@@ -212,13 +217,13 @@ public class BorrowedItemsController implements IAdapter {
             {
                 oldMachine.increaseInventory(quantity);
                 Statics.CurrentUser.getCurrRentals().set(position,oldMachine);
-                Statics.Machines.stream().filter(machine -> machine.getId().equals(oldMachine.getId())).collect(Collectors.toList()).get(0).decreaseInventory(quantity);
+                Statics.Machines.stream().filter(machine -> machine.getId().equals(oldMachine.getId())).collect(Collectors.toList()).set(0,oldMachine);//.decreaseInventory(quantity);
             }
             else{
                 System.out.println("REDOING>>>>");
                 oldMachine.decreaseInventory(quantity);
                 Statics.CurrentUser.getCurrRentals().set(position,oldMachine);
-                Statics.Machines.stream().filter(machine -> machine.getId().equals(oldMachine.getId())).collect(Collectors.toList()).get(0).increaseInventory(quantity);
+                Statics.Machines.stream().filter(machine -> machine.getId().equals(oldMachine.getId())).collect(Collectors.toList()).set(0,oldMachine);
             }
 
         }
@@ -249,14 +254,29 @@ public class BorrowedItemsController implements IAdapter {
 
         System.out.println(">"+(savedStateCounter ) +">"+ currentStateIndex);
         System.out.println((savedStateCounter ) > currentStateIndex);
-        if((savedStateCounter-1 ) > currentStateIndex){
+        if((savedStateCounter) >= currentStateIndex){
+
+            System.out.println("Redo started");
+            doMomento(false);
             currentStateIndex++;
+            if(currentStateIndex>=savedStateCounter)
+                redoBorrow.setDisable(true);
+
+            undoBorrow.setDisable(false);
+
+
+            init();
+        }else if((currentStateIndex) == 0){
+
             System.out.println("Redo started");
             doMomento(false);
             undoBorrow.setDisable(false);
+
+            currentStateIndex++;
             init();
-        }else{
-           // redoBorrow.setDisable(true);
+        }
+        else{
+            redoBorrow.setDisable(true);
         }
     }
 }
