@@ -1,5 +1,6 @@
 package Main.Home.Logic;
 
+import Main.Interceptor.PostLoginContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import static Main.Main.myDispatcher;
 
 /*
     Logic implementation for the user home page.
@@ -52,6 +55,8 @@ public class UserHomeController implements IAdapter {
         }else{
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
         }
+
+        myDispatcher.onPostLogin(new PostLoginContext(Statics.CurrentUser.getUsername()));
     }
 
     @Override
@@ -93,6 +98,7 @@ public class UserHomeController implements IAdapter {
     public void viewCatalog(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+            myDispatcher.onPreCatalog(new PostLoginContext(Statics.CurrentUser.getUsername()));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -104,6 +110,7 @@ public class UserHomeController implements IAdapter {
     public void viewBorrowedMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
+            myDispatcher.onPreBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
