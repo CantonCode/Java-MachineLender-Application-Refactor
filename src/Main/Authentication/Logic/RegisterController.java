@@ -95,7 +95,7 @@ public class RegisterController implements IAdapter {
 
     public void loginButtonOnAction(ActionEvent event) throws IOException {
         // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
+        Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new RegisterController());
     }
 
 
