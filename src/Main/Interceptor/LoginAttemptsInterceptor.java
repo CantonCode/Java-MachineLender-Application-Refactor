@@ -10,14 +10,12 @@ public class LoginAttemptsInterceptor implements IInterceptor{
 
     @Override
     public void onPreLogin(IContextObject context) {
-        attempts = attempts + 1;
-        System.out.printf("%d Login attempts.",attempts);
     }
 
     @Override
     public void onLoginAttempt(IContextObject context) {
         attempts = attempts + 1;
-        System.out.printf("%d Login attempts.",attempts);
+        System.out.printf("%d Login attempts.\n",attempts);
 
 
         // (if attempts > x) { do something }
@@ -25,7 +23,7 @@ public class LoginAttemptsInterceptor implements IInterceptor{
 
     @Override
     public void onPostLogin(IContextObject context) {
-        System.out.printf("%d Login attempts.",attempts);
+        System.out.printf("%d Login attempts.\n",attempts);
     }
 
     @Override
