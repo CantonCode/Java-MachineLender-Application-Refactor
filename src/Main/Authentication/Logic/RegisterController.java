@@ -134,27 +134,27 @@ public class RegisterController implements IAdapter {
         } else {
             AlertBox.display("Error", "Invalid OTP please try again");
 
-        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
-        rf.register(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), AccountType.CUSTOMER);
-
-        switch(rf.getValType())
-        {
-            case -1:
-                //both failed
-                AlertBox.display("Password Error: -1", "     Err-1: Password & Name are inputted incorrectly;     \n     password must be a set of alpha-numeric values greater than 4     \n     Username already in user.     ");
-                break;
-            case 1:
-                // sucess
-                Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
-                break;
-            case 2:
-                // name failed
-                AlertBox.display("Username Error: 2", "     Err2: Username already in user.     ");
-                break;
-            case 3:
-                // password failed
-                AlertBox.display("Password Error: 3", "     Err3: password must be a set of alpha-numeric values greater than 4.     ");
-        }
+//        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
+//        rf.register(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), AccountType.CUSTOMER);
+//
+//        switch(rf.getValType())
+//        {
+//            case -1:
+//                //both failed
+//                AlertBox.display("Password Error: -1", "     Err-1: Password & Name are inputted incorrectly;     \n     password must be a set of alpha-numeric values greater than 4     \n     Username already in user.     ");
+//                break;
+//            case 1:
+//                // sucess
+//                Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
+//                break;
+//            case 2:
+//                // name failed
+//                AlertBox.display("Username Error: 2", "     Err2: Username already in user.     ");
+//                break;
+//            case 3:
+//                // password failed
+//                AlertBox.display("Password Error: 3", "     Err3: password must be a set of alpha-numeric values greater than 4.     ");
+//        }
     }
 }
 
@@ -243,6 +243,7 @@ public class RegisterController implements IAdapter {
         } else {
             usernameHint.setText("Not Available");
             usernameHint.setStyle("-fx-text-fill: red;");
+            AlertBox.display("Username Error", "User name must not be blank");
             valid = false; }
 
         Matcher matcher = pattern.matcher(email);
@@ -253,6 +254,7 @@ public class RegisterController implements IAdapter {
         }else{
             emailValid.setText("Invalid");
             emailValid.setStyle("-fx-text-fill: red;");
+            AlertBox.display("Email Error", "Invalid Email");
             valid = false;
         }
 
@@ -267,6 +269,9 @@ public class RegisterController implements IAdapter {
      */
     public boolean uniqueUsername(String username) {
         long matches = 0;
+        if(username.isEmpty()){
+            return false;
+        }
         for (User u : users) {
             System.out.println(username);
             if (u.getUsername().equals(username))

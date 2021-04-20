@@ -84,7 +84,7 @@ public class EditMachine implements IAdapter {
             ed_inv.clear();
     }
 
-    public void onDeleteMachine(ActionEvent actionEvent) throws IOException{
+    public void onDeleteMachine(ActionEvent actionEvent) throws IOException, ParseException {
 
         Statics.Machines.remove(machine);
         new FileManager().machineSerializeToFile("MachineDB.ser", Statics.Machines);
