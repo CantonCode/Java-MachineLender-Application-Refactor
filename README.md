@@ -17,4 +17,11 @@ StackOverflow - How to install JavaFX in IntelliJ: https://stackoverflow.com/que
 
 How to install JUnit in IntelliJ: https://www.jetbrains.com/help/idea/testing.html#add-testing-libraries
 
-[VERY IMPORTANT] If it doesn't compile after pulling, delete the entire out folder and run the code again.
+Two Jar files**: 
+javax.mail.jar
+activation-1.1.1.jar
+
+add the two included jar files** to dependencies: https://imgur.com/a/k58t5mG
+
+
+[VERY IMPORTANT] If it doesn't compile after pulling and setting up, delete the entire out folder and run the code again.
