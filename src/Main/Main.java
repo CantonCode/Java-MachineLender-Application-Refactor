@@ -1,6 +1,10 @@
 package Main;
 
+import Main.Facade.RegistrationFacade;
 import Main.Interceptor.Dispatcher;
+import Main.Interceptor.LoginAttemptsInterceptor;
+import Main.Interceptor.PreLoginContext;
+import Main.Interceptor.TimeLoggingInterceptor;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import Main.Authentication.Logic.FileManager;
@@ -18,23 +22,20 @@ import java.util.Arrays;
 
 public class Main extends Application {
     public static Navigation currentStage;
-
-    public FileManager io = new FileManager();
+    public static FileManager io = new FileManager();
+    public static Dispatcher myDispatcher = new Dispatcher();
 
     public static void main(String[] args) {
 
         ArrayList<Machine> machines = new ArrayList<>();
 
-        /// bad code smell?  <=== #Shadowing variable
-        FileManager io = new FileManager();
+        myDispatcher.registerInterceptor(new LoginAttemptsInterceptor());
+        myDispatcher.registerInterceptor(new TimeLoggingInterceptor());
 
-        Dispatcher myDispatcher = new Dispatcher();
-
-        System.out.println(Arrays.toString(args));
+        System.out.println("&&&&&&&&&&&&&: " + Arrays.toString(args));
         Statics.inventoryObservers = new ObserverInvoker();
 
-        // Context object
-        // myDispatcher.onPreLogin(/*pass context object*/);
+        myDispatcher.onProgramStart(new PreLoginContext());
 
         Arrays.asList("MachineDB.ser").forEach(path -> {
             try {
@@ -54,12 +55,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        myDispatcher.onPreLogin(new PreLoginContext());
         currentStage = new Navigation("Machine Lender");
         getCurrentUser();
 
         /*
             Below two lines create an admin account
         */
+
 
         RegisterController rc = new RegisterController();
         rc.manualAdmin("Admin", "Admin1", "Admin123");
@@ -81,7 +84,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void getCurrentUser() {
+    private void getCurrentUser() {
         Statics.CurrentUser = null;
         try {
             io.readSerializedFile("currentUser.ser", "users");

@@ -1,6 +1,7 @@
 package Main.Authentication.Logic;
 
 import Main.Authentication.Model.*;
+import Main.Facade.RegistrationFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.mail.*;
 
+import java.util.stream.Collectors;
 
 /*
     Class for logic required to run register page.
@@ -75,30 +77,19 @@ public class RegisterController implements IAdapter {
      */
     public void manualAdmin(String Name, String Username, String Password) {
         String time = String.valueOf(System.currentTimeMillis());
-
         User origin = new AdminBuilder().setId(time).setName(Name).setUsername(Username).setPassword(Password).setAccountType(AccountType.ADMIN).setCurr(emptyMac).createAdmin();
         origin.encryptPassword();
         users.add(origin);
+
+        users.stream().filter(u -> u.getType() == AccountType.ADMIN);
         io.serializeToFile("AdminDB.ser", users);
-    }
-
-    public void manualUser(String Name, String Username, String Password) {
-        String time = String.valueOf(System.currentTimeMillis());
-        regUser = new CustomerBuilder().setId(time).setName(Name).setUsername(Username).setPassword(Password).setType(AccountType.CUSTOMER).setCurr(emptyMac).createCustomer();
-
-        regUser.encryptPassword();
-        System.out.println(regUser);
-        users.add(regUser);
-        Statics.CurrentUser = regUser;
-
-        io.serializeToFile("currentUser.ser", users);
     }
 
     /*
         Register button which stores user information to the currentUser.ser file and then brings the new user
         to the user home page
      */
-    public void registerButtonOnAction(ActionEvent event) throws IOException, MessagingException {
+    public void registerButtonOnAction(ActionEvent event) throws IOException, MessagingException, ParseException {
 
         //if else either creates user if all fields are filled or throws an error message
         if (validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),userEmail.getText())) {
@@ -111,7 +102,7 @@ public class RegisterController implements IAdapter {
                 ArrayList<User> users = new ArrayList<>();
                 users.add(Statics.CurrentUser);
                 io.serializeToFile("currentUser.ser", users);
-                //          Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
+                          Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
             }
             else
                 this.sendOTP();
@@ -142,10 +133,30 @@ public class RegisterController implements IAdapter {
             Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
         } else {
             AlertBox.display("Error", "Invalid OTP please try again");
+
+        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
+        rf.register(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), AccountType.CUSTOMER);
+
+        switch(rf.getValType())
+        {
+            case -1:
+                //both failed
+                AlertBox.display("Password Error: -1", "     Err-1: Password & Name are inputted incorrectly;     \n     password must be a set of alpha-numeric values greater than 4     \n     Username already in user.     ");
+                break;
+            case 1:
+                // sucess
+                Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
+                break;
+            case 2:
+                // name failed
+                AlertBox.display("Username Error: 2", "     Err2: Username already in user.     ");
+                break;
+            case 3:
+                // password failed
+                AlertBox.display("Password Error: 3", "     Err3: password must be a set of alpha-numeric values greater than 4.     ");
         }
-    }else{
-        AlertBox.display("Error", "Blank input");
     }
+}
 
     }
 
@@ -205,7 +216,7 @@ public class RegisterController implements IAdapter {
      */
     public void loginButtonOnAction(ActionEvent event) throws IOException, ParseException {
         // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
+        Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new RegisterController());
     }
     // File Name SendEmail.java
 

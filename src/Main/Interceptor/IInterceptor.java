@@ -4,6 +4,7 @@ public interface IInterceptor {
 
     void onProgramStart(IContextObject context);
     void onPreLogin(IContextObject context);
+    void onLoginAttempt(IContextObject context);
     void onPostLogin(IContextObject context);
     void onPreCatalog(IContextObject context);
     void onPostCatalog(IContextObject context);

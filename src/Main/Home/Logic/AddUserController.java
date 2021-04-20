@@ -58,10 +58,9 @@ public class AddUserController implements IAdapter {
             RegisterController rc = new RegisterController();
             //if else statements to check if account type is valid
 
-                if(type.equals("Admin")) {
+                if(type.equals("Admin"))
+                {
                     rc.manualAdmin(name, username, pw);
-                } else if (type.equals("User")) {
-                    rc.manualUser(name, username, pw);
                 }
                 Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
         } catch (IOException | ParseException e) {

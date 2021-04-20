@@ -1,5 +1,6 @@
 package Main.Authentication.Logic;
 
+import Main.Interceptor.PreLoginContext;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +25,8 @@ import Main.Statics;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+
+import static Main.Main.myDispatcher;
 
 /*
     Class for the logic necessary for the login page.
@@ -80,6 +83,8 @@ public class LoginController implements IAdapter {
 
     public void loginButtonOnAction(ActionEvent event) throws IOException, ParseException {
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
+            myDispatcher.onLoginAttempt(new PreLoginContext());
+
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
 //                messanger.setText("Logged in as: "+Statics.CurrentUser);
                 ArrayList<User> users= new ArrayList<>();
@@ -119,11 +124,13 @@ public class LoginController implements IAdapter {
 
     public void registerButtonOnAction(ActionEvent actionEvent) throws IOException, ParseException {
         ///change last argument to either admin/customer
-        Main.currentStage.setFXMLScene("Authentication/UI/register.fxml",new LoginController(), AccountType.CUSTOMER);
+        Main.currentStage.setFXMLScene("Authentication/UI/register.fxml", new LoginController(), AccountType.CUSTOMER);
     }
 
     @Override
     public void init() {
+        myDispatcher.onPreLogin(new PreLoginContext());
+
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 io.readSerializedFile(path,"users");

@@ -1,5 +1,6 @@
 package Main.Home.Logic;
 
+import Main.Interceptor.PostLoginContext;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static Main.Main.myDispatcher;
+
 /*
     Logic implementation for the user home page.
  */
@@ -35,6 +38,9 @@ public class UserHomeController implements IAdapter {
         if(Statics.CurrentUser!=null) {
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
             loadUsers();
+            for(int i = 0 ; i<Statics.Users.size(); i++){
+                System.out.println("USER ID: "+Statics.Users.get(i).getUsername()+"--"+"CU - > "+ Statics.CurrentUser.getUsername());
+            }
             unameField.setText(Statics.CurrentUser.getUsername()+"("+Statics.CurrentUser.getType().name().toLowerCase()+")");
             try{
                 User user = Statics.Users.stream().filter((user1)-> user1.getId().equals(Statics.CurrentUser.getId())).collect(Collectors.toList()).get(0);
@@ -50,6 +56,8 @@ public class UserHomeController implements IAdapter {
         }else{
             System.out.println("CURRENT USER:"+ Statics.CurrentUser);
         }
+
+        myDispatcher.onPostLogin(new PostLoginContext(Statics.CurrentUser.getUsername()));
     }
 
     @Override
@@ -60,7 +68,11 @@ public class UserHomeController implements IAdapter {
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
                 System.out.println(path);
-                io.readSerializedFile(path,"users");
+                Statics.Users.clear();
+                io.readSerializedFile((String)path,"users");
+                for(int i = 0 ; i<io.users.size(); i++){
+                    System.out.println("USER ID: "+io.users.get(i).getUsername()+"=="+"CU - > "+ Statics.CurrentUser.getUsername());
+                }
                 Statics.Users.addAll(io.users);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -87,6 +99,7 @@ public class UserHomeController implements IAdapter {
     public void viewCatalog(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+            myDispatcher.onPreCatalog(new PostLoginContext(Statics.CurrentUser.getUsername()));
         } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
@@ -98,6 +111,7 @@ public class UserHomeController implements IAdapter {
     public void viewBorrowedMachines(ActionEvent actionEvent) {
         try {
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
+            myDispatcher.onPreBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
         } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
