@@ -1,7 +1,9 @@
 package Main.Authentication.Logic;
 
 import Main.Authentication.Model.*;
+import Main.Facade.RegisteredInfo;
 import Main.Facade.RegistrationFacade;
+import Main.Facade.RegistrationRegister;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,6 +41,15 @@ public class RegisterController implements IAdapter {
     ArrayList<User> users = new ArrayList<>();
     FileManager io = new FileManager();
     ArrayList<Machine> emptyMac = new ArrayList<>();
+    RegistrationRegister rr = new RegistrationRegister();
+    RegisteredInfo ri = new RegisteredInfo();
+    User currentUser;
+
+    String usernameS = "";
+    String nameS = "";
+    String passwordS = "";
+    AccountType typeS;
+
     @FXML
     private TextField firstnameField;
     @FXML
@@ -91,27 +102,50 @@ public class RegisterController implements IAdapter {
      */
     public void registerButtonOnAction(ActionEvent event) throws IOException, MessagingException, ParseException {
 
-        //if else either creates user if all fields are filled or throws an error message
-        if (validate(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(),userEmail.getText())) {
-            new PasswordValidator(1).Validate(regPasswordField.getText());
-            if (this.accountType == AccountType.ADMIN) {
-                this.registerAsAdmin();
+        nameS = firstnameField.getText();
+        usernameS = regUsenameField.getText();
+        passwordS = regPasswordField.getText();
+        typeS = AccountType.CUSTOMER;
 
-                infoLabel.setText("Logged In as: " + regUsenameField.getText());
-                passwordHint.setStyle("-fx-text-fill: #93bf6c;");
-                ArrayList<User> users = new ArrayList<>();
-                users.add(Statics.CurrentUser);
-                io.serializeToFile("currentUser.ser", users);
-                          Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
-            }
-            else
-                this.sendOTP();
+        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
+        rf.register(nameS, usernameS, passwordS,userEmail.getText(),typeS);
 
+        switch(rf.getValType())
+        {
+            case -1:
+                //both failed
+                AlertBox.display("Password Error: -1", "     Err-1: Password & Name are inputted incorrectly;     \n     password must be a set of alpha-numeric values greater than 4     \n     Username already in user.     ");
+                usernameHint.setText("Not Available");
+                usernameHint.setStyle("-fx-text-fill: red;");
 
-        } else {
-            infoLabel.setText("Please fill ALL fields");
-            infoLabel.setStyle("-fx-text-fill: red;");
+                passwordHint.setText("Weak");
+                passwordHint.setStyle("-fx-text-fill: red;");
+                break;
+            case 1:
+                // sucess
+
+                //Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
+                break;
+            case 2:
+                // name failed
+                AlertBox.display("Username Error: 2", "     Err2: Username already in user.     ");
+                usernameHint.setText("Not Available");
+                usernameHint.setStyle("-fx-text-fill: red;");
+                break;
+            case 3:
+                // password failed
+                passwordHint.setText("Weak");
+                passwordHint.setStyle("-fx-text-fill: red;");
+                AlertBox.display("Password Error: 3", "     Err3: password must be a set of alpha-numeric values greater than 4.     ");
+                break;
+            case 4:
+                AlertBox.display("Password Error: 4", "     email invalid     ");
+                break;
+            case 5:
+                AlertBox.display("Valid Credentials", " Please continue onto OTP ");
+                sendOTP();
         }
+
     }
 
     public void OTPButtonOnAction(ActionEvent event) throws IOException, MessagingException, ParseException {
@@ -123,38 +157,16 @@ public class RegisterController implements IAdapter {
         if(userOTP.equals(otp)){
             System.out.print("VALID OTP");
             AlertBox.display("SUCCESS", "Registration Complete");
-            registerAsCustomer();
 
-            infoLabel.setText("Logged In as: " + regUsenameField.getText());
-            passwordHint.setStyle("-fx-text-fill: #93bf6c;");
-            ArrayList<User> users = new ArrayList<>();
-            users.add(Statics.CurrentUser);
-            io.serializeToFile("currentUser.ser", users);
+            users = rr.Register(nameS, usernameS, passwordS, typeS, users);
+            currentUser = users.get(users.size() - 1);
+
             Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
+
         } else {
             AlertBox.display("Error", "Invalid OTP please try again");
 
-//        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
-//        rf.register(firstnameField.getText(), regUsenameField.getText(), regPasswordField.getText(), AccountType.CUSTOMER);
 //
-//        switch(rf.getValType())
-//        {
-//            case -1:
-//                //both failed
-//                AlertBox.display("Password Error: -1", "     Err-1: Password & Name are inputted incorrectly;     \n     password must be a set of alpha-numeric values greater than 4     \n     Username already in user.     ");
-//                break;
-//            case 1:
-//                // sucess
-//                Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
-//                break;
-//            case 2:
-//                // name failed
-//                AlertBox.display("Username Error: 2", "     Err2: Username already in user.     ");
-//                break;
-//            case 3:
-//                // password failed
-//                AlertBox.display("Password Error: 3", "     Err3: password must be a set of alpha-numeric values greater than 4.     ");
-//        }
     }
 }
 
@@ -248,15 +260,7 @@ public class RegisterController implements IAdapter {
 
         Matcher matcher = pattern.matcher(email);
 
-        if(matcher.matches()){
-            emailValid.setText("Valid");
-            emailValid.setStyle("-fx-text-fill: green;");
-        }else{
-            emailValid.setText("Invalid");
-            emailValid.setStyle("-fx-text-fill: red;");
-            AlertBox.display("Email Error", "Invalid Email");
-            valid = false;
-        }
+
 
 
         return valid;
