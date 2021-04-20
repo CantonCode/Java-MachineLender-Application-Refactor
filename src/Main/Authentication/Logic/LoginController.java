@@ -84,7 +84,7 @@ public class LoginController implements IAdapter {
 
 
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
-            /// myDispatcher.onPreLogin(new PreLoginContext()); /// onattempt
+            myDispatcher.onLoginAttempt(new PreLoginContext());
 
             if (validateLogin(usernameField.getText(), passwordField.getText())) {
 //                messanger.setText("Logged in as: "+Statics.CurrentUser);
