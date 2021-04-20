@@ -25,3 +25,11 @@ add the two included jar files** to dependencies: https://imgur.com/a/k58t5mG
 
 
 [VERY IMPORTANT] If it doesn't compile after pulling and setting up, delete the entire out folder and run the code again.
+
+
+[ADMIN CRED]
+username: Admin1
+password: Admin123
+
+Once set up, and you're able to run the application. 
+Log in as Admin in order to add machines so as to test customer rental abilities on base accounts.
