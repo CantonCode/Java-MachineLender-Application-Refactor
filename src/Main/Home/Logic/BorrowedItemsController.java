@@ -1,6 +1,7 @@
 package Main.Home.Logic;
 
 import Main.Authentication.Model.AccountType;
+import Main.Interceptor.PostLoginContext;
 import Main.Momento.Caretaker;
 import Main.Momento.Originator;
 import javafx.collections.FXCollections;
@@ -33,6 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static Main.Main.myDispatcher;
 
 /*
     Class implements logic of borrowed items page.
@@ -92,6 +95,9 @@ public class BorrowedItemsController implements IAdapter {
             typeCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("type"));
             costPerDayCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("costPerDay"));
             invCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("inventory"));
+
+            myDispatcher.onPostInventory(new PostLoginContext(Statics.CurrentUser.getUsername()));
+
             returnView.setItems(data);
 
         }

@@ -110,8 +110,10 @@ public class UserHomeController implements IAdapter {
      */
     public void viewBorrowedMachines(ActionEvent actionEvent) {
         try {
+            myDispatcher.onPreInventory(new PostLoginContext(Statics.CurrentUser.getUsername()));
+
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
-            myDispatcher.onPreBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
+
         } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }

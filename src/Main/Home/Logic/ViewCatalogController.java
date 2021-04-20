@@ -1,5 +1,6 @@
 package Main.Home.Logic;
 
+import Main.Interceptor.PostLoginContext;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static Main.Main.myDispatcher;
 
 /*
     Class implements logic for view catalog page.
@@ -107,8 +110,11 @@ public class ViewCatalogController implements IAdapter {
         meets requirements for rentals (<5 current rentals) and if so adds it to their current rentals
      */
     public void borrowBtn(ActionEvent actionEvent) throws IOException, ParseException {
+
         catView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)-> {
             if(catView.getSelectionModel().getSelectedItem() != null){
+                myDispatcher.onPreBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
+
                 TableView.TableViewSelectionModel Tv = catView.getSelectionModel();
                 ObservableList cells = Tv.getSelectedCells();
                 TablePosition tp = (TablePosition) cells.get(0);
@@ -186,6 +192,8 @@ public class ViewCatalogController implements IAdapter {
                             Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
                             //
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
+
+                            myDispatcher.onPostBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
                             //save user;
                            new NavigationInvoker(new Previous(Main.currentStage)).activate();
                             try {
@@ -246,6 +254,7 @@ public class ViewCatalogController implements IAdapter {
         onReturn leads back to user or admin home page depending on if user or admin
      */
     public void onReturn(ActionEvent actionEvent) {
+        myDispatcher.onPostCatalog(new PostLoginContext(Statics.CurrentUser.getUsername()));
         new NavigationInvoker(new Previous(Main.currentStage)).activate();
     }
 }
