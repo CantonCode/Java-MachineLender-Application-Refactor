@@ -19,9 +19,9 @@ public class LenderController implements Initializable {
     @FXML
     private Button returnBtn, borrowBtn, adminBtn, logoutBtn;
 
-    ArrayList<String> inventory = new ArrayList<>();
-    String userID;
-    String usernameS;
+    private ArrayList<String> inventory = new ArrayList<>();
+    private String userID;
+    private String usernameS;
 
 
     public void addInv()
@@ -54,7 +54,7 @@ public class LenderController implements Initializable {
     public void setInfo(String name, String ID) {
         userID = ID;
         usernameS = name;
-        System.out.println("Succesfully wrote info");
+        System.out.println("Successfully wrote info");
     }
 
 

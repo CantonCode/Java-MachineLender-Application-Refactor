@@ -24,6 +24,7 @@ import java.util.Arrays;
     Class for logic of add machine page.
  */
 public class AddMachineController implements IAdapter {
+    public TextField machine_quantity;
     @FXML
     private TextField machineCost;
 
@@ -32,9 +33,9 @@ public class AddMachineController implements IAdapter {
 
     @FXML
     ComboBox machineType;
-    MachineFactory factory = new MachineFactory();
-    ArrayList<Machine> machines = new ArrayList<Machine>();
-    FileManager io = new FileManager();
+    private MachineFactory factory = new MachineFactory();
+    private ArrayList<Machine> machines = new ArrayList<Machine>();
+    private FileManager io = new FileManager();
 
 
     @Override
@@ -72,23 +73,30 @@ public class AddMachineController implements IAdapter {
      */
     public void onAdd(ActionEvent actionEvent) {
         try {
-            String type = machineType.getValue().toString();
-            Machine newMachine = factory.createNewMachine(type);
 
-            String time = String.valueOf(System.currentTimeMillis());
-            int i = Integer.parseInt(machineCost.getText());
+                String type =  machineType.getValue() !=null ?  machineType.getValue().toString():"Crane";
 
-            newMachine.setId(time);
-            newMachine.setName(machineName.getText());
-            newMachine.setCostPerDay(i);
-            newMachine.setType(type);
-            newMachine.setInventory(100);
-            machines.add(newMachine);
-            Statics.Machines.add(newMachine);
+                Machine newMachine = factory.createNewMachine(type);
 
-            io.machineSerializeToFile("MachineDB.ser", machines);
+                String time = String.valueOf(System.currentTimeMillis());
+                String pattern = "^[0-9.]+$";
+                String pattern2 = "^[0-9]+$";
+                double cost = Double.parseDouble(machineCost.getText().matches(pattern)?machineCost.getText():"0.00");
+                int quantity = Integer.parseInt(machine_quantity.getText().matches(pattern2)?machine_quantity.getText():"0");
+                System.out.println(cost);
+                System.out.println(quantity);
 
-            Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
+                newMachine.setId(time);
+                newMachine.setName(machineName.getText());
+                newMachine.setCostPerDay(cost);
+                newMachine.setType(type);
+                newMachine.setInventory(quantity);
+                machines.add(newMachine);
+                Statics.Machines.add(newMachine);
+
+                io.machineSerializeToFile("MachineDB.ser", machines);
+
+                Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }

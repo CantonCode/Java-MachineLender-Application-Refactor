@@ -1,5 +1,6 @@
 package Main;
 
+import Main.Interceptor.Dispatcher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import Main.Authentication.Logic.FileManager;
@@ -23,10 +24,18 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         ArrayList<Machine> machines = new ArrayList<>();
+
+        /// bad code smell?  <=== #Shadowing variable
         FileManager io = new FileManager();
 
+        Dispatcher myDispatcher = new Dispatcher();
+
         System.out.println(Arrays.toString(args));
-        Statics.inventoryObservers =new ObserverInvoker();
+        Statics.inventoryObservers = new ObserverInvoker();
+
+        // Context object
+        // myDispatcher.onPreLogin(/*pass context object*/);
+
         Arrays.asList("MachineDB.ser").forEach(path -> {
             try {
                 io.readSerializedFile(path, "machines");

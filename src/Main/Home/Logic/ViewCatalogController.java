@@ -75,8 +75,6 @@ public class ViewCatalogController implements IAdapter {
         invCol.setCellValueFactory(new PropertyValueFactory<MachineAdapter, String>("inventory"));
 
         catView.setItems(data);
-
-        System.out.println(machines);
     }
 
     @Override
@@ -96,6 +94,14 @@ public class ViewCatalogController implements IAdapter {
         }
     }
 
+    private boolean isValidMachine(int index, Object val){
+        return Statics.Machines.get(index).getId().equals(val) ||
+                Statics.Machines.get(index).getName().equals(val) ||
+                Statics.Machines.get(index).getType().equals(val) ||
+                Statics.Machines.get(index).getCostPerDay() == (int) (val) ||
+                Statics.Machines.get(index).getInventory() == (int) (val);
+    }
+
     /*
         Borrow button action checks if a machine is selected from the catalog, if so checks if the current user
         meets requirements for rentals (<5 current rentals) and if so adds it to their current rentals
@@ -109,7 +115,7 @@ public class ViewCatalogController implements IAdapter {
                 Object val = tp.getTableColumn().getCellData(newValue);
 
                 for(int i = 0; i < Statics.Users.size(); i++){
-                    if(Statics.Machines.get(i).getId().equals(val) || Statics.Machines.get(i).getName().equals(val) || Statics.Machines.get(i).getType().equals(val) ||Statics.Machines.get(i).getCostPerDay() == (int)(val)||Statics.Machines.get(i).getInventory() == (int)(val)){
+                    if(isValidMachine(i, val)){
                         rowName = i;
                         selectedRow= Statics.Machines.get(i).getName()+": €"+Statics.Machines.get(i).getCostPerDay();
                     }
@@ -117,7 +123,10 @@ public class ViewCatalogController implements IAdapter {
                 itemLabel.setText(selectedRow);
             }
         });
+
+        MachineAdapter mac = catView.getSelectionModel().getSelectedItem();
         if(Statics.CurrentUser.getType()==AccountType.CUSTOMER) {
+
             class Borrow implements IMethod {
 
                 @Override
@@ -129,38 +138,54 @@ public class ViewCatalogController implements IAdapter {
                         String selectedName = mac.getName();
                         System.out.println("---------");
                         System.out.println(mac.getName());
-
+                        System.out.println(mac);
                         //check if validF
                         int quantity=1;
                         if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                             quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
-                            quantity=Math.min(Statics.Machines.get(rowName).getInventory(),quantity);
-                            int left=Statics.Machines.get(rowName).getInventory()-quantity;
+                            System.out.println(quantity);
+                            System.out.println(mac.getInventory());
+                            quantity=Math.min(mac.getInventory()+1,quantity);
+                            System.out.println(quantity);
+                            int left=(mac.getInventory())-quantity;
+
                             System.out.println("I am Borrowing "+ quantity + ": " +selectedName);
-                            System.out.println(Statics.Machines.get(rowName).getInventory()-quantity+" Left!!");
-                            Machine m = Statics.Machines.get(rowName);
+                            System.out.println(mac.getInventory()-quantity+" Left!!");
+                            Machine m = mac.getMachine();
                             m.setInventory(quantity);
 
-                            if(Statics.Machines.get(rowName).getInventory()>0) {
+                            if(mac.getInventory()>0) {
                                 AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
-                                Statics.Machines.get(rowName).setInventory(Math.max((left), 0));
-                                Statics.CurrentUser.addCurrentRentals(m);
+                                System.out.println(m);
+                                if( Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).size()>0)
+                                    Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).increaseInventory(m.getInventory());
+                                else
+                                   {
+                                       System.out.println(m);
+                                       Statics.CurrentUser.addCurrentRentals(m);
+
+                                   }
+                                Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
+                               // mac.setInventory(Math.max((left), 0));
+
                             }
                             else  AlertBox.display("OUT OF STOCK", "OH No this item: "+selectedName+" is currently out of Stock");
                             int index=-1;
                             for(int i=0; i < Statics.Users.size(); i++){
                                 if(Statics.Users.get(i).getId().equals(Statics.CurrentUser.getId())){
+                                    System.out.println("Line 162: "+Statics.CurrentUser.getCurrRentals());
                                     Statics.Users.get(i).setCurrRentals(Statics.CurrentUser.getCurrRentals());
                                 }
                             }
                             //save machines
                             io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                             //save user;
-                            io.serializeToFile("CustomerDB.ser", Statics.Users);
+                            io.serializeToFile("CustomerDB.ser", Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
                             new NavigationInvoker(new Previous(Main.currentStage)).activate();
                             try {
-                                Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
-                            } catch (IOException | ParseException e) {
+
+                                 Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
@@ -171,7 +196,8 @@ public class ViewCatalogController implements IAdapter {
                 }
             }
 
-            AlertBox.displayInput("Borrow "+selectedRow, "How many "+selectedRow+" Would you like to borrow?", "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
+            AlertBox.displayInput("Borrow "+selectedRow, "How many "+selectedRow+" Would you like to borrow?",
+                    "Confirm", "Cancel","Enter how much you want to borrow",new Borrow());
 
         }else {
 
@@ -189,11 +215,12 @@ public class ViewCatalogController implements IAdapter {
                     }
                 }
 
-                AlertBox.displayQuestion("Delete", "Are you sure you want to delete this Machine?", "Delete", "Keep",new BackSpace());
+                AlertBox.displayQuestion("Delete", "Are you sure you want to delete this Machine?",
+                        "Delete", "Keep",new BackSpace());
 
 
             });
-            Main.currentStage.setFXMLScene("Home/UI/editMachine.fxml",new LoginController(),Statics.Machines.get(rowName));
+            Main.currentStage.setFXMLScene("Home/UI/editMachine.fxml",new LoginController(),  Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0));
         }
     }
 

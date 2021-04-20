@@ -1,5 +1,8 @@
 package Main.Home.Logic;
 
+import Main.Authentication.Model.AccountType;
+import Main.Momento.Caretaker;
+import Main.Momento.Originator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,11 +24,14 @@ import Main.IMethod;
 import Main.Main;
 import Main.InventoryHelper.IAdapter;
 import Main.Statics;
+
+import javax.crypto.Mac;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /*
@@ -42,10 +48,16 @@ public class BorrowedItemsController implements IAdapter {
     public TableColumn costPerDayCol;
     public TableColumn invCol;
     public Button cancelBtn;
-    private final FileManager io = new FileManager();
+    public Button undoBorrow;
+    public Button redoBorrow;
+    private FileManager io = new FileManager();
     List<MachineAdapter> machines = new ArrayList<>();
     ArrayList<User> users = new ArrayList<>();
     public Label unameField;
+
+    static Caretaker<Map<String, Object>> caretaker = new Caretaker<>();
+    static Originator<Map<String, Object>> originator = new Originator<> ();
+    static int currentStateIndex,savedStateCounter = 0;
 
     @Override
     public void init() {
@@ -66,7 +78,10 @@ public class BorrowedItemsController implements IAdapter {
               new NavigationInvoker(new Previous(Main.currentStage)).activate();
           });
 
+            System.out.println(Statics.CurrentUser);
             for (Machine u : Statics.CurrentUser.getCurrRentals().stream().collect(Collectors.toList())) {
+                System.out.println("Line 70");
+                System.out.println(u.getInventory());
                 machines.add(new MachineAdapter(u));
             }
 
@@ -120,6 +135,8 @@ public class BorrowedItemsController implements IAdapter {
             public void execute() {
                 if (AlertBox.DISPLAY_QUESTION_ANSWER) {
                     MachineAdapter mac = returnView.getSelectionModel().getSelectedItem();
+
+
                     String selectedName = mac.getName();
                     selectedRow=selectedName;
                     System.out.println("---------");
@@ -133,27 +150,42 @@ public class BorrowedItemsController implements IAdapter {
                     int quantity=1;
                     if(AlertBox.DISPLAY_INPUT_TEXT.matches("[0-9]+")){
                         quantity=Integer.parseInt(AlertBox.DISPLAY_INPUT_TEXT);
-                        System.out.println((Statics.CurrentUser.getCurrRentals().size()));
-                        quantity=Math.min(Statics.CurrentUser.getCurrRentals().get(rowName).getInventory(),quantity);
+                        System.out.println((mac.getInventory()));
+                        quantity=Math.min(mac.getInventory(),quantity);
                         System.out.println("I am returning "+ quantity + ": " +selectedName);
-                        System.out.println((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity+" Left!!"));
-                        Machine m =(Statics.CurrentUser.getCurrRentals().get(rowName));
-                        m.setInventory(quantity);
+                        System.out.println((mac.getInventory()-quantity+" Left!!"));
 
+                        Machine m =mac.getMachine();
+                        Statics.CurrentUser.getCurrRentals().stream().filter(machine -> machine.getId().equals(m.getId())).collect(Collectors.toList()).get(0).setInventory(Math.max(mac.getInventory()-quantity,0));
 
-                            AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You For Your Purchase",selectedName,quantity ));
-                            if(index>=0)
-                        Statics.Machines.get(index).setInventory(Math.max((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity), 0));
+                         Statics.Machines.stream().filter(machine -> machine.getId().equals(mac.getId())).collect(Collectors.toList()).get(0).increaseInventory(quantity);
+                       // Statics.Machines.get(index).setInventory(Math.max((Statics.CurrentUser.getCurrRentals().get(rowName).getInventory()-quantity), 0));
+                        AlertBox.display("SUCCESS", String.format("%s\n%-15s:\t%-15s","Thank You, Product Returned",selectedName,quantity ));
+
+                        System.out.println("MOMENTO STRTED");
+                        Map<String, Object> state = new HashMap<>();
+                        state.put("machine",mac.getMachine());
+                        state.put("quantity",quantity);
+                        //store this machine in momento;
+                        originator.setState(state);
+                        caretaker.saveState(originator.storeState());
+                        savedStateCounter++;
+                        currentStateIndex++;
+                        undoBorrow.setDisable(false);
+
+                        System.out.println("MOMENTO STORED");
+                        //end of momento
 
 
                         //save machines
                         io.machineSerializeToFile("MachineDB.ser", Statics.Machines);
                         //save user;
-                        io.serializeToFile("CustomerDB.ser", Statics.Users);
+                        io.serializeToFile("CustomerDB.ser",  Statics.Users.stream().filter((user)->user.getType() == AccountType.CUSTOMER).collect(Collectors.toList()));
                         new NavigationInvoker(new Previous(Main.currentStage)).activate();
                         try {
-                            Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new ViewCatalogController());
-                        } catch (IOException | ParseException e) {
+                       //     init();
+                         //   Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -164,7 +196,8 @@ public class BorrowedItemsController implements IAdapter {
             }
         }
 
-        AlertBox.displayInput("Return "+selectedRow, "How many "+selectedRow+" Would you like to return?", "Confirm", "Cancel","Enter how much you want to return",new Borrow());
+        AlertBox.displayInput("Return "+selectedRow, "How many "+selectedRow+" Would you like to return?",
+                "Confirm", "Cancel","Enter how much you want to return",new Borrow());
 
     }
     /*
@@ -172,5 +205,37 @@ public class BorrowedItemsController implements IAdapter {
      */
     public void goBack(ActionEvent actionEvent) {
         new NavigationInvoker(new Previous(Main.currentStage)).activate();
+    }
+
+    public void onUndoBorrow(ActionEvent actionEvent) {
+        System.out.println("Undo Pressed");
+        if(currentStateIndex >= 1){
+            currentStateIndex--;
+            //restore old machine state
+            System.out.println("Undo started");
+
+            Map oldState = originator.retrieveState(caretaker.getState(currentStateIndex));
+            Machine oldMachine = (Machine) oldState.get("machine");
+            int quantity = (int) oldState.get("quantity");
+            System.out.println("OLD STATE: "+ oldMachine+"\n"+quantity);
+            int position = -1;
+            for(int i = 0 ; i <  Statics.CurrentUser.getCurrRentals().size();i++){
+                if( Statics.CurrentUser.getCurrRentals().get(i).getId().equals(oldMachine.getId()))
+               {
+                   position = i;
+                     break;
+               }
+
+            }
+            if(position>=0){
+                Statics.CurrentUser.getCurrRentals().set(position,oldMachine);
+                Statics.Machines.stream().filter(machine -> machine.getId().equals(oldMachine.getId())).collect(Collectors.toList()).get(0).increaseInventory(quantity);
+            }
+
+
+        }
+    }
+
+    public void onRedoBorrow(ActionEvent actionEvent) {
     }
 }

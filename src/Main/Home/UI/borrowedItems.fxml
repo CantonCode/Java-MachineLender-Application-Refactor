@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Home.Logic.BorrowedItemsController">
    <children>
@@ -59,9 +60,11 @@
                   </TableView>
                   <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Label fx:id="selectedMachine" prefHeight="17.0" prefWidth="497.0" text="Label" />
-                        <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="25.0" prefWidth="110.0" text="Return" />
-                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="25.0" prefWidth="110.0" text="Cancel" />
+                        <Button fx:id="undoBorrow" mnemonicParsing="false" onAction="#onUndoBorrow" text="Undo" />
+                        <Button fx:id="redoBorrow" disable="true" mnemonicParsing="false" onAction="#onRedoBorrow" text="Redo" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="160.21630859375" />
+                        <Button fx:id="returnBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="27.0" prefWidth="109.0" text="Return" />
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onReturn" prefHeight="27.0" prefWidth="95.0" text="Cancel" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

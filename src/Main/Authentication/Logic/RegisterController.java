@@ -139,8 +139,8 @@ public class RegisterController implements IAdapter {
             ArrayList<User> users = new ArrayList<>();
             users.add(Statics.CurrentUser);
             io.serializeToFile("currentUser.ser", users);
-            Main.currentStage.setFXMLScene("Home/UI/userHome.fxml", new LoginController());
-        }else{
+            Main.currentStage.setFXMLScene("Home/UI/"+(this.accountType==AccountType.CUSTOMER?"userHome":"adminHome")+".fxml", new LoginController());
+        } else {
             AlertBox.display("Error", "Invalid OTP please try again");
         }
     }else{
