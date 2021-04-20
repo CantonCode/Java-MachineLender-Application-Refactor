@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
     commented out due to not everyone's IDE having JUnit
  */
 class EncryptionTest {
-    private Encryption encryptionTest = new Encryption();
-    private Decryption decryptionTest = new Decryption();
+    private final Encryption encryptionTest = new Encryption();
+    private final Decryption decryptionTest = new Decryption();
    private final String passwordTest = "Test123";
     private final String expected = "Test123";
 

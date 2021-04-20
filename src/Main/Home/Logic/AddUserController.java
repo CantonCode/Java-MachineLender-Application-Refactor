@@ -14,6 +14,7 @@ import Main.Main;
 import Main.InventoryHelper.IAdapter;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AddUserController implements IAdapter {
@@ -62,7 +63,7 @@ public class AddUserController implements IAdapter {
                     rc.manualAdmin(name, username, pw);
                 }
                 Main.currentStage.setFXMLScene("Authentication/UI/login.fxml", new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }

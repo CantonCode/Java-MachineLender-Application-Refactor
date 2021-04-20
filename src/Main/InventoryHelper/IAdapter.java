@@ -1,7 +1,9 @@
 package Main.InventoryHelper;
 
-public interface IAdapter {
-    public void init();
+import java.text.ParseException;
 
-    public void custom(Object...args);
+public interface IAdapter {
+    void init() throws ParseException;
+
+    void custom(Object... args);
 }

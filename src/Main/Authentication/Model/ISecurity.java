@@ -1,7 +1,7 @@
 package Main.Authentication.Model;
 
 public interface ISecurity {
-    public String layerOne(String password);
-    public String layerTwo(String password);
-    public String layerThree(String password);
+    String layerOne(String password);
+    String layerTwo(String password);
+    String layerThree(String password);
 }

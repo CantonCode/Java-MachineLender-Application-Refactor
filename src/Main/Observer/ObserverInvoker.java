@@ -4,7 +4,7 @@ package Main.Observer;
 * everything related to the Observer class is controlled here
 * */
 public class ObserverInvoker {
-    private InventoryManager invMan;
+    private final InventoryManager invMan;
 
     public ObserverInvoker(){
         invMan=new InventoryManager();

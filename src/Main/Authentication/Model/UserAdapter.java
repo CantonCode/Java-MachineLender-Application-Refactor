@@ -7,70 +7,44 @@ import Main.Home.Model.Machine;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class UserAdapter {
-    private final SimpleStringProperty username;
-    private final SimpleStringProperty name;
-    private final SimpleStringProperty id;
-    private final SimpleStringProperty created;
-    private final ArrayList<Machine> currRentals;
+public class UserAdapter implements IUserAdapter {
+    User thisUser;
 
     public UserAdapter(User user){
-        username=new SimpleStringProperty(user.getUsername());
-        name=new SimpleStringProperty(user.getName());
-        id=new SimpleStringProperty(user.getId());
-        created=new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(Long.parseLong(user.getId())));
-        currRentals = user.getCurrRentals();
+        thisUser = user;
     }
 
+    @Override
     public String getUsername() {
-        return username.get();
+        return thisUser.username;
     }
 
-    public SimpleStringProperty usernameProperty() {
-        return username;
-    }
-
+    @Override
     public void setUsername(String username) {
-        this.username.set(username);
+        thisUser.setUsername(username);
     }
 
+    @Override
     public String getName() {
-        return name.get();
+        return thisUser.name;
     }
 
-    public SimpleStringProperty nameProperty() {
-        return name;
-    }
-
-    public String getCreated() {
-        return created.get();
-    }
-
-    public SimpleStringProperty createdProperty() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created.set(created);
-    }
-
+    @Override
     public void setName(String name) {
-        this.name.set(name);
+        thisUser.setName(name);
     }
 
+    @Override
     public String getId() {
-        return id.get();
+        return thisUser.id;
     }
 
-    public SimpleStringProperty idProperty() {
-        return id;
-    }
-
+    @Override
     public void setId(String id) {
-        this.id.set(id);
+        thisUser.setId(id);
     }
 
-    public ArrayList<Machine> getCurrRentals() {
-        return currRentals;
-    }
+
+
+
 }

@@ -27,6 +27,10 @@ import Main.Statics;
 
 import javax.crypto.Mac;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -61,7 +65,14 @@ public class BorrowedItemsController implements IAdapter {
 
             unameField.setText(Statics.CurrentUser.getUsername() + "(" + Statics.CurrentUser.getType().name().toLowerCase() + ")");
 
-
+            Arrays.asList("CustomerDB.ser").forEach(path-> {
+                try {
+                    io.readSerializedFile(path,"users");
+                   users.addAll(io.users);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
           cancelBtn.setOnAction(e->{
               new NavigationInvoker(new Previous(Main.currentStage)).activate();
@@ -87,7 +98,17 @@ public class BorrowedItemsController implements IAdapter {
 
     }
 
-
+    public void loadUsers() {
+        Arrays.asList("AdminDB.ser", "CustomerDB.ser").forEach(path -> {
+            try {
+                System.out.println(path);
+                io.readSerializedFile(path, "users");
+                Statics.Users.addAll(io.users);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     @Override
     public void custom(Object... args) {
@@ -101,7 +122,7 @@ public class BorrowedItemsController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }

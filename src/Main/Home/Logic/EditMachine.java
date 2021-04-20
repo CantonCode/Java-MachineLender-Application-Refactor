@@ -18,6 +18,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class EditMachine implements IAdapter {
@@ -39,7 +40,7 @@ public class EditMachine implements IAdapter {
         new NavigationInvoker(new Previous(Main.currentStage)).activate();
     }
 
-    public void onEdit(ActionEvent actionEvent) throws IOException {
+    public void onEdit(ActionEvent actionEvent) throws IOException, ParseException {
         machine.setName(machineName.getText());
 
         String pattern = "^[0-9.]+$";
@@ -83,7 +84,7 @@ public class EditMachine implements IAdapter {
             ed_inv.clear();
     }
 
-    public void onDeleteMachine(ActionEvent actionEvent) throws IOException{
+    public void onDeleteMachine(ActionEvent actionEvent) throws IOException, ParseException {
 
         Statics.Machines.remove(machine);
         new FileManager().machineSerializeToFile("MachineDB.ser", Statics.Machines);

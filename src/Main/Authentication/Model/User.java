@@ -17,6 +17,7 @@ public abstract class User implements Serializable {
     protected AccountType type;
     protected ArrayList<Machine> currRentals;
 
+
     public User(String id, String name, String username, String password,ArrayList<Machine> curr) {
         this.id = id;
         this.name = name;

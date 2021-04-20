@@ -23,6 +23,7 @@ import Main.InventoryHelper.Logic.LenderController;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 import static Main.Main.myDispatcher;
@@ -80,9 +81,7 @@ public class LoginController implements IAdapter {
     public LoginController() {
     }
 
-    public void loginButtonOnAction(ActionEvent event) throws IOException {
-
-
+    public void loginButtonOnAction(ActionEvent event) throws IOException, ParseException {
         if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             myDispatcher.onLoginAttempt(new PreLoginContext());
 
@@ -123,7 +122,7 @@ public class LoginController implements IAdapter {
         return false;
     }
 
-    public void registerButtonOnAction(ActionEvent actionEvent)throws IOException {
+    public void registerButtonOnAction(ActionEvent actionEvent) throws IOException, ParseException {
         ///change last argument to either admin/customer
         Main.currentStage.setFXMLScene("Authentication/UI/register.fxml", new LoginController(), AccountType.CUSTOMER);
     }
@@ -134,7 +133,7 @@ public class LoginController implements IAdapter {
 
         Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
             try {
-                io.readSerializedFile((String)path,"users");
+                io.readSerializedFile(path,"users");
                 users.addAll(io.users);
                 System.out.println("DB send check");
             } catch (IOException e) {

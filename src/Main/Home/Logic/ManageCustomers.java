@@ -19,8 +19,10 @@ import Main.InventoryHelper.IAdapter;
 
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,20 +36,24 @@ public class ManageCustomers implements IAdapter {
     public TableColumn cCreatedCol;
     public TableView cTable;
     public FileManager io = new FileManager();
+    SimpleDateFormat fromUser = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
 
     int rowName;
 
     @Override
-    public void init() {
+    public void init() throws ParseException {
         List<UserAdapter> customers=new ArrayList<>();
         for(User u : Statics.Users.stream().filter(user -> user.getType() == AccountType.CUSTOMER).collect(Collectors.toList())) {
             customers.add(new UserAdapter(u));
         }
         final ObservableList<UserAdapter> data = FXCollections.observableList(customers);
+
         cidCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("id"));
         cUsernameCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("username"));
         cNameCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("name"));
-        cCreatedCol.setCellValueFactory(new PropertyValueFactory<UserAdapter, String>("created"));
+
 
         cTable.setItems(data);
         cTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)-> {
@@ -105,7 +111,7 @@ public class ManageCustomers implements IAdapter {
         new NavigationInvoker(new Previous(Main.currentStage)).activate();
     }
 
-    public void addUser(ActionEvent actionEvent) throws IOException{
+    public void addUser(ActionEvent actionEvent) throws IOException, ParseException {
         Main.currentStage.setFXMLScene("Home/UI/addUser.fxml", new AddUserController());
     }
 }

@@ -14,6 +14,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -25,7 +26,7 @@ import static Main.Main.myDispatcher;
  */
 public class UserHomeController implements IAdapter {
 
-    private FileManager io = new FileManager();
+    private final FileManager io = new FileManager();
 
     @FXML
     public Label unameField;
@@ -87,7 +88,7 @@ public class UserHomeController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -99,7 +100,7 @@ public class UserHomeController implements IAdapter {
         try {
             Main.currentStage.setFXMLScene("Home/UI/catalog.fxml", new ViewCatalogController());
             myDispatcher.onPreCatalog(new PostLoginContext(Statics.CurrentUser.getUsername()));
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -111,7 +112,7 @@ public class UserHomeController implements IAdapter {
         try {
             Main.currentStage.setFXMLScene("Home/UI/borrowedItems.fxml", new BorrowedItemsController());
             myDispatcher.onPreBorrow(new PostLoginContext(Statics.CurrentUser.getUsername()));
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
     }

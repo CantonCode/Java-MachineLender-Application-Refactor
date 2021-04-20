@@ -11,20 +11,21 @@ import Main.Home.Logic.AdminHomeController;
 import Main.InventoryHelper.IAdapter;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Stack;
 
 public class Navigation extends Stage implements Navigator {
-    private String FXMLLoader = "";
+    private final String FXMLLoader = "";
     private IAdapter adapter;
     private Scene currentScene;
-    private Stack<NavObject> navStack = new Stack<>();
+    private final Stack<NavObject> navStack = new Stack<>();
 
     public Navigation(String title) {
         setTitle(title);
     }
 
 
-    public void setFXMLScene(String sceneID,  IAdapter controller, Object... args) throws IOException {
+    public void setFXMLScene(String sceneID,  IAdapter controller, Object... args) throws IOException, ParseException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneID));
         navStack.push(new NavObject(sceneID,args));
         Parent root = loader.load();
@@ -47,7 +48,7 @@ public class Navigation extends Stage implements Navigator {
         System.out.println("Back pressed!!"+nav.sceneId);
         try {
             setFXMLScene(nav.sceneId,new AdminHomeController(),nav.args);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }

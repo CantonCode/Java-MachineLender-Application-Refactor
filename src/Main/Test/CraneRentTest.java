@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 */
 class CraneRentTest {
     private final String idTest = "testCrane";
-    private Crane craneTest = new Crane(idTest, idTest, 20);
+    private final Crane craneTest = new Crane(idTest, idTest, 20);
 
     /*
         Tests for a case of when rent is long

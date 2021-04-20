@@ -23,6 +23,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ViewCatalogController implements IAdapter {
     public Label itemLabel;
     public TableColumn invCol;
     public Button borrowBtn;
-    private FileManager io=new FileManager();
+    private final FileManager io=new FileManager();
     int rowName=0;
     String selectedRow="";
     List<MachineAdapter> machines=new ArrayList<>();
@@ -88,7 +89,7 @@ public class ViewCatalogController implements IAdapter {
         new FileManager().serializeToFile("currentUser.ser",users);
         try {
             Main.currentStage.setFXMLScene("Authentication/UI/login.fxml",new LoginController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
@@ -105,7 +106,7 @@ public class ViewCatalogController implements IAdapter {
         Borrow button action checks if a machine is selected from the catalog, if so checks if the current user
         meets requirements for rentals (<5 current rentals) and if so adds it to their current rentals
      */
-    public void borrowBtn(ActionEvent actionEvent) throws IOException {
+    public void borrowBtn(ActionEvent actionEvent) throws IOException, ParseException {
         catView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)-> {
             if(catView.getSelectionModel().getSelectedItem() != null){
                 TableView.TableViewSelectionModel Tv = catView.getSelectionModel();
@@ -229,6 +230,17 @@ public class ViewCatalogController implements IAdapter {
         }
     }
 
+    public void loadUsers() {
+        Arrays.asList("AdminDB.ser","CustomerDB.ser").forEach(path-> {
+            try {
+                System.out.println(path);
+                io.readSerializedFile(path, "users");
+                Statics.Users.addAll(io.users);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     /*
         onReturn leads back to user or admin home page depending on if user or admin

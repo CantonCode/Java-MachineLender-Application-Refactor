@@ -16,6 +16,7 @@ import Main.InventoryHelper.IAdapter;
 import Main.Statics;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -41,7 +42,7 @@ public class AddMachineController implements IAdapter {
     public void init() {
         Arrays.asList("MachineDB.ser").forEach(path-> {
             try {
-                io.readSerializedFile((String)path,"machines");
+                io.readSerializedFile(path,"machines");
                 machines.addAll(io.machines);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -96,7 +97,7 @@ public class AddMachineController implements IAdapter {
                 io.machineSerializeToFile("MachineDB.ser", machines);
 
                 Main.currentStage.setFXMLScene("Home/UI/adminHome.fxml",new AdminHomeController());
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
