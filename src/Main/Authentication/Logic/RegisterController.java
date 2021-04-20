@@ -42,7 +42,7 @@ public class RegisterController implements IAdapter {
     FileManager io = new FileManager();
     ArrayList<Machine> emptyMac = new ArrayList<>();
     RegistrationRegister rr = new RegistrationRegister();
-    RegisteredInfo ri = new RegisteredInfo();
+    RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
     User currentUser;
 
     String usernameS = "";
@@ -65,8 +65,6 @@ public class RegisterController implements IAdapter {
     @FXML
     private Label sentAddress;
     @FXML
-    private Label msgr;
-    @FXML
     private AnchorPane mainPane;
     @FXML
     private AnchorPane OTPPane;
@@ -74,8 +72,8 @@ public class RegisterController implements IAdapter {
     private TextField userEmail;
     @FXML
     private TextField confirmOTP;
-    @FXML
-    private Label emailValid;
+
+
 
 
 
@@ -107,7 +105,6 @@ public class RegisterController implements IAdapter {
         passwordS = regPasswordField.getText();
         typeS = AccountType.CUSTOMER;
 
-        RegistrationFacade rf = new RegistrationFacade(); //Facade pattern
         rf.register(nameS, usernameS, passwordS,userEmail.getText(),typeS);
 
         switch(rf.getValType())
@@ -186,42 +183,11 @@ public class RegisterController implements IAdapter {
         sentAddress.setText(receipt);
         OTPPane.setVisible(true);
     }
-    private void registerAsCustomer() {
-        String name = firstnameField.getText();
-        String username = regUsenameField.getText();
-        String time = String.valueOf(System.currentTimeMillis());
-        String password = regPasswordField.getText();
-        AccountType type = this.accountType;
-        CustomerBuilder builder;
 
-        builder = new CustomerBuilder().setId(time).setName(name).setUsername(username).
-                setPassword(password);
-
-        regUser = builder.setType(type).setCurr(emptyMac).createCustomer();
-
-        regUser.encryptPassword();
-
-        users.add(regUser);
-        System.out.println(regUser);
-        Statics.CurrentUser = regUser;
-
-        io.serializeToFile("CustomerDB.ser", users);
-    }
 
     /*
         Method to create admin account types
      */
-
-    private void registerAsAdmin() {
-        String time = String.valueOf(System.currentTimeMillis());
-        regUser = new AdminBuilder().setId(time).setName(firstnameField.getText()).setUsername(regUsenameField.getText()).setPassword(regPasswordField.getText()).setAccountType(this.accountType).setCurr(emptyMac).createAdmin();
-
-        regUser.encryptPassword();
-        System.out.println(regUser);
-        users.add(regUser);
-        Statics.CurrentUser = regUser;
-        io.serializeToFile("AdminDB.ser", users);
-    }
 
     /*
         Login button
