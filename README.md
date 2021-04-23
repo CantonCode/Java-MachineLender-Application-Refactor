@@ -1,3 +1,4 @@
+[CS4135_Project_Report.pdf](https://github.com/CantonCode/Lender2.0/files/6365663/CS4135_Project_Report.pdf)
 # Heavy Machinery Lending Application
 
 The IDE used was IntelliJ
