@@ -1,5 +1,9 @@
-[CS4135_Project_Report.pdf](https://github.com/CantonCode/Lender2.0/files/6365663/CS4135_Project_Report.pdf)
+
 # Heavy Machinery Lending Application
+
+[CS4135_Project_Report.pdf](https://github.com/CantonCode/Lender2.0/files/6365663/CS4135_Project_Report.pdf)
+
+Please view file above for details on the project. We refactored a lot of code in this project and made use of some design patterns. These patterns included the adapter, fascade, interceptor, builder, factory and momento pattern. I also implemented an One Time Password(OTP) security feature along with updating of the GUI and adding some unit tests using JUnit
 
 The IDE used was IntelliJ
 
